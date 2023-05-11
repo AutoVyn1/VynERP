@@ -1,0 +1,422 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="AUTOVYN.master.vb" Inherits="AutovynERP.AUTOVYN" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+
+    <style>
+        body{
+            font-size:13px;
+            user-select:none;
+        }
+
+        .navbar{
+            font-size:13px;
+            font-weight:700;
+        }
+
+        .nav-link{
+            color:#000000;
+        }
+
+        .nav-link:hover{
+            color:red;
+        }
+
+        .dropdown-item:active{
+            color:cornflowerblue;
+        }
+
+        footer{
+            font-size:12px;
+            background-color:#a7e2cb;
+        }
+        .col-form-label {
+            font-weight:600;
+             padding-left:10px;
+         }
+        .cashier {
+            border: none;
+            background: none;
+            padding: 10px 10px;
+        }
+
+        @media screen and (max-width:480px){
+            .footer-style{
+                display:flex;
+                flex-direction:column;
+            }
+
+            .fixed-bottom{
+                display:none;
+            }
+        }
+
+        @media screen and (max-width:820px){
+            .f-branch{
+                width:36%;
+            }
+
+            .f-ip{
+                width:30%;
+            }
+
+            .f-db{
+                width:30%;
+            }
+
+            .f-cu{
+                width:35%;
+            }
+
+            .f-dt{
+                width:60%;
+            }
+        }
+
+        a ul li{
+            dia
+        }
+
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <asp:Panel ID="nav_panel" runat="server">
+
+        <nav class="navbar navbar-expand-lg bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand mt-2 mt-lg-0" href="../DefaultPage/DefaultHome.aspx">
+                  <asp:Image ID="Image2" runat="server" ImageUrl="~/AutovynModules/Media/autovynicon.png" alt="autovyn logo" loading="lazy" height="25"/>
+                  <a class="navbar-brand" href="#"> <span style="color:#e5322d; font-weight: 700;">A</span><span style="color:#f4992e; font-weight: 700;">U</span><span style="color:#039bd3; font-weight: 700;">T</span><span style="color:#e5322d; font-weight: 700;">O</span><span font-weight: 700;>-</span><span style="color:#f4992e; font-weight: 700;">V</span><span style="color:#f4992e; font-weight: 700;">Y</span><span style="color:#039bd3; font-weight: 700;">N</span></a> 
+              </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <asp:HyperLink ID="HyperLink2" runat="server" Text="Home" NavigateUrl="~/AutovynModules/DefaultPage/DefaultPage.aspx" CssClass="w3-bar-item w3-button nav-link active" ></asp:HyperLink>
+                        </li>
+                        <%-- 0 --%>
+                        <%--<li class="nav-item dropdown">
+                            <a id="Accounts_0" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accounts</a>
+                            <ul class="dropdown-menu">
+                                <asp:HyperLink ID="Accounts_0_1" runat="server" Text="Vouchers" NavigateUrl="~/AutovynModules/Modules/Accounts/Acc_Voucher.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                            </ul>
+                        </li>--%>
+
+                        <%-- 1 --%>
+                        <li class="nav-item dropdown">
+                            <a id="Finance_1" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" runat="server">Finance </a>
+                            <ul class="dropdown-menu">
+                                <li> <asp:HyperLink ID="Finance_1_1" runat="server" Text="Finance Form"  NavigateUrl="~/AutovynModules/Modules/Finance/FinanceForm.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink> </li>
+                                <li> <asp:HyperLink ID="Finance_1_2" runat="server" Text="View Summary" NavigateUrl="~/AutovynModules/Modules/Finance/FinanceSummary.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>  </li>
+                            </ul>
+                        </li>
+
+                        <%-- 2 --%>
+                        <li class="nav-item dropdown">
+                            <a id="Insurance_2" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Insurance</a>
+                            <ul class="dropdown-menu">
+                                <li> <asp:HyperLink ID="Insurance_2_1" runat="server" Text="CRE" NavigateUrl="~/AutovynModules/Modules/Insurance/Insurance.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink> </li>
+                                <li> <asp:HyperLink ID="Insurance_2_2" runat="server" Text="Insurance response" NavigateUrl="~/AutovynModules/Modules/Insurance/InsuranceData.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink> </li>
+                            </ul>
+                        </li>
+
+                        <%-- 3 --%>
+                        <li class="nav-item dropdown">
+                            <a id="Sales_3" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sales
+                            </a>
+                            <ul class="dropdown-menu">
+                                 <li>
+                                    <asp:HyperLink ID="HyperLink12" runat="server" Text="Discount Approval" NavigateUrl="~/AutovynModules/Modules/commonDiscount/common_disc.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+
+                                  <li>
+                                    <asp:HyperLink ID="HyperLink13" runat="server" Text="Discount Approval Report" NavigateUrl="~/AutovynModules/Modules/commonDiscount/general_disc_report.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+
+
+                                <li>
+                                    <asp:HyperLink ID="Sales_3_1" runat="server" Text="Sales Discount Approval" NavigateUrl="~/AutovynModules/Modules/Sales/SalesDiscount.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+                                <li>
+                                    <asp:HyperLink ID="Sales_3_2" runat="server" Text="Sales Discount Approval Report" NavigateUrl="~/AutovynModules/Modules/Sales/SalesDiscountApprovalReport.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+                              <%--  <li>
+                                    <asp:HyperLink ID="Sales_3_3" runat="server" Text="Workshop Discount" NavigateUrl="~/AutovynModules/Modules/Sales/WorkshopDiscount.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                    <asp:HyperLink ID="Sales_3_4" runat="server" Text="Workshop Discount Approval Report" NavigateUrl="~/AutovynModules/Modules/Sales/WorkshopDiscountApprovalReport.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>--%>
+                            </ul>
+                        </li>
+
+                        <%-- 4 --%>
+                        <li class="nav-item dropdown">
+                            <a id="TrueValue_4" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">True Value</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <asp:HyperLink ID="TrueValue_4_1" runat="server" Text="TrueValue" NavigateUrl="~/AutovynModules/Modules/TV/Truevalue.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                         <%--5--%>
+
+                        <%--<li class="nav-item dropdown">
+                            <a id="Payroll_5" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Payroll</a>
+                            <ul class="dropdown-menu shadow">
+                          <asp:HyperLink ID="HRMS_5_1" runat="server" Text="HRMS" NavigateUrl="~/AutovynModules/Modules/Payroll/HRMS.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                          <li class="dropend">
+                              <a href="#" class="dropdown-item dropdown-toggle" data-mdb-toggle="dropdown">Attendance</a>
+                              <ul class="dropdown-menu shadow">
+                                  <li>
+                                      <asp:HyperLink ID="Home_5_2" runat="server" Text="Home" NavigateUrl="~/AutovynModules/Modules/Payroll/Home.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                                  <li>
+                                      <asp:HyperLink ID="Devices_5_3" runat="server" Text="Devices" NavigateUrl="~/AutovynModules/Modules/Payroll/Devices.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                                  <li>
+                                      <asp:HyperLink ID="Location_5_4" runat="server" Text="Location" NavigateUrl="~/AutovynModules/Modules/Payroll/Location.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                              </ul>
+                          </li>
+
+                          <li class="dropend">
+                              <a href="#" class="dropdown-item dropdown-toggle" data-mdb-toggle="dropdown">Interview</a>
+                              <ul class="dropdown-menu shadow">
+                                  <li>
+                                      <asp:HyperLink ID="Candidate_Home_5_5" runat="server" Text="Candidate Home" NavigateUrl="~/AutovynModules/Modules/Payroll/Candidate_Home.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                                  <li>
+                                      <asp:HyperLink ID="Candidate_Info_5_6" runat="server" Text="Candidate Info" NavigateUrl="~/AutovynModules/Modules/Payroll/Candidate_Info.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                                  <li>
+                                      <asp:HyperLink ID="Candidate_List_5_7" runat="server" Text="Candidate List" NavigateUrl="~/AutovynModules/Modules/Payroll/Candidate_List.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                  </li>
+                              </ul>
+                          </li>
+                      </ul>
+                   </li>--%>
+
+
+                        <%-- 6 --%>
+<%--                        <li class="nav-item dropdown">
+                            <a id="Retail_6" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Retail </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <asp:HyperLink ID="salesPage_6_1" runat="server" Text="Retail Data" NavigateUrl="~/AutovynModules/Modules/Retail/salesPage.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>--%>
+
+                        <%-- 7 --%>
+                        <%--<li class="nav-item dropdown">
+                            <a id="DSE_7" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">DSE</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                     <asp:HyperLink ID="BankAPI_7_1" runat="server" Text="Bank API" NavigateUrl="~/AutovynModules/Modules/DSE/BankAPI.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>--%>
+
+                       
+                        <%-- 8 --%>
+                       <%-- <li class="nav-item dropdown">
+                            <a id="Cashier_8" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cashier</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                     <asp:Button ID="Cashier_8_1" runat="server" Text="Cashier" CssClass="cashier" />
+                                </li>
+                            </ul>
+                        </li>--%>
+
+                        <%-- 9 --%>
+                       <%-- <li class="nav-item">
+                            <a id="MIS_9_1" class="nav-link" href="#">MIS</a>
+                        </li>--%>
+
+                        <%-- 10 --%>
+                       <li class="nav-item dropdown">
+                            <a id="ICM_10" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">ICM
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                     <asp:HyperLink ID="DSE_Checklist_10_1" runat="server" Text="DSE CheckList" NavigateUrl="~/AutovynModules/ICM/Pending_List.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <%-- 11 --%>
+                        <li class="nav-item dropdown">
+                            <a id="ICM_11" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fuel Slip
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                     <asp:HyperLink ID="HyperLink1" runat="server" Text="New Car Fuel Voucher" NavigateUrl="~/AutovynModules/Modules/FuleManagement/fuel_management.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink5" runat="server" Text="Demo Car Fuel Voucher" NavigateUrl="~/AutovynModules/Modules/FuleManagement/Demo_Car_FUEL.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                                 <li>
+                                     <asp:HyperLink ID="HyperLink20" runat="server" Text="testing function" NavigateUrl="~/AutovynModules/Modules/FuleManagement/testingdate.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink4" runat="server" Text="New Car Voucher  Summary" NavigateUrl="~/AutovynModules/Modules/FuleManagement/NewCar_summaray.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink3" runat="server" Text="Demo Car Voucher  Summary" NavigateUrl="~/AutovynModules/Modules/FuleManagement/Demo_car_smry.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="ICM_12" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reports
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <asp:HyperLink ID="HyperLink11" runat="server" Text="Group Report" NavigateUrl="~/AutovynModules/Modules/Reports/group_report.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink6" runat="server" Text="Vehichle Delivery Report" NavigateUrl="~/AutovynModules/Modules/Reports/vhicle_del.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink7" runat="server" Text="Discounts Report" NavigateUrl="~/AutovynModules/Modules/Reports/discount_report.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                                 
+                                <li>
+                                     <asp:HyperLink ID="HyperLink8" runat="server" Text="EW Report" NavigateUrl="~/AutovynModules/Modules/Reports/ew.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink10" runat="server" Text="MGA Report" NavigateUrl="~/AutovynModules/Modules/Reports/MGA.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink9" runat="server" Text="CCP Report" NavigateUrl="~/AutovynModules/Modules/Reports/ccp.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <asp:HyperLink ID="add_user" runat="server" Text="Add User" NavigateUrl="/AutovynModules/Modules/User/add_user.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>
+
+                        <li class="nav-item">
+                            <asp:HyperLink ID="HyperLink14" runat="server" Text="Dashboard" NavigateUrl="/AutovynModules/Modules/Dashboard/dashboard.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>
+                       <%-- <li class="nav-item">
+                            <a id="Auditor_11_1" class="nav-link" href="#">Auditer</a>
+                        </li>--%>
+
+                        <%-- 12 --%>
+                        <%--<li class="nav-item">
+                             <asp:HyperLink ID="Reminder_12_1" runat="server" Text="Reminder" NavigateUrl="~/AutovynModules/Modules/Reminder/Reminder_Set.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>--%>
+
+                        <%-- 12 --%>
+
+                        <li class="nav-item">
+                            <asp:HyperLink ID="HyperLink15" runat="server" Text="Chassis" NavigateUrl="/AutovynModules/Modules/Chassis/chassis_allot.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <asp:HyperLink ID="logout" runat="server" Text="Logout" NavigateUrl="Credintial/LoginPage.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>
+
+<%--                        <li class="nav-item">
+                            <asp:HyperLink ID="HyperLink1" runat="server" Text="Report" NavigateUrl="~/AutovynModules/Modules/GroupReport/GroupLvlReport.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>
+                         <li class="nav-item">
+                            <asp:HyperLink ID="HyperLink3" runat="server" Text="Location" NavigateUrl="~/AutovynModules/Modules/Payroll/Location.aspx" CssClass="w3-bar-item w3-button nav-link" ></asp:HyperLink>
+                        </li>--%>
+                    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <footer class=" text-center text-lg-start fixed-bottom" >
+            <div class="container">
+                <!-- row -->
+                <div class="row footer-style">
+                    <div class="col-lg-3 f d-flex f-branch">
+                       <asp:Label ID="Label11" CssClass="col-form-label" runat="server" Text="Branch : "></asp:Label>
+                       <asp:Label ID="Brnch" runat="server" CssClass="col-form-label"></asp:Label>
+                    </div>
+                    <div class="col-lg-2 f d-flex f-ip">
+                    <asp:Label ID="Label12" CssClass="col-form-label" runat="server" Text="IP : "></asp:Label>
+                        <asp:Label ID="IP" runat="server" CssClass="col-form-label"></asp:Label>
+                    </div>
+                    <div class="col-lg-2 f d-flex f-db">
+                        <asp:Label ID="label" CssClass="col-form-label" runat="server" Text="DB : "></asp:Label>
+                        <asp:Label ID="DB" runat="server" CssClass="col-form-label"></asp:Label>
+                    </div>
+
+                    <div class="col-lg-2 f d-flex f-cu">
+                        <asp:Label ID="Label15" CssClass="col-form-label" runat="server" Text="Current User : "></asp:Label>
+                       <asp:Label ID="User" runat="server" CssClass="col-form-label" ></asp:Label>
+                    </div>
+                    <div class="col-lg-3 f d-flex f-dt">
+                        <asp:Label ID="Label17" CssClass="col-form-label" runat="server" Text="Date : "></asp:Label>
+                        <asp:Label ID="Curr_Date" runat="server" CssClass="col-form-label" ></asp:Label>
+                        <asp:Label ID="Curr_Time" runat="server" CssClass="col-form-label" ></asp:Label>
+                    </div>
+                    
+                </div>
+                <!-- row -->
+            </div>
+        </footer>
+
+            </asp:Panel>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+    <script>
+setInterval(myTimer, 1000);
+       
+function myTimer() {
+  const d = new Date();
+    document.getElementById("Curr_Time").innerHTML = d.toLocaleTimeString();
+}
+    </script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
