@@ -95,6 +95,44 @@ Public Class dashboard
     End Function
 
 
+
+    <WebMethod()>
+    Public Shared Function GetChartData2(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
+
+
+        Dim con As New Connection
+        Dim datew = ""
+
+        If xValue = "Q 1" Then
+            datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
+
+        ElseIf xValue = "Q 2" Then
+            datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
+
+        ElseIf xValue = "Q 3" Then
+            datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
+
+        ElseIf xValue = "Q 4" Then
+            datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
+
+        End If
+
+        Dim TranDt As DataTable
+        TranDt = con.ReturnDtTable("select 'Month '+cast(Month(Acnt_Date)AS VARCHAR) as Month,sum(iif(amt_drcr=1,post_amt,post_amt*-1)) as cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '" + datew + "' group by month(Acnt_Date) order by month(Acnt_Date)")
+
+
+        Dim json = New With {
+           .DataTable1 = TranDt
+         }
+
+        'Convert the DataTable to a JSON string
+        Dim jsown As String = JsonConvert.SerializeObject(json)
+
+        'Return the JSON string
+        Return jsown
+    End Function
+
+
     <WebMethod()>
     Public Shared Function GetChartData_day(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
