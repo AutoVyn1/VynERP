@@ -573,219 +573,278 @@
 
              $("#Load_Location").click(function () {
 
-                 alert("dsds")
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
-                 var type_sts = $('#ContentPlaceHolder1_branch_list').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
                  $.ajax({
                      type: "POST",
                      url: "dashboard.aspx/GetChartData",
-                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "',type_sts: '" + type_sts + "'}",
+                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
                      success: function (response) {
                          // Parse the JSON string to a JavaScript object
                          var data = JSON.parse(response.d);
 
-                         console.log(data +"data");
+                       
 
-                         var seriesData = [];
-                         var seriesData3 = [];
-                         //var seriesData4 = [];
-                         //var seriesData5 = [];
+                         var chart1Data = data.DataTable1;
+                         var chart2Data = data.DataTable2;
+                         var chart3Data = data.DataTable3;
+                         var chart4Data = data.DataTable4;
 
-                         
+                         console.log(chart4Data)
 
-                         for (var i = 0; i < data.length; i++) {
-                             seriesData.push(data[i].year);
+
+                         var total1 = 0;
+                         for (var i = 0; i < chart1Data.length; i++) {
+                             total1 += chart1Data[i].cl_bal;
                          }
-                         for (var i = 0; i < data.length; i++) {
-                             seriesData3.push(data[i].cl_bal);
+
+                         var total2 = 0;
+                         for (var i = 0; i < chart2Data.length; i++) {
+                             total2 += chart2Data[i].cl_bal;
                          }
-                         //for (var i = 0; i < data.length; i++) {
-                         //    seriesData5.push(data[i].Dr_Amt);
-                         //}
 
-                         //for (var i = 0; i < data.length; i++) {
-                         //    seriesData3.push(data[i].Ledg_Name);
-                         //}
-
-                         var total = 0;
-                         for (var i = 0; i < seriesData3.length; i++) {
-                             total += seriesData3[i];
+                         var total3 = 0;
+                         for (var i = 0; i < chart3Data.length; i++) {
+                             total3 += chart3Data[i].cl_bal;
                          }
 
                          var spark3 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart1Data.map(function (row) { return row.year; }),
                              chart: {
-                                 id: 'sparkline3',
-                                 group: 'sparklines',
-                                 type: 'area',
-                                 height: 160,
-                                 sparkline: {
-                                     enabled: true
+                                 type: 'bar',
+                                 height: 160
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -100,
+                                             to: -46,
+                                             color: '#F15B46'
+                                         }, {
+                                             from: -45,
+                                             to: 0,
+                                             color: '#FEB019'
+                                         }]
+                                     },
+                                     columnWidth: '80%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+                                 title: {
+                                     text: 'Expenses',
                                  },
+                                 //labels: {
+                                 //    formatter: function (y) {
+                                 //        return y.toFixed(0);
+                                 //    }
+                                 //}
+                             },
+                             xaxis: {
+                                 type: chart1Data.map(function (row) { return row.year; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var spark1 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart2Data.map(function (row) { return row.Month; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 160
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -100,
+                                             to: -46,
+                                             color: '#F15B46'
+                                         }, {
+                                             from: -45,
+                                             to: 0,
+                                             color: '#FEB019'
+                                         }]
+                                     },
+                                     columnWidth: '80%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+
+                                 title: {
+                                     text: 'Expenses',
+                                 },
+                              
+                             },
+                             xaxis: {
+                                 type: chart2Data.map(function (row) { return row.Month; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var spark2 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart3Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart3Data.map(function (row) { return row.Quarter; }),
+                             chart: {
+                                 type: 'bar',
+                                 height: 160,
+                                 events: {
+                                     dataPointSelection: function (event, chartContext, config) {
+                                        
+                                         var ee = config.dataPointIndex;
+                                         var xValue = config.w.config.xaxis.type[ee];
+
+                                         myFunction(xValue);
+
+                                     }
+                                 }
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -1,
+                                             to: -1000000000000000,
+                                             color: '#F15B46'
+                                         }]
+                                     },
+                                     columnWidth: '80%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+                                 title: {
+                                     text: 'Expenses',
+                                 },
+                                 //labels: {
+                                 //    formatter: function (y) {
+                                 //        return y.toFixed(0);
+                                 //    }
+                                 //}
+                             },
+                             xaxis: {
+                                 type: chart3Data.map(function (row) { return row.Quarter; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var optionsArea = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart4Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 350
+                             },
+                             dataLabels: {
+                                 enabled: false
                              },
                              stroke: {
                                  curve: 'straight'
                              },
-                             fill: {
-                                 opacity: 1,
+
+                             title: {
+                                 text: 'Daily Expenses',
+                                 align: 'left',
+                                 style: {
+                                     fontSize: '14px'
+                                 }
                              },
-                             series: [{
-                                 name: 'Cl Bal.',
-                                 data: seriesData3
-                             }],
-                             labels: seriesData,
                              xaxis: {
-                                 type: seriesData,
+                                 type: chart4Data.map(function (row) { return row.day; }),
+                                 axisBorder: {
+                                     show: false
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
                              },
                              yaxis: {
-                                 min: 0
-                             },
-                             colors: ['#008FFB'],
-                             //colors: ['#5564BE'],
-                             title: {
-                                 text: total,
-                                 offsetX: 30,
-                                 style: {
-                                     fontSize: '24px',
-                                     cssClass: 'apexcharts-yaxis-title'
+                                 tickAmount: 4,
+                                 floating: false,
+
+                                 labels: {
+                                     style: {
+                                         colors: '#8e8da4',
+                                     },
+                                     offsetY: -7,
+                                     offsetX: 0,
+                                 },
+                                 axisBorder: {
+                                     show: false,
+                                 },
+                                 axisTicks: {
+                                     show: false
                                  }
                              },
-                             subtitle: {
-                                 text: 'Year',
-                                 offsetX: 30,
-                                 style: {
-                                     fontSize: '14px',
-                                     cssClass: 'apexcharts-yaxis-title'
+                             fill: {
+                                 opacity: 0.5
+                             },
+                             tooltip: {
+                                 x: {
+                                     format: "yyyy",
+                                 },
+                                 fixed: {
+                                     enabled: false,
+                                     position: 'topRight'
+                                 }
+                             },
+                             grid: {
+                                 yaxis: {
+                                     lines: {
+                                         offsetX: -30
+                                     }
+                                 },
+                                 padding: {
+                                     left: 20
                                  }
                              }
-                         }
+                         };
 
-
-                         var optionsArea = {
-                             //    chart: {
-                             //        height: 340,
-                             //        type: 'area',
-                             //        zoom: {
-                             //            enabled: false
-                             //        },
-                             //    },
-                             //    stroke: {
-                             //        curve: 'straight'
-                             //    },
-                             //    colors: colorPalette,
-                             //    series: [
-                             //        {
-                             //            name: 'CI Bal.',
-                             //            data: seriesData
-                             //        },
-                             //        {
-                             //            name: 'OP Bal.',
-                             //            data: seriesData4
-                             //        },
-                             //        {
-                             //            name: 'DR AMT',
-                             //            data: seriesData5
-                             //        }
-                             //    ],
-                             //    fill: {
-                             //        opacity: 1,
-                             //    },
-                             //    title: {
-                             //        text: 'Group Expenses',
-                             //        align: 'left',
-                             //        style: {
-                             //            fontSize: '18px'
-                             //        }
-                             //    },
-                             //    markers: {
-                             //        size: 0,
-                             //        style: 'hollow',
-                             //        hover: {
-                             //            opacity: 5,
-                             //        }
-                             //    },
-                             //    tooltip: {
-                             //        intersect: true,
-                             //        shared: false,
-                             //    },
-                             //    xaxis: {
-                             //        title: {
-                             //            text: 'Ledg Name'
-                             //        },
-                             //        categories: seriesData3,
-                             //        tooltip: {
-                             //            enabled: false
-                             //        },
-                             //        labels: {
-                             //            show: false
-                             //        },
-                             //        axisTicks: {
-                             //            show: false
-                             //        }
-                             //    },
-                             //    yaxis: {
-                             //        title: {
-                             //            text: 'Expenses'
-                             //        },
-                             //        tickAmount: 4,
-                             //        max: 12,
-                             //        axisBorder: {
-                             //            show: false
-                             //        },
-                             //        axisTicks: {
-                             //            show: false
-                             //        },
-                             //        labels: {
-                             //            style: {
-                             //                colors: '#78909c'
-                             //            }
-                             //        }
-                             //    }
-                             //}
-
-                             //var chartArea = new ApexCharts(document.querySelector('#area'), optionsArea);
-                             //chartArea.render();
-
-                             //// Update the options object with the series data
-
-                             //var options = {
-                             //    chart: {
-                             //        height: 280,
-                             //        type: 'area',
-                             //    },
-                             //    dataLabels: {
-                             //        enabled: false
-                             //    },
-                             //    series: [{
-                             //        name: 'CI Bal.',
-                             //        data: seriesData
-                             //    }],
-                             //    xaxis: {
-                             //        title: {
-                             //            text: 'Ledg Name'
-                             //        },
-                             //        categories: seriesData3
-                             //    },
-                             //    yaxis: {
-                             //        title: {
-                             //            text: 'CI Bal.'
-                             //        }
-                             //    }
-                             //};
-                         }
-
-                         //var chart = new ApexCharts(document.querySelector("#area"), optionsArea);
+                      
 
                          new ApexCharts(document.querySelector("#spark3"), spark3).render();
+                         new ApexCharts(document.querySelector("#spark1"), spark1).render();
+                         new ApexCharts(document.querySelector("#spark2"), spark2).render();
+                         new ApexCharts(document.querySelector("#area"), optionsArea).render();
 
 
                          /* $('.br_name').text(br_name + ': ' + frm_year + '-' + to_year);*/
                          //chart.render();
-                         //chart.updateSeries([{ data: seriesData }]);
+                         spark3.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+                         spark1.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
+                         spark2.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
+                         optionsArea.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
@@ -794,13 +853,111 @@
                      }
                  });
 
-                 //var popup = $('.popup');
-                 //$("body").append(popup);
-                 //popup.show();
-
-
              });
 
+             function myFunction(xValue) {
+                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
+                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
+                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 $.ajax({
+                     type: "POST",
+                     url: "dashboard.aspx/GetChartData2",
+                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue +"'}",
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         // Parse the JSON string to a JavaScript object
+                         var data = JSON.parse(response.d);
+
+                         var chart1Data = data.DataTable1;
+
+                         var optionsArea = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 350
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 curve: 'straight'
+                             },
+
+                             title: {
+                                 text: 'Daily Expenses',
+                                 align: 'left',
+                                 style: {
+                                     fontSize: '14px'
+                                 }
+                             },
+                             xaxis: {
+                                 type: chart1Data.map(function (row) { return row.Month; }),
+                                 axisBorder: {
+                                     show: false
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             yaxis: {
+                                 tickAmount: 4,
+                                 floating: false,
+
+                                 labels: {
+                                     style: {
+                                         colors: '#8e8da4',
+                                     },
+                                     offsetY: -7,
+                                     offsetX: 0,
+                                 },
+                                 axisBorder: {
+                                     show: false,
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             fill: {
+                                 opacity: 0.5
+                             },
+                             tooltip: {
+                                 x: {
+                                     format: "yyyy",
+                                 },
+                                 fixed: {
+                                     enabled: false,
+                                     position: 'topRight'
+                                 }
+                             },
+                             grid: {
+                                 yaxis: {
+                                     lines: {
+                                         offsetX: -30
+                                     }
+                                 },
+                                 padding: {
+                                     left: 20
+                                 }
+                             }
+                         };
+
+                         new ApexCharts(document.querySelector("#area"), optionsArea).render();
+
+                         optionsArea.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
+
+                     },
+                     error: function (xhr, ajaxOptions, thrownError) {
+                         // Handle the error
+                         console.log(xhr.status + ': ' + thrownError);
+                     }
+                 });
+             }
          </script>
         
 
@@ -840,97 +997,7 @@
             //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
             var colorPalette = ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0']
 
-            var spark1 = {
-                chart: {
-                    id: 'sparkline1',
-                    group: 'sparklines',
-                    type: 'area',
-                    height: 160,
-                    sparkline: {
-                        enabled: true
-                    },
-                },
-                stroke: {
-                    curve: 'straight'
-                },
-                fill: {
-                    opacity: 1,
-                },
-                series: [{
-                    name: 'Month',
-                    data: randomizeArray(sparklineData)
-                }],
-                labels: [...Array(24).keys()].map(n => `2018-09-0${n + 1}`),
-                yaxis: {
-                    min: 0
-                },
-                xaxis: {
-                    type: 'datetime',
-                },
-                colors: ['#DCE6EC'],
-                title: {
-                    text: '424,652',
-                    offsetX: 30,
-                    style: {
-                        fontSize: '24px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                },
-                subtitle: {
-                    text: 'Month',
-                    offsetX: 30,
-                    style: {
-                        fontSize: '14px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                }
-            }
-
-            var spark2 = {
-                chart: {
-                    id: 'sparkline2',
-                    group: 'sparklines',
-                    type: 'area',
-                    height: 160,
-                    sparkline: {
-                        enabled: true
-                    },
-                },
-                stroke: {
-                    curve: 'straight'
-                },
-                fill: {
-                    opacity: 1,
-                },
-                series: [{
-                    name: 'Quarter',
-                    data: randomizeArray(sparklineData)
-                }],
-                labels: [...Array(24).keys()].map(n => `2018-09-0${n + 1}`),
-                yaxis: {
-                    min: 0
-                },
-                xaxis: {
-                    type: 'datetime',
-                },
-                colors: ['#DCE6EC'],
-                title: {
-                    text: '235,312',
-                    offsetX: 30,
-                    style: {
-                        fontSize: '24px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                },
-                subtitle: {
-                    text: 'Quarter',
-                    offsetX: 30,
-                    style: {
-                        fontSize: '14px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                }
-            }
+            
 
 
             var monthlyEarningsOpt = {
@@ -989,8 +1056,6 @@
             }
 
 
-            new ApexCharts(document.querySelector("#spark1"), spark1).render();
-            new ApexCharts(document.querySelector("#spark2"), spark2).render();
 
             var monthlyEarningsChart = new ApexCharts(document.querySelector("#monthly-earnings-chart"), monthlyEarningsOpt);
 

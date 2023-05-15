@@ -23,27 +23,75 @@ Public Class dashboard
 
 
     <WebMethod()>
-    Public Shared Function GetChartData(grp_name As String, frm_year As String, to_year As String, type_sts As String) As String
+    Public Shared Function GetChartData(grp_name As String, frm_year As String, to_year As String) As String
 
-        Dim b As String
-        If type_sts = "0" Then
-            b = ""
-        Else
-            b = "and Acnt_Post.Loc_Code= '" + type_sts + "'"
 
-        End If
 
 
         Dim con As New Connection
 
         Dim TranDt As DataTable
-        TranDt = con.ReturnDtTable("select YEAR(Acnt_Date) as year,sum(iif(amt_drcr=1,post_amt,post_amt*-1)) as cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code=53) group by YEAR(Acnt_Date) order by YEAR(Acnt_Date)")
+        TranDt = con.ReturnDtTable("SELECT CONCAT(CAST(YEAR(DATEADD(month, -3, Acnt_Date)) AS VARCHAR),'-', CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ) AS year,  SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1)) AS cl_bal FROM acnt_post WHERE  ledg_ac IN (SELECT ledg_code FROM ledg_mst WHERE group_code = '" + grp_name + "')AND Acnt_Date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Acnt_Date)) AS VARCHAR),  '-',  CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) )ORDER BY  year")
+
+        Dim TranDt1 As DataTable
+        TranDt1 = con.ReturnDtTable("select 'Month '+cast(Month(Acnt_Date)AS VARCHAR) as Month,sum(iif(amt_drcr=1,post_amt,post_amt*-1)) as cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '04/01/" + frm_year + "' and '03/31/" + to_year + "' group by month(Acnt_Date) order by month(Acnt_Date)")
+
+        Dim TranDt3 As DataTable
+        TranDt3 = con.ReturnDtTable("SELECT YEAR(Acnt_Date) AS Year, 'Q ' + CAST(DATEPART(QUARTER, Acnt_Date) AS VARCHAR) AS Quarter, SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1)) AS cl_bal FROM acnt_post WHERE ledg_ac IN (SELECT ledg_code FROM ledg_mst WHERE group_code = '" + grp_name + "') and Acnt_Date between '04/01/" + frm_year + "' and '03/31/" + to_year + "' GROUP BY YEAR(Acnt_Date), 'Q ' + CAST(DATEPART(QUARTER, Acnt_Date) AS VARCHAR) ORDER BY Year, Quarter")
+
+        Dim TranDt4 As DataTable
+        TranDt4 = con.ReturnDtTable("select  'Day '+ cast(day(Acnt_Date)AS VARCHAR) as day, sum(iif(amt_drcr=1,post_amt,post_amt*-1)) as cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '04/01/" + frm_year + "' and '04/30/" + frm_year + "' group by day(Acnt_Date) order by day(Acnt_Date)")
+
+        Dim json = New With {
+           .DataTable1 = TranDt,
+           .DataTable2 = TranDt1,
+           .DataTable3 = TranDt3,
+           .DataTable4 = TranDt4
+         }
 
         'Convert the DataTable to a JSON string
-        Dim json As String = JsonConvert.SerializeObject(TranDt)
+        Dim jsown As String = JsonConvert.SerializeObject(json)
 
         'Return the JSON string
-        Return json
+        Return jsown
+    End Function
+
+
+
+    <WebMethod()>
+    Public Shared Function GetChartData2(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
+
+
+        Dim con As New Connection
+        Dim datew = ""
+
+        If xValue = "Q 1" Then
+            datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
+
+        ElseIf xValue = "Q 2" Then
+            datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
+
+        ElseIf xValue = "Q 3" Then
+            datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
+
+        ElseIf xValue = "Q 4" Then
+            datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
+
+        End If
+
+        Dim TranDt As DataTable
+        TranDt = con.ReturnDtTable("select 'Month '+cast(Month(Acnt_Date)AS VARCHAR) as Month,sum(iif(amt_drcr=1,post_amt,post_amt*-1)) as cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '" + datew + "' group by month(Acnt_Date) order by month(Acnt_Date)")
+
+
+        Dim json = New With {
+           .DataTable1 = TranDt
+         }
+
+        'Convert the DataTable to a JSON string
+        Dim jsown As String = JsonConvert.SerializeObject(json)
+
+        'Return the JSON string
+        Return jsown
     End Function
 
 
