@@ -679,6 +679,538 @@
                              },
                              yaxis: {
                                  title: {
+                                     text: 'Yearly Expenses (In Lakh)',
+                                     
+                                 }
+                                 
+                             },
+                          
+                             xaxis: {
+                                 type: chart1Data.map(function (row) { return row.year; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var spark1 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart2Data.map(function (row) { return row.Month; }),
+                             chart: {
+                                 type: 'bar',
+                                 height: 160,
+                                 events: {
+                                     dataPointSelection: function (event, chartContext, config) {
+
+                                         var ee = config.dataPointIndex;
+                                         var xValue = config.w.config.xaxis.type[ee];
+
+                                         myFunction_day(xValue);
+
+                                     }
+                                 }
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -1,
+                                             to: -1000000000000000,
+                                             color: '#F15B46'
+                                         }, {
+                                             from: -1000000000000000,
+                                             to: 0,
+                                             color: '#F15B46'
+                                         }]
+                                     },
+                                     columnWidth: '60%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+
+                                 title: {
+                                     text: 'Monthly Expenses (In Lakh)',
+                                 },
+                              
+                             },
+                             xaxis: {
+                                 type: chart2Data.map(function (row) { return row.Month; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var spark2 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart3Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart3Data.map(function (row) { return row.Quarter; }),
+                             chart: {
+                                 type: 'bar',
+                                 height: 160,
+                                 events: {
+                                     dataPointSelection: function (event, chartContext, config) {
+                                        
+                                         var ee = config.dataPointIndex;
+                                         var xValue = config.w.config.xaxis.type[ee];
+
+                                         myFunction(xValue);
+
+                                     }
+                                 }
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -1,
+                                             to: -1000000000000000,
+                                             color: '#F15B46'
+                                         }, {
+                                             from: -1000000000000000,
+                                             to: 0,
+                                             color: '#F15B46'
+                                         }]
+                                     },
+                                     columnWidth: '50%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+                                 title: {
+                                     text: 'Quarterly Expenses (In Lakh)',
+                                 },
+                                 //labels: {
+                                 //    formatter: function (y) {
+                                 //        return y.toFixed(0);
+                                 //    }
+                                 //}
+                             },
+                             xaxis: {
+                                 type: chart3Data.map(function (row) { return row.Quarter; }),
+                                 labels: {
+                                     rotate: -90
+                                 }
+                             }
+                         };
+
+                         var optionsArea = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart4Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 350
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 curve: 'straight'
+                             },
+
+                             title: {
+                                 text: 'Daily Expenses (In Thousands)',
+                                 align: 'left',
+                                 style: {
+                                     fontSize: '14px'
+                                 }
+                             },
+                             xaxis: {
+                                 type: chart4Data.map(function (row) { return row.day; }),
+                                 axisBorder: {
+                                     show: false
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             yaxis: {
+                                 tickAmount: 4,
+                                 floating: false,
+
+                                 labels: {
+                                     style: {
+                                         colors: '#8e8da4',
+                                     },
+                                     offsetY: -7,
+                                     offsetX: 0,
+                                 },
+                                 axisBorder: {
+                                     show: false,
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             fill: {
+                                 opacity: 0.5
+                             },
+                             tooltip: {
+                                 x: {
+                                     format: "yyyy",
+                                 },
+                                 fixed: {
+                                     enabled: false,
+                                     position: 'topRight'
+                                 }
+                             },
+                             grid: {
+                                 yaxis: {
+                                     lines: {
+                                         offsetX: -30
+                                     }
+                                 },
+                                 padding: {
+                                     left: 20
+                                 }
+                             }
+                         };
+
+                         var optionDonut = {
+                             series: chart5Data.map(function (row) { return row.cl_bal; }),
+
+                             chart: {
+                                 width: 400,
+                                 type: 'pie',
+                                 events: {
+                                     dataPointSelection: function (event, chartContext, config) {
+
+                                         var ee = config.dataPointIndex;
+                                        
+                                         var xValue = config.w.config.labels[ee];
+
+                                         console.log(xValue)
+
+                                         myFunction_branch(xValue);
+
+                                     }
+                                 }
+                             },
+                             labels: chart5Data.map(function (row) { return row.loc_name; }),
+                             responsive: [{
+                                 breakpoint: 480,
+                                 options: {
+                                     chart: {
+                                         width: 100
+                                     },
+                                     legend: {
+                                         position: 'bottom'
+                                     }
+                                 }
+                             }]
+                            
+                         }
+                         
+
+                         var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
+                         var chart2 =new ApexCharts(document.querySelector("#spark1"), spark1);
+                         var chart3 =new ApexCharts(document.querySelector("#spark2"), spark2);
+                         var chart4 =new ApexCharts(document.querySelector("#area"), optionsArea);
+                         var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
+
+
+                         chart1.render();
+                         chart2.render();
+                         chart3.render();
+                         chart4.render();
+                         chart5.render();
+
+                         chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
+                         //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
+                        
+                         
+                     },
+                     error: function (xhr, ajaxOptions, thrownError) {
+                         // Handle the error
+                         console.log(xhr.status + ': ' + thrownError);
+                     }
+                 });
+
+             });
+
+             function myFunction(xValue) {
+                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
+                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
+                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 $.ajax({
+                     type: "POST",
+                     url: "dashboard.aspx/GetChartData2",
+                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue +"'}",
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         // Parse the JSON string to a JavaScript object
+                         var data = JSON.parse(response.d);
+
+                         var chart1Data = data.DataTable1;
+
+                         var optionsArea = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 350
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 curve: 'straight'
+                             },
+
+                             title: {
+                                 text: 'Daily Expenses',
+                                 align: 'left',
+                                 style: {
+                                     fontSize: '14px'
+                                 }
+                             },
+                             xaxis: {
+                                 type: chart1Data.map(function (row) { return row.Month; }),
+                                 axisBorder: {
+                                     show: false
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             yaxis: {
+                                 tickAmount: 4,
+                                 floating: false,
+
+                                 labels: {
+                                     style: {
+                                         colors: '#8e8da4',
+                                     },
+                                     offsetY: -7,
+                                     offsetX: 0,
+                                 },
+                                 axisBorder: {
+                                     show: false,
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             fill: {
+                                 opacity: 0.5
+                             },
+                             tooltip: {
+                                 x: {
+                                     format: "yyyy",
+                                 },
+                                 fixed: {
+                                     enabled: false,
+                                     position: 'topRight'
+                                 }
+                             },
+                             grid: {
+                                 yaxis: {
+                                     lines: {
+                                         offsetX: -30
+                                     }
+                                 },
+                                 padding: {
+                                     left: 20
+                                 }
+                             }
+                         };
+
+                         var quat_chart = new ApexCharts(document.querySelector("#area"), optionsArea);
+
+                         quat_chart.render();
+                         quat_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+
+                     },
+                     error: function (xhr, ajaxOptions, thrownError) {
+                         // Handle the error
+                         console.log(xhr.status + ': ' + thrownError);
+                     }
+                 });
+             }
+
+             function myFunction_day(xValue) {
+                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
+                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
+                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 $.ajax({
+                     type: "POST",
+                     url: "dashboard.aspx/GetChartData_day",
+                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         // Parse the JSON string to a JavaScript object
+                         var data = JSON.parse(response.d);
+
+                         var chart1Data = data.DataTable1;
+
+                         var optionsAr = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             chart: {
+                                 type: 'area',
+                                 height: 350
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 curve: 'straight'
+                             },
+
+                             title: {
+                                 text: 'Daily Expenses',
+                                 align: 'left',
+                                 style: {
+                                     fontSize: '14px'
+                                 }
+                             },
+                             xaxis: {
+                                 type: chart1Data.map(function (row) { return row.day; }),
+                                 axisBorder: {
+                                     show: false
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             yaxis: {
+                                 tickAmount: 4,
+                                 floating: false,
+
+                                 labels: {
+                                     style: {
+                                         colors: '#8e8da4',
+                                     },
+                                     offsetY: -7,
+                                     offsetX: 0,
+                                 },
+                                 axisBorder: {
+                                     show: false,
+                                 },
+                                 axisTicks: {
+                                     show: false
+                                 }
+                             },
+                             fill: {
+                                 opacity: 0.5
+                             },
+                             tooltip: {
+                                 x: {
+                                     format: "yyyy",
+                                 },
+                                 fixed: {
+                                     enabled: false,
+                                     position: 'topRight'
+                                 }
+                             },
+                             grid: {
+                                 yaxis: {
+                                     lines: {
+                                         offsetX: -30
+                                     }
+                                 },
+                                 padding: {
+                                     left: 20
+                                 }
+                             }
+                         };
+
+                         var day_chart = new ApexCharts(document.querySelector("#area"), optionsAr);
+
+                         day_chart.render();
+                         day_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+
+                     },
+                     error: function (xhr, ajaxOptions, thrownError) {
+                         // Handle the error
+                         console.log(xhr.status + ': ' + thrownError);
+                     }
+                 });
+             }
+
+             function myFunction_branch(xValue) {
+
+                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
+                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
+                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 $.ajax({
+                     type: "POST",
+                     url: "dashboard.aspx/GetChartData_branch",
+                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         // Parse the JSON string to a JavaScript object
+                         var data = JSON.parse(response.d);
+
+
+
+                         var chart1Data = data.DataTable1;
+                         var chart2Data = data.DataTable2;
+                         var chart3Data = data.DataTable3;
+                         var chart4Data = data.DataTable4;
+                         
+
+                     
+
+                         var spark3 = {
+                             series: [{
+                                 name: 'Cl Bal.',
+                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             labels: chart1Data.map(function (row) { return row.year; }),
+                             chart: {
+                                 type: 'bar',
+                                 height: 160
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     colors: {
+                                         ranges: [{
+                                             from: -1,
+                                             to: -1000000000000000,
+                                             color: '#F15B46'
+                                         }, {
+                                             from: -1000000000000000,
+                                             to: 0,
+                                             color: '#F15B46'
+                                         }]
+                                     },
+                                     columnWidth: '40%',
+                                 }
+                             },
+                             dataLabels: {
+                                 enabled: false,
+                             },
+                             yaxis: {
+                                 title: {
                                      text: 'Expenses',
                                  },
                                  //labels: {
@@ -739,7 +1271,7 @@
                                  title: {
                                      text: 'Expenses',
                                  },
-                              
+
                              },
                              xaxis: {
                                  type: chart2Data.map(function (row) { return row.Month; }),
@@ -760,7 +1292,7 @@
                                  height: 160,
                                  events: {
                                      dataPointSelection: function (event, chartContext, config) {
-                                        
+
                                          var ee = config.dataPointIndex;
                                          var xValue = config.w.config.xaxis.type[ee];
 
@@ -881,191 +1413,27 @@
                              }
                          };
 
-                         var optionDonut = {
-                             series: chart5Data.map(function (row) { return row.cl_bal; }),
 
-                             chart: {
-                                 width: 400,
-                                 type: 'pie',
-                             },
-                             labels: chart5Data.map(function (row) { return row.loc_name; }),
-                             responsive: [{
-                                 breakpoint: 480,
-                                 options: {
-                                     chart: {
-                                         width: 100
-                                     },
-                                     legend: {
-										 position: 'bottom'
-                                     }
-                                 }
-                             }]
-                            
-                         }
-                         //var optionsdonu = {
-                         //    series: chart5Data.map(function (row) { return row.cl_bal; }),
-                         //    chart: {
-                         //        type: 'pie',
-                         //        height: 350
-                         //    },
-                         //    labels: chart5Data.map(function (row) { return row.loc_name; }),
-                         //    responsive: [{
-                         //        breakpoint: 480,
-                         //        options: {
-                         //            chart: {
-                         //                width: 200
-                         //            },
-                         //            legend: {
-                         //                position: 'bottom'
-                         //            }
-                         //        }
-                         //    }]
-                         //};
-
-                        
-                         
                          var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
-                         var chart2 =new ApexCharts(document.querySelector("#spark1"), spark1);
-                         var chart3 =new ApexCharts(document.querySelector("#spark2"), spark2);
-                         var chart4 =new ApexCharts(document.querySelector("#area"), optionsArea);
-                         var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
+                         var chart2 = new ApexCharts(document.querySelector("#spark1"), spark1);
+                         var chart3 = new ApexCharts(document.querySelector("#spark2"), spark2);
+                         var chart4 = new ApexCharts(document.querySelector("#area"), optionsArea);
+                        // var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
 
 
                          chart1.render();
                          chart2.render();
                          chart3.render();
                          chart4.render();
-                         chart5.render();
+                        // chart5.render();
 
                          chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
                          chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
                          chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
                          chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-						 //chart5.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-
                          //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
                          //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.loc_name; }) }]);
-                         //if (chart1Data.map(function (row) { return row.year; }) != null && chart1Data.map(function (row) { return row.year; }) != "") {
 
-                         //    spark3.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
-                         //}
-
-                         //if (chart2Data.map(function (row) { return row.year; }) != null && chart2Data.map(function (row) { return row.year; }) != "") {
-
-                         //    spark1.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
-                         //}
-
-                         //if (chart3Data.map(function (row) { return row.year; }) != null && chart3Data.map(function (row) { return row.year; }) != "") {
-
-                         //    spark2.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
-                         //}
-                             //optionsArea.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-                         
-                     },
-                     error: function (xhr, ajaxOptions, thrownError) {
-                         // Handle the error
-                         console.log(xhr.status + ': ' + thrownError);
-                     }
-                 });
-
-             });
-
-             function myFunction(xValue) {
-                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
-                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
-                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
-
-                 $.ajax({
-                     type: "POST",
-                     url: "dashboard.aspx/GetChartData2",
-                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue +"'}",
-                     contentType: "application/json; charset=utf-8",
-                     dataType: "json",
-                     success: function (response) {
-                         // Parse the JSON string to a JavaScript object
-                         var data = JSON.parse(response.d);
-
-                         var chart1Data = data.DataTable1;
-
-                         var optionsArea = {
-                             series: [{
-                                 name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
-                             }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
-                             chart: {
-                                 type: 'area',
-                                 height: 350
-                             },
-                             dataLabels: {
-                                 enabled: false
-                             },
-                             stroke: {
-                                 curve: 'straight'
-                             },
-
-                             title: {
-                                 text: 'Daily Expenses',
-                                 align: 'left',
-                                 style: {
-                                     fontSize: '14px'
-                                 }
-                             },
-                             xaxis: {
-                                 type: chart1Data.map(function (row) { return row.Month; }),
-                                 axisBorder: {
-                                     show: false
-                                 },
-                                 axisTicks: {
-                                     show: false
-                                 }
-                             },
-                             yaxis: {
-                                 tickAmount: 4,
-                                 floating: false,
-
-                                 labels: {
-                                     style: {
-                                         colors: '#8e8da4',
-                                     },
-                                     offsetY: -7,
-                                     offsetX: 0,
-                                 },
-                                 axisBorder: {
-                                     show: false,
-                                 },
-                                 axisTicks: {
-                                     show: false
-                                 }
-                             },
-                             fill: {
-                                 opacity: 0.5
-                             },
-                             tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
-                                 }
-                             },
-                             grid: {
-                                 yaxis: {
-                                     lines: {
-                                         offsetX: -30
-                                     }
-                                 },
-                                 padding: {
-                                     left: 20
-                                 }
-                             }
-                         };
-
-                         var quat_chart = new ApexCharts(document.querySelector("#area"), optionsArea);
-
-                         quat_chart.render();
-                         quat_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
