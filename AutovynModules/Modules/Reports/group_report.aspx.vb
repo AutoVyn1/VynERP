@@ -3,11 +3,12 @@ Imports System.Web.Services
 Imports Newtonsoft.Json
 Public Class group_report
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Private link As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Try
             If Not IsPostBack Then
                 dse_list()

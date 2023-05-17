@@ -2,13 +2,14 @@
 Imports Newtonsoft.Json
 Public Class add_user
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Private link As String
     Private Dse_Mob As String
     Private Aprvl_Mob As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         If Session("user_name") = "" Then
             Response.Redirect("../../Credintial/LoginPage.aspx")
         End If

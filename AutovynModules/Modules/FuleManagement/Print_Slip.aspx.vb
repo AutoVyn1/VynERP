@@ -1,8 +1,9 @@
 ﻿Public Class Print_Slip
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Dim dt1 As DataTable = con.ReturnDtTable("select tran_type from fuel_predict where seq='" + Session("fuel_inv") + "'")
         Dim validator As String = dt1.Rows(0)("tran_type").ToString
         If validator = 1 Then

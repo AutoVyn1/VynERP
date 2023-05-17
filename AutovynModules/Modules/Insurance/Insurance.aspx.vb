@@ -2,13 +2,14 @@
 
 Public Class Insurance
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Private link As String
     Private Dse_Mob As String
     Private Aprvl_Mob As String
     Private LinkId As Integer = 0
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Try
             If Not IsPostBack Then
                 'datePicker.Text = Now.ToString("dd") & Now.ToString("MM") & Now.ToString("yyyy")
@@ -23,6 +24,9 @@ Public Class Insurance
                     LinkId = MyArr(1).ToString
                     Session("LinkId") = LinkId
                     LoginPage.clientid = MyArr(2).ToString.Replace(".", "").Trim
+
+
+
                 End If
 
                 If Session("user_name") = "" Then

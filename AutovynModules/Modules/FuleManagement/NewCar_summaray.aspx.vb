@@ -5,13 +5,14 @@ Imports System.Web.Services
 
 Public Class NewCar_summaray
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Public dt As New DataTable
     Public dt1 As New DataTable
     Private calltable As String
     Private inv As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Try
             calltable = "select seq,dms_inv_no,cust_name,fuel_type,qty,slip_to,del_date,print_date from fuel_predict where tran_type='1' order by seq"
             dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")

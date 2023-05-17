@@ -1,11 +1,13 @@
 ﻿Public Class BranchPage
     Inherits System.Web.UI.Page
-    Private Con As New Connection
+    Private Con
     Private MyDt As New DataTable
     Private EnqDt As DataTable
-    Private DbPath As New DbPath
+    Private DbPath
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Con = New Connection
+        DbPath = New DbPath
         If Not IsPostBack Then
             Try
                 MyDt = Con.ReturnDtTable("Select godw_Name,Godw_Code,DMS_HSN_Code from Godown_Mst where Export_type<3 and Godw_Code in (" & Convert.ToString(Session("QueryLoc")) & ") order by Com_Name")

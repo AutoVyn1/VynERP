@@ -3,10 +3,11 @@ Imports Newtonsoft.Json
 
 Public Class fuel_management
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Public jsonString As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         If Not IsPostBack Then
             If Session("user_name") = "" Then
                 Response.Redirect("../../../Default.aspx")

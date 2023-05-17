@@ -1,8 +1,9 @@
 ﻿Public Class general_disc_report
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Try
             If Not IsPostBack Then
                 date_form.Text = "01/" & Now.ToString("MM/yyyy")

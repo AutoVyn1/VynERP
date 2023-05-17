@@ -10,9 +10,9 @@ Public Class discount_report
     Inherits System.Web.UI.Page
     Private dt As New DataTable
     Private Loc_List As New DataTable
-    Private con As New Connection
-
+    Private con
     Protected Sub Load_Location_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Load_Location.Click
+        con = New Connection
         Try
             If appr_status.SelectedValue = "C" Then
                 location_Data_cons()

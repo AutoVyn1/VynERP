@@ -4,13 +4,14 @@ Imports Newtonsoft.Json
 
 Public Class common_disc
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
     Private link As String
     Private Dse_Mob As String
     Private Aprvl_Mob As String
     Private LinkId As Integer = 0
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         'If Session("user_name") = "" Then
         '    Response.Redirect("../../Credintial/LoginPage.aspx")
         'End If
@@ -28,6 +29,7 @@ Public Class common_disc
                     LinkId = MyArr(1).ToString
                     Session("LinkId") = LinkId
                     LoginPage.clientid = MyArr(2).ToString.Replace(".", "").Trim
+                    HttpContext.Current.Session("client_id") = MyArr(2).ToString.Replace(".", "").Trim
 
                     Dim Mydt As DataTable
                     Mydt = con.ReturnDtTable("Select * from WA_Link where Link_Id=" & LinkId & "")

@@ -1,9 +1,10 @@
 ﻿Public Class InsuranceData
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Private dt As New DataTable
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         dt = con.ReturnDtTable("select (select FILE_NAME from DOC_UPLOAD where DOC_type='insurance'and tran_id=insu_track.tran_id) as Receipt_img ,Cust_Name,Mobile_Number,Insurance_Amt,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS DSE_NAME from EMPLOYEEMASTER where SRNO=dse_name) as dse_name,location,Recd_amt,Remark from insu_track  where link_status='2'")
 
         Data_Grid.DataSource = dt

@@ -10,25 +10,26 @@ Public Class vhicle_del
 
         Private dt As New DataTable
         Private Loc_List As New DataTable
-        Private con As New Connection
+    Private con
 
-        Protected Sub Load_Location_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Load_Location.Click
-            Try
-                If appr_status.SelectedValue = "L" Then
-                    Report_Panel.Visible = True
-                    Amount_Panel.Visible = True
+    Protected Sub Load_Location_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Load_Location.Click
+        con = New Connection
+        Try
+            If appr_status.SelectedValue = "L" Then
+                Report_Panel.Visible = True
+                Amount_Panel.Visible = True
 
-                ElseIf appr_status.SelectedValue = "G" Then
+            ElseIf appr_status.SelectedValue = "G" Then
 
-                    Report_Grid.Visible = True
-                    Amount_Grid.Visible = True
-                End If
-                location_Data()
-                AmountView()
-            Catch ex As Exception
+                Report_Grid.Visible = True
+                Amount_Grid.Visible = True
+            End If
+            location_Data()
+            AmountView()
+        Catch ex As Exception
 
-            End Try
-        End Sub
+        End Try
+    End Sub
 
     <WebMethod()>
     Public Shared Function GetChartData(cellValue As String, frm_year As String, to_year As String) As String

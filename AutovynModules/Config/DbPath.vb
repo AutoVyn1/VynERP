@@ -1,17 +1,23 @@
 ﻿Imports System.Configuration
 Imports System.Data.SqlClient
+
+
 Public Class DbPath
 
     Public Shared Log_code As Integer, login_name As String, QueryLoc As String, EmpPos As Integer, CompCode As String, CompName As String, login_color As String, FYear As String, CompHeading As String, Browser_Name As String, Primary_key As String, frmMode As String, Ver_Release As String = ""
     Public Shared ServerPath As String, HOPath As String, LocPath As String, ImgPath As String, MstPath As String, SelectedYear As String, DbDrive As String
     Public Shared SQLInstance As String, HOSQLInstance As String, SQLPWD, OldDbPath As String, DbName As String, DBDriveName As String = "", DBPrefix As String = "I", DbId As String = "001DB"
     Public Shared DateFrom, DateUpto, week As String
+    Dim loginpage As New LoginPage
+
 
     Public Sub GetLocalDbPath()
         Dim MyClientId As String = ""
 
         If Not LoginPage.clientid Is Nothing Then
-            MyClientId = LoginPage.clientid.Replace(".", "").Trim
+            'MyClientId = LoginPage.clientid.Replace(".", "").Trim
+            MyClientId = HttpContext.Current.Session("client_id").Replace(".", "").Trim
+
         Else
             Exit Sub
             '   HttpContext.Current.Response.Redirect("AutovynModules/Credintial/LoginPage.aspx")
