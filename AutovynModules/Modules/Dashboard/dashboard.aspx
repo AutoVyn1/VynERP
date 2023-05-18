@@ -487,30 +487,26 @@
             </div>
 
             <div class="row mt-5 mb-4">
-                <div class="col-md-8">
+                <div class="col-md-7">
                 <div class="box">
                   <div id="area"></div>
                 </div>
               </div>
              
-              <div class="col-md-4">
-                <div class="box" style="height:400px;">
+              <div class="col-md-5">
+                <div class="box" >
                   <div id="donut"></div>
                 </div>
               </div>
             </div>
 
             <div class="row mt-4 mb-4">
-                 <div class="col-md-6">
+                 <div class="col-md-12">
                 <div class="box">
                   <div id="bar"></div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="box">
-                  <div id="line"></div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -656,7 +652,7 @@
                              labels: chart1Data.map(function (row) { return row.year; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160
+                                 height: 180
                              },
                              plotOptions: {
                                  bar: {
@@ -680,7 +676,17 @@
                              yaxis: {
                                  title: {
                                      text: 'Yearly Expenses (In Lakh)',
-                                     
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  }
                                  
                              },
@@ -701,7 +707,7 @@
                              labels: chart2Data.map(function (row) { return row.Month; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160,
+                                 height: 180,
                                  events: {
                                      dataPointSelection: function (event, chartContext, config) {
 
@@ -736,6 +742,17 @@
 
                                  title: {
                                      text: 'Monthly Expenses (In Lakh)',
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  },
                               
                              },
@@ -755,7 +772,7 @@
                              labels: chart3Data.map(function (row) { return row.Quarter; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160,
+                                 height: 180,
                                  events: {
                                      dataPointSelection: function (event, chartContext, config) {
                                         
@@ -789,6 +806,17 @@
                              yaxis: {
                                  title: {
                                      text: 'Quarterly Expenses (In Lakh)',
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  },
                                  //labels: {
                                  //    formatter: function (y) {
@@ -812,7 +840,7 @@
                              //labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
-                                 height: 350
+                                 height: 315
                              },
                              dataLabels: {
                                  enabled: false
@@ -882,37 +910,93 @@
                          var optionDonut = {
                              series: chart5Data.map(function (row) { return row.cl_bal; }),
 
-                             chart: {
-                                 width: 400,
-                                 type: 'pie',
-                                 events: {
-                                     dataPointSelection: function (event, chartContext, config) {
+							 chart: {
+								 width: 580,
+								 type: 'pie',
+								 events: {
+									 dataPointSelection: function (event, chartContext, config) {
 
-                                         var ee = config.dataPointIndex;
-                                        
-                                         var xValue = config.w.config.labels[ee];
+										 var ee = config.dataPointIndex;
 
-                                         console.log(xValue)
+										 var xValue = config.w.config.labels[ee];
 
-                                         myFunction_branch(xValue);
+										 console.log(xValue)
 
-                                     }
-                                 }
-                             },
-                             labels: chart5Data.map(function (row) { return row.loc_name; }),
-                             responsive: [{
-                                 breakpoint: 480,
-                                 options: {
-                                     chart: {
-                                         width: 100
-                                     },
-                                     legend: {
-                                         position: 'bottom'
-                                     }
-                                 }
-                             }]
+										 myFunction_branch(xValue);
+
+									 }
+								 }
+							 },
+							 labels: chart5Data.map(function (row) { return row.loc_name; }),
+							 responsive: [{
+								 breakpoint: 480,
+								 options: {
+									 chart: {
+										 width: 100
+									 },
+									 legend: {
+										 position: 'bottom'
+									 }
+								 }
+							 }]
+
+						 
                             
                          }
+
+						 //for comparision chart
+						 var options = {
+							 series: [{
+								 name: 'Current Year',
+								 data: chart2Data.map(function (row) { return row.cl_bal; }),
+							 },
+							 {
+								 name: 'Last year',
+								 data: chart2Data.map(function (row) { return row.cl_bal; }),
+							 }],
+							 chart: {
+								 type: 'bar',
+								 height: 350
+							 },
+							 plotOptions: {
+								 bar: {
+									 horizontal: false,
+									 columnWidth: '55%',
+									 endingShape: 'rounded'
+								 },
+							 },
+							 dataLabels: {
+								 enabled: false
+							 },
+							 stroke: {
+								 show: true,
+								 width: 2,
+								 colors: ['transparent']
+							 },
+							 xaxis: {
+								 type: chart2Data.map(function (row) { return row.Month; }),
+								 labels: {
+									 rotate: -90
+								 }
+							 },
+							 yaxis: {
+								 title: {
+									 text: '$ (thousands)'
+								 }
+							 },
+							 fill: {
+								 opacity: 1
+							 },
+							 tooltip: {
+								 y: {
+									 formatter: function (val) {
+										 return "$ " + val + " thousands"
+									 }
+								 }
+							 }
+						 };
+
+						 var chart6 = new ApexCharts(document.querySelector("#bar"), options);
                          
 
                          var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
@@ -927,11 +1011,14 @@
                          chart3.render();
                          chart4.render();
                          chart5.render();
+						 chart6.render();
 
                          chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
                          chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
                          chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
                          chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
+						 chart6.updateSeries([{ data: chart6Data.map(function (row) { return row.cl_bal; }) }]);
+
                          //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
                         
                          
@@ -1211,7 +1298,18 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Expenses',
+                                     text: 'Yearly Expenses(In Lakh)',
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  },
                                  //labels: {
                                  //    formatter: function (y) {
@@ -1269,7 +1367,18 @@
                              yaxis: {
 
                                  title: {
-                                     text: 'Expenses',
+									 text: 'Monthly Expenses(In Lakh)',
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  },
 
                              },
@@ -1322,7 +1431,18 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Expenses',
+									 text: 'Quarterly Expenses(In Lakh)',
+									 align: 'left',
+									 margin: 10,
+									 offsetX: 0,
+									 offsetY: 0,
+									 floating: false,
+									 style: {
+										 fontSize: '12px',
+										 fontWeight: 'bold',
+										 fontFamily: 'Roboto',
+										 color: '#263238'
+									 },
                                  },
                                  //labels: {
                                  //    formatter: function (y) {
@@ -1550,297 +1670,60 @@
 		 </script>
         
 
-        <script>
-            Apex.grid = {
-                padding: {
-                    right: 0,
-                    left: 0
-                }
-            }
-
-            Apex.dataLabels = {
-                enabled: false
-            }
-
-            var randomizeArray = function (arg) {
-                var array = arg.slice();
-                var currentIndex = array.length, temporaryValue, randomIndex;
-
-                while (0 !== currentIndex) {
-
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex -= 1;
-
-                    temporaryValue = array[currentIndex];
-                    array[currentIndex] = array[randomIndex];
-                    array[randomIndex] = temporaryValue;
-                }
-
-                return array;
-            }
-
-            // data for the sparklines that appear below header area
-            var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46];
-
-            // the default colorPalette for this dashboard
-            //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
-            var colorPalette = ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0']
-
-            
-
-
-            var monthlyEarningsOpt = {
-                chart: {
-                    type: 'area',
-                    height: 260,
-                    background: '#eff4f7',
-                    sparkline: {
-                        enabled: true
-                    },
-                    offsetY: 20
-                },
-                stroke: {
-                    curve: 'straight'
-                },
-                fill: {
-                    type: 'solid',
-                    opacity: 1,
-                },
-                series: [{
-                    data: randomizeArray(sparklineData)
-                }],
-                xaxis: {
-                    crosshairs: {
-                        width: 1
-                    },
-                },
-                yaxis: {
-                    min: 0,
-                    max: 130
-                },
-                colors: ['#dce6ec'],
-
-                title: {
-                    text: 'Total Earned',
-                    offsetX: -30,
-                    offsetY: 100,
-                    align: 'right',
-                    style: {
-                        color: '#7c939f',
-                        fontSize: '16px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                },
-                subtitle: {
-                    text: '$135,965',
-                    offsetX: -30,
-                    offsetY: 100,
-                    align: 'right',
-                    style: {
-                        color: '#7c939f',
-                        fontSize: '24px',
-                        cssClass: 'apexcharts-yaxis-title'
-                    }
-                }
-            }
-
-
-
-            var monthlyEarningsChart = new ApexCharts(document.querySelector("#monthly-earnings-chart"), monthlyEarningsOpt);
-
-
-           
-
-            var optionsBar = {
-                chart: {
-                    type: 'bar',
-                    height: 380,
-                    width: '100%',
-                    stacked: true,
-                },
-                plotOptions: {
-                    bar: {
-                        columnWidth: '45%',
-                    }
-                },
-                colors: colorPalette,
-                series: [{
-                    name: "Sales",
-                    data: [42, 52, 16, 55, 59, 51, 45, 32, 26, 33, 44, 51, 42, 56],
-                }, {
-                    name: "Profit",
-                    data: [6, 12, 4, 7, 5, 3, 6, 4, 3, 3, 5, 6, 7, 4],
-                }],
-                labels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-                xaxis: {
-                    labels: {
-                        show: false
-                    },
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                },
-                yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    labels: {
-                        style: {
-                            colors: '#78909c'
-                        }
-                    }
-                },
-                title: {
-                    text: 'Monthly Sales',
-                    align: 'left',
-                    style: {
-                        fontSize: '18px'
-                    }
-                }
-
-            }
-
-            var chartBar = new ApexCharts(document.querySelector('#bar'), optionsBar);
-            chartBar.render();
-
-
-            //var optionDonut = {
-            //    chart: {
-            //        type: 'donut',
-            //        width: '100%',
-            //        height: 400
-            //    },
-            //    dataLabels: {
-            //        enabled: false,
-            //    },
-            //    plotOptions: {
-            //        pie: {
-            //            customScale: 0.8,
-            //            donut: {
-            //                size: '75%',
-            //            },
-            //            offsetY: 20,
-            //        },
-            //        stroke: {
-            //            colors: undefined
-            //        }
-            //    },
-            //    colors: colorPalette,
-            //    title: {
-            //        text: 'Department Sales',
-            //        style: {
-            //            fontSize: '18px'
-            //        }
-            //    },
-            //    series: [21, 23, 19, 14, 6],
-            //    labels: ['Sales', 'Profit', 'CCP', 'EW', 'Insurance'],
-            //    legend: {
-            //        position: 'left',
-            //        offsetY: 80
-            //    }
-            //}
-
-            //var donut = new ApexCharts(
-            //    document.querySelector("#donut"),
-            //    optionDonut
-            //)
-            //donut.render();
-
-
+       <%-- <script>
           
-
-
-
-            var optionsLine = {
-                chart: {
-                    height: 340,
-                    type: 'line',
-                    zoom: {
-                        enabled: false
-                    }
+            //for comparision chart
+			var options = {
+				series: [{
+					name: 'Net Profit',
+					data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
                 },
-                plotOptions: {
-                    stroke: {
-                        width: 4,
-                        curve: 'smooth'
-                    },
-                },
-                colors: colorPalette,
-                series: [
                     {
-                        name: "Day Time",
-                        data: trigoSeries(52, 20)
-                    },
-                    {
-                        name: "Night Time",
-                        data: trigoSeries(52, 27)
-                    },
-                ],
-                title: {
-                    floating: false,
-                    text: 'Customers',
-                    align: 'left',
-                    style: {
-                        fontSize: '18px'
-                    }
-                },
-                subtitle: {
-                    text: '168,215',
-                    align: 'center',
-                    margin: 30,
-                    offsetY: 40,
-                    style: {
-                        color: '#222',
-                        fontSize: '24px',
-                    }
-                },
-                markers: {
-                    size: 0
-                },
+					name: 'Free Cash Flow',
+					data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+				}],
+				chart: {
+					type: 'bar',
+					height: 350
+				},
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						columnWidth: '55%',
+						endingShape: 'rounded'
+					},
+				},
+				dataLabels: {
+					enabled: false
+				},
+				stroke: {
+					show: true,
+					width: 2,
+					colors: ['transparent']
+				},
+				xaxis: {
+					categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+				},
+				yaxis: {
+					title: {
+						text: '$ (thousands)'
+					}
+				},
+				fill: {
+					opacity: 1
+				},
+				tooltip: {
+					y: {
+						formatter: function (val) {
+							return "$ " + val + " thousands"
+						}
+					}
+				}
+			};
 
-                grid: {
+			var chart = new ApexCharts(document.querySelector("#bar"), options);
+			chart.render();
 
-                },
-                xaxis: {
-                    labels: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    tooltip: {
-                        enabled: false
-                    }
-                },
-                yaxis: {
-                    tickAmount: 2,
-                    labels: {
-                        show: false
-                    },
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    min: 0,
-                },
-                legend: {
-                    position: 'top',
-                    horizontalAlign: 'left',
-                    offsetY: -20,
-                    offsetX: -30
-                }
-
-            }
-
-            var chartLine = new ApexCharts(document.querySelector('#line'), optionsLine);
 
             // a small hack to extend height in website sample dashboard
             chartLine.render().then(function () {
@@ -1850,39 +1733,7 @@
                 }
             });
 
-
-            // on smaller screen, change the legends position for donut
-            //var mobileDonut = function () {
-            //    if ($(window).width() < 768) {
-            //        donut.updateOptions({
-            //            plotOptions: {
-            //                pie: {
-            //                    offsetY: -15,
-            //                }
-            //            },
-            //            legend: {
-            //                position: 'bottom'
-            //            }
-            //        }, false, false)
-            //    }
-            //    else {
-            //        donut.updateOptions({
-            //            plotOptions: {
-            //                pie: {
-            //                    offsetY: 20,
-            //                }
-            //            },
-            //            legend: {
-            //                position: 'left'
-            //            }
-            //        }, false, false)
-            //    }
-            //}
-
-            //$(window).resize(function () {
-            //    mobileDonut()
-            //});
-        </script>
+		</script>--%>
 
 </asp:Content>
 
