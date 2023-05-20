@@ -494,7 +494,7 @@
               </div>
              
               <div class="col-md-5">
-                <div class="box" >
+                <div class="box">
                   <div id="donut"></div>
                 </div>
               </div>
@@ -506,7 +506,11 @@
                   <div id="bar"></div>
                 </div>
               </div>
-              
+              <%--<div class="col-md-4">
+                <div class="box">
+                  <div id="line"></div>
+                </div>
+              </div>--%>
             </div>
           </div>
         </div>
@@ -628,6 +632,7 @@
                          var chart3Data = data.DataTable3;
                          var chart4Data = data.DataTable4;
                          var chart5Data = data.DataTable5;
+                         var chart7Data = data.DataTable7;
                          
                          var total1 = 0;
                          for (var i = 0; i < chart1Data.length; i++) {
@@ -675,18 +680,18 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Yearly Expenses (In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Yearly Expenses (In Lac)',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  }
                                  
                              },
@@ -741,18 +746,18 @@
                              yaxis: {
 
                                  title: {
-                                     text: 'Monthly Expenses (In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Monthly Expenses (In Lac)',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  },
                               
                              },
@@ -805,24 +810,20 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Quarterly Expenses (In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Quarterly Expenses (In Lac)',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  },
-                                 //labels: {
-                                 //    formatter: function (y) {
-                                 //        return y.toFixed(0);
-                                 //    }
-                                 //}
+                                 
                              },
                              xaxis: {
                                  type: chart3Data.map(function (row) { return row.Quarter; }),
@@ -910,93 +911,84 @@
                          var optionDonut = {
                              series: chart5Data.map(function (row) { return row.cl_bal; }),
 
-							 chart: {
-								 width: 580,
-								 type: 'pie',
-								 events: {
-									 dataPointSelection: function (event, chartContext, config) {
+                             chart: {
+                                 width: 580,
+                                 type: 'pie',
+                                 events: {
+                                     dataPointSelection: function (event, chartContext, config) {
 
-										 var ee = config.dataPointIndex;
+                                         var ee = config.dataPointIndex;
+                                        
+                                         var xValue = config.w.config.labels[ee];
 
-										 var xValue = config.w.config.labels[ee];
+                                         myFunction_branch(xValue);
 
-										 console.log(xValue)
-
-										 myFunction_branch(xValue);
-
-									 }
-								 }
-							 },
-							 labels: chart5Data.map(function (row) { return row.loc_name; }),
-							 responsive: [{
-								 breakpoint: 480,
-								 options: {
-									 chart: {
-										 width: 100
-									 },
-									 legend: {
-										 position: 'bottom'
-									 }
-								 }
-							 }]
-
-						 
+                                     }
+                                 }
+                             },
+                             labels: chart5Data.map(function (row) { return row.loc_name; }),
+                             responsive: [{
+                                 breakpoint: 480,
+                                 options: {
+                                     chart: {
+                                         width: 100
+                                     },
+                                     legend: {
+                                         position: 'bottom'
+                                     }
+                                 }
+                             }]
                             
                          }
 
-						 //for comparision chart
-						 var options = {
-							 series: [{
-								 name: 'Current Year',
-								 data: chart2Data.map(function (row) { return row.cl_bal; }),
-							 },
-							 {
-								 name: 'Last year',
-								 data: chart2Data.map(function (row) { return row.cl_bal; }),
-							 }],
-							 chart: {
-								 type: 'bar',
-								 height: 350
-							 },
-							 plotOptions: {
-								 bar: {
-									 horizontal: false,
-									 columnWidth: '55%',
-									 endingShape: 'rounded'
-								 },
-							 },
-							 dataLabels: {
-								 enabled: false
-							 },
-							 stroke: {
-								 show: true,
-								 width: 2,
-								 colors: ['transparent']
-							 },
-							 xaxis: {
-								 type: chart2Data.map(function (row) { return row.Month; }),
-								 labels: {
-									 rotate: -90
-								 }
-							 },
-							 yaxis: {
-								 title: {
-									 text: '$ (thousands)'
-								 }
-							 },
-							 fill: {
-								 opacity: 1
-							 },
-							 tooltip: {
-								 y: {
-									 formatter: function (val) {
-										 return "$ " + val + " thousands"
-									 }
-								 }
-							 }
-						 };
+                         var comparision_bar = {
+                             series: [{
+                                 name: 'Current Year',
+                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                             }, {
+                                 name: 'Previous Year',
+                                 data: chart7Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             chart: {
+                                 type: 'bar',
+                                 height: 350
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     horizontal: false,
+                                     columnWidth: '55%',
+                                     endingShape: 'rounded'
+                                 },
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 show: true,
+                                 width: 2,
+                                 colors: ['transparent']
+                             },
+                             xaxis: {
+                                 categories: chart2Data.map(function (row) { return row.Month; }),
+                             },
+                             yaxis: {
+                                 title: {
+                                     text: 'Comparision (In Lac)'
+                                 }
+                             },
+                             fill: {
+                                 opacity: 1
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return "$ " + val + " Lac"
+                                     }
+                                 }
+                             }
+                         };
 
-						 var chart6 = new ApexCharts(document.querySelector("#bar"), options);
+                        
                          
 
                          var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
@@ -1004,6 +996,7 @@
                          var chart3 =new ApexCharts(document.querySelector("#spark2"), spark2);
                          var chart4 =new ApexCharts(document.querySelector("#area"), optionsArea);
                          var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
+                         var chart6 = new ApexCharts(document.querySelector("#bar"), comparision_bar);
 
 
                          chart1.render();
@@ -1011,15 +1004,18 @@
                          chart3.render();
                          chart4.render();
                          chart5.render();
-						 chart6.render();
+                         chart6.render();
+
+                         var far = chart5Data.map(function (row) { return row.cl_bal; });
+                         
 
                          chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
                          chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
                          chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
                          chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-						 chart6.updateSeries([{ data: chart6Data.map(function (row) { return row.cl_bal; }) }]);
-
-                         //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart5.updateSeries(far);
+                         chart6.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }, { data: chart7Data.map(function (row) { return row.cl_bal; }) }]);
+                         //chart6.updateSeries([{ data: chart7Data.map(function (row) { return row.cl_bal; }) }]);
                         
                          
                      },
@@ -1056,7 +1052,7 @@
                              //labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
-                                 height: 350
+                                 height: 315
                              },
                              dataLabels: {
                                  enabled: false
@@ -1066,7 +1062,7 @@
                              },
 
                              title: {
-                                 text: 'Daily Expenses',
+                                 text: 'Daily Expenses (In Thousand)',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1161,7 +1157,7 @@
                              //labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
-                                 height: 350
+                                 height: 315
                              },
                              dataLabels: {
                                  enabled: false
@@ -1171,7 +1167,7 @@
                              },
 
                              title: {
-                                 text: 'Daily Expenses',
+                                 text: 'Daily Expenses (In Thousand)',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1263,10 +1259,8 @@
                          var chart2Data = data.DataTable2;
                          var chart3Data = data.DataTable3;
                          var chart4Data = data.DataTable4;
+                         var chart5Data = data.DataTable5;
                          
-
-                     
-
                          var spark3 = {
                              series: [{
                                  name: 'Cl Bal.',
@@ -1275,7 +1269,7 @@
                              labels: chart1Data.map(function (row) { return row.year; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160
+                                 height: 180
                              },
                              plotOptions: {
                                  bar: {
@@ -1298,24 +1292,20 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Yearly Expenses(In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Yearly Expense(In Lakh) ',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  },
-                                 //labels: {
-                                 //    formatter: function (y) {
-                                 //        return y.toFixed(0);
-                                 //    }
-                                 //}
+                                 
                              },
                              xaxis: {
                                  type: chart1Data.map(function (row) { return row.year; }),
@@ -1333,7 +1323,7 @@
                              labels: chart2Data.map(function (row) { return row.Month; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160,
+                                 height: 180,
                                  events: {
                                      dataPointSelection: function (event, chartContext, config) {
 
@@ -1367,18 +1357,18 @@
                              yaxis: {
 
                                  title: {
-									 text: 'Monthly Expenses(In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Monthly Expense(In Lakh)',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  },
 
                              },
@@ -1398,7 +1388,7 @@
                              labels: chart3Data.map(function (row) { return row.Quarter; }),
                              chart: {
                                  type: 'bar',
-                                 height: 160,
+                                 height: 180,
                                  events: {
                                      dataPointSelection: function (event, chartContext, config) {
 
@@ -1431,24 +1421,20 @@
                              },
                              yaxis: {
                                  title: {
-									 text: 'Quarterly Expenses(In Lakh)',
-									 align: 'left',
-									 margin: 10,
-									 offsetX: 0,
-									 offsetY: 0,
-									 floating: false,
-									 style: {
-										 fontSize: '12px',
-										 fontWeight: 'bold',
-										 fontFamily: 'Roboto',
-										 color: '#263238'
-									 },
+                                     text: 'Quarterly Expense(In Lakh)',
+                                     align: 'left',
+                                     margin: 10,
+                                     offsetX: 0,
+                                     offsetY: 0,
+                                     floating: false,
+                                     style: {
+                                         fontSize: '12px',
+                                         fontWeight: 'bold',
+                                         fontFamily: 'Roboto',
+                                         color: '#263238'
+                                     },
                                  },
-                                 //labels: {
-                                 //    formatter: function (y) {
-                                 //        return y.toFixed(0);
-                                 //    }
-                                 //}
+                                
                              },
                              xaxis: {
                                  type: chart3Data.map(function (row) { return row.Quarter; }),
@@ -1466,7 +1452,7 @@
                              //labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
-                                 height: 350
+                                 height: 315
                              },
                              dataLabels: {
                                  enabled: false
@@ -1533,27 +1519,73 @@
                              }
                          };
 
+                         var comparision_bar = {
+                             series: [{
+                                 name: 'Current Year',
+                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                             }, {
+                                 name: 'Previous Year',
+                                 data: chart5Data.map(function (row) { return row.cl_bal; }),
+                             }],
+                             chart: {
+                                 type: 'bar',
+                                 height: 350
+                             },
+                             plotOptions: {
+                                 bar: {
+                                     horizontal: false,
+                                     columnWidth: '55%',
+                                     endingShape: 'rounded'
+                                 },
+                             },
+                             dataLabels: {
+                                 enabled: false
+                             },
+                             stroke: {
+                                 show: true,
+                                 width: 2,
+                                 colors: ['transparent']
+                             },
+                             xaxis: {
+                                 categories: chart2Data.map(function (row) { return row.Month; }),
+                             },
+                             yaxis: {
+                                 title: {
+                                     text: 'Comparision (In Lac)'
+                                 }
+                             },
+                             fill: {
+                                 opacity: 1
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return "$ " + val + " Lac"
+                                     }
+                                 }
+                             }
+                         };
+
 
                          var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
                          var chart2 = new ApexCharts(document.querySelector("#spark1"), spark1);
                          var chart3 = new ApexCharts(document.querySelector("#spark2"), spark2);
                          var chart4 = new ApexCharts(document.querySelector("#area"), optionsArea);
-                        // var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
+                         var chart5 = new ApexCharts(document.querySelector("#bar"), comparision_bar);
+
 
 
                          chart1.render();
                          chart2.render();
                          chart3.render();
                          chart4.render();
-                        // chart5.render();
+                         chart5.render();
 
                          chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
                          chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
                          chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
                          chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-                         //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
-                         //chart5.updateSeries([{ data: chart5Data.map(function (row) { return row.loc_name; }) }]);
-
+                         chart5.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }, { data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
@@ -1563,167 +1595,192 @@
                  });
              }
 
-             function myFunction_day(xValue) {
-                 var frm_year = $('#ContentPlaceHolder1_Year_From').val();
-                 var to_year = $('#ContentPlaceHolder1_Year_To').val();
-                 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
-
-                 $.ajax({
-                     type: "POST",
-                     url: "dashboard.aspx/GetChartData_day",
-                     data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
-                     contentType: "application/json; charset=utf-8",
-                     dataType: "json",
-                     success: function (response) {
-                         // Parse the JSON string to a JavaScript object
-                         var data = JSON.parse(response.d);
-
-                         var chart1Data = data.DataTable1;
-
-                         var optionsAr = {
-                             series: [{
-                                 name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
-                             }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
-                             chart: {
-                                 type: 'area',
-                                 height: 350
-                             },
-                             dataLabels: {
-                                 enabled: false
-                             },
-                             stroke: {
-                                 curve: 'straight'
-                             },
-
-                             title: {
-                                 text: 'Daily Expenses',
-                                 align: 'left',
-                                 style: {
-                                     fontSize: '14px'
-                                 }
-                             },
-                             xaxis: {
-                                 type: chart1Data.map(function (row) { return row.day; }),
-                                 axisBorder: {
-                                     show: false
-                                 },
-                                 axisTicks: {
-                                     show: false
-                                 }
-                             },
-                             yaxis: {
-                                 tickAmount: 4,
-                                 floating: false,
-
-                                 labels: {
-                                     style: {
-                                         colors: '#8e8da4',
-                                     },
-                                     offsetY: -7,
-                                     offsetX: 0,
-                                 },
-                                 axisBorder: {
-                                     show: false,
-                                 },
-                                 axisTicks: {
-                                     show: false
-                                 }
-                             },
-                             fill: {
-                                 opacity: 0.5
-                             },
-                             tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
-                                 }
-                             },
-                             grid: {
-                                 yaxis: {
-                                     lines: {
-                                         offsetX: -30
-                                     }
-                                 },
-                                 padding: {
-                                     left: 20
-                                 }
-                             }
-                         };
-
-                         var day_chart = new ApexCharts(document.querySelector("#area"), optionsAr);
-
-                         day_chart.render();
-                         day_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
-
-                     },
-                     error: function (xhr, ajaxOptions, thrownError) {
-                         // Handle the error
-                         console.log(xhr.status + ': ' + thrownError);
-                     }
-                 });
-             }
-		 </script>
+          
+         </script>
         
 
-       <%-- <script>
-          
-            //for comparision chart
-			var options = {
-				series: [{
-					name: 'Net Profit',
-					data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+        <script>
+            Apex.grid = {
+                padding: {
+                    right: 0,
+                    left: 0
+                }
+            }
+
+            Apex.dataLabels = {
+                enabled: false
+            }
+
+            var randomizeArray = function (arg) {
+                var array = arg.slice();
+                var currentIndex = array.length, temporaryValue, randomIndex;
+
+                while (0 !== currentIndex) {
+
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
+
+            // data for the sparklines that appear below header area
+            var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46];
+
+            // the default colorPalette for this dashboard
+            //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
+            var colorPalette = ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0']
+
+            
+
+
+            var monthlyEarningsOpt = {
+                chart: {
+                    type: 'area',
+                    height: 260,
+                    background: '#eff4f7',
+                    sparkline: {
+                        enabled: true
+                    },
+                    offsetY: 20
                 },
+                stroke: {
+                    curve: 'straight'
+                },
+                fill: {
+                    type: 'solid',
+                    opacity: 1,
+                },
+                series: [{
+                    data: randomizeArray(sparklineData)
+                }],
+                xaxis: {
+                    crosshairs: {
+                        width: 1
+                    },
+                },
+                yaxis: {
+                    min: 0,
+                    max: 130
+                },
+                colors: ['#dce6ec'],
+
+                title: {
+                    text: 'Total Earned',
+                    offsetX: -30,
+                    offsetY: 100,
+                    align: 'right',
+                    style: {
+                        color: '#7c939f',
+                        fontSize: '16px',
+                        cssClass: 'apexcharts-yaxis-title'
+                    }
+                },
+                subtitle: {
+                    text: '$135,965',
+                    offsetX: -30,
+                    offsetY: 100,
+                    align: 'right',
+                    style: {
+                        color: '#7c939f',
+                        fontSize: '24px',
+                        cssClass: 'apexcharts-yaxis-title'
+                    }
+                }
+            }
+
+
+
+            var monthlyEarningsChart = new ApexCharts(document.querySelector("#monthly-earnings-chart"), monthlyEarningsOpt);
+
+            var optionsLine = {
+                chart: {
+                    height: 340,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    stroke: {
+                        width: 4,
+                        curve: 'smooth'
+                    },
+                },
+                colors: colorPalette,
+                series: [
                     {
-					name: 'Free Cash Flow',
-					data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-				}],
-				chart: {
-					type: 'bar',
-					height: 350
-				},
-				plotOptions: {
-					bar: {
-						horizontal: false,
-						columnWidth: '55%',
-						endingShape: 'rounded'
-					},
-				},
-				dataLabels: {
-					enabled: false
-				},
-				stroke: {
-					show: true,
-					width: 2,
-					colors: ['transparent']
-				},
-				xaxis: {
-					categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-				},
-				yaxis: {
-					title: {
-						text: '$ (thousands)'
-					}
-				},
-				fill: {
-					opacity: 1
-				},
-				tooltip: {
-					y: {
-						formatter: function (val) {
-							return "$ " + val + " thousands"
-						}
-					}
-				}
-			};
+                        name: "Day Time",
+                        data: trigoSeries(52, 20)
+                    },
+                    {
+                        name: "Night Time",
+                        data: trigoSeries(52, 27)
+                    },
+                ],
+                title: {
+                    floating: false,
+                    text: 'Customers',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                subtitle: {
+                    text: '168,215',
+                    align: 'center',
+                    margin: 30,
+                    offsetY: 40,
+                    style: {
+                        color: '#222',
+                        fontSize: '24px',
+                    }
+                },
+                markers: {
+                    size: 0
+                },
 
-			var chart = new ApexCharts(document.querySelector("#bar"), options);
-			chart.render();
+                grid: {
 
+                },
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                yaxis: {
+                    tickAmount: 2,
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    min: 0,
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                    offsetY: -20,
+                    offsetX: -30
+                }
+
+            }
+
+            var chartLine = new ApexCharts(document.querySelector('#line'), optionsLine);
 
             // a small hack to extend height in website sample dashboard
             chartLine.render().then(function () {
@@ -1733,7 +1790,9 @@
                 }
             });
 
-		</script>--%>
+
+           
+        </script>
 
 </asp:Content>
 

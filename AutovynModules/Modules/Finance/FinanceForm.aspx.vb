@@ -1,6 +1,6 @@
 ﻿Public Class FinanceForm
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Public dt As New DataTable
     Private mydt As New DataTable
 
@@ -177,6 +177,7 @@
     End Sub
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         If Not IsPostBack Then
             If Session("user_name") = "" Then
                 Response.Redirect("../../../Default.aspx")
@@ -197,7 +198,7 @@
         End If
     End Sub
 
-        Protected Sub payoutage_TextChanged(sender As Object, e As EventArgs) Handles payoutage.TextChanged
+    Protected Sub payoutage_TextChanged(sender As Object, e As EventArgs) Handles payoutage.TextChanged
             Try
                 Dim do_amt, finpay, totalfin, dotValue, pf_chrg As Decimal
                 Dim payAge As Double

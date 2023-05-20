@@ -34,7 +34,7 @@ Public Class group_report
 
         Try
             Dim TranDt As DataTable
-            TranDt = con.ReturnDtTable("select Ledg_Ac as Ledg_Code,Ledg_Name, cast(Sum(Opening) as decimal(10,2)) as Op_Bal, cast( Sum(Dr_Amt) as decimal(10,2)) as Dr_Amt, cast(Sum(Cr_Amt) as decimal(10,2)) as Cr_Amt, cast( Sum(Cl_Balance)  as decimal(10,2))
+            TranDt = con.ReturnDtTable("select Ledg_Ac as Ledg_Code,Ledg_Name, cast(Sum(Opening) as decimal(14,2)) as Op_Bal, cast( Sum(Dr_Amt) as decimal(14,2)) as Dr_Amt, cast(Sum(Cr_Amt) as decimal(14,2)) as Cr_Amt, cast( Sum(Cl_Balance)  as decimal(10,2))
 as Cl_Bal,(select top 1 Com_Name from Godown_Mst where Godw_Code=Loc_Code) as Branch from (
 select Ledg_Ac,Ledg_Name,Sum(iif(Amt_Drcr=1,Post_Amt,Post_Amt*-1)) as Opening,0.00 as Dr_Amt,0.00
 as Cr_Amt,0.00 as Cl_Balance,Acnt_Post.Loc_Code from Acnt_Post,Ledg_Mst where Ledg_Ac=Ledg_Code 

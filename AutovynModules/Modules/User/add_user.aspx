@@ -681,7 +681,20 @@
             for (var i = 1; i <= 8; i++) {
                 var id = "ContentPlaceHolder1_parent"+i
                 var inputs = document.getElementById(id);
-                inputs.checked = false;
+				inputs.checked = false;
+
+				var parentIDs = ['', '<%= parent1.ClientID %>', '<%= parent2.ClientID %>', '<%= parent3.ClientID %>', '<%= parent4.ClientID %>', '<%= parent5.ClientID %>', '<%= parent6.ClientID %>', '<%= parent7.ClientID %>'];
+				if (i <= 7) {
+					var parentID = parentIDs[i];
+					var parentDiv = document.querySelector('div[data-parentid="' + parentID + '"]');
+					var childCount = parentDiv.querySelectorAll('input[type="checkbox"]').length;
+
+					for (var j = 1; j <= childCount; j++) {
+						var child_id = "ContentPlaceHolder1_child_" + i + "_" + j;
+						var child_inputs = document.getElementById(child_id);
+						child_inputs.checked = false;
+					}
+				}
 			}
 
             var igww = ContentPlaceHolder1_branch_list.rows.length;
@@ -886,7 +899,7 @@
 
 		document.getElementById('ContentPlaceHolder1_user_Name').addEventListener("blur", appr_SelectedIndexChanged);
 
-    </script>
+	</script>
 
 
 	<script>

@@ -1,11 +1,12 @@
 ﻿Public Class FinanceSummary
     Inherits System.Web.UI.Page
-    Private con As New Connection
+    Private con
     Public dt As New DataTable
     Private calltable As String
     Private inv As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
         Try
             calltable = "select top 300 DMS_Inv,CONCAT(ledg_name,'(',(cust_id),')') As Customer_Name,ph1,PF_Charges, fin_dono,convert(varchar,INV_date,103) as Invoice_dATE ,Payout_Rate, Payout_Amt,  FLoan_Status as Status from ICM_MST"
             dt = con.ReturnDtTable(calltable)
