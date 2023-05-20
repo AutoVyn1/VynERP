@@ -61,10 +61,6 @@
         }
 
 
-        .navbar {
-            
-        }
-
         .date-section{
             background-color:gainsboro;
         }
@@ -1429,9 +1425,6 @@
                          var chart4Data = data.DataTable4;
                          var chart5Data = data.DataTable5;
                          
-
-                     
-
                          var spark3 = {
                              series: [{
                                  name: 'Cl Bal.',
@@ -1799,6 +1792,99 @@
                 return array;
             }
 
+
+            var optionsLine = {
+                chart: {
+                    height: 340,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                plotOptions: {
+                    stroke: {
+                        width: 4,
+                        curve: 'smooth'
+                    },
+                },
+                colors: colorPalette,
+                series: [
+                    {
+                        name: "Day Time",
+                        data: trigoSeries(52, 20)
+                    },
+                    {
+                        name: "Night Time",
+                        data: trigoSeries(52, 27)
+                    },
+                ],
+                title: {
+                    floating: false,
+                    text: 'Customers',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                subtitle: {
+                    text: '168,215',
+                    align: 'center',
+                    margin: 30,
+                    offsetY: 40,
+                    style: {
+                        color: '#222',
+                        fontSize: '24px',
+                    }
+                },
+                markers: {
+                    size: 0
+                },
+
+                grid: {
+
+                },
+                xaxis: {
+                    labels: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                yaxis: {
+                    tickAmount: 2,
+                    labels: {
+                        show: false
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    min: 0,
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                    offsetY: -20,
+                    offsetX: -30
+                }
+
+            }
+
+            var chartLine = new ApexCharts(document.querySelector('#line'), optionsLine);
+
+            // a small hack to extend height in website sample dashboard
+            chartLine.render().then(function () {
+                var ifr = document.querySelector("#wrapper");
+                if (ifr.contentDocument) {
+                    ifr.style.height = ifr.contentDocument.body.scrollHeight + 20 + 'px';
+                }
+            });
 
 
            

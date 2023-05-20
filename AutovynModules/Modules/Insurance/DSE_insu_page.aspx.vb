@@ -9,11 +9,7 @@ Public Class DSE_insu_page
     Private Aprvl_Mob As String
     Private LinkId As Integer = 0
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        con = New Connection
-        Aprvl_Panel.Enabled = True
-        Main_Panel.Enabled = False
-        dse_list()
-        datePicker.Text = Now.ToString("dd/MM/yyyy")
+
         Dim Myurl As String = Request.Url.AbsoluteUri
         Dim MyArr = Myurl.Split("?")
         If MyArr.Length = 3 Then
@@ -22,6 +18,11 @@ Public Class DSE_insu_page
             LoginPage.clientid = MyArr(2).ToString.Replace(".", "").Trim
             HttpContext.Current.Session("client_id") = MyArr(2).ToString.Replace(".", "").Trim
         End If
+        con = New Connection
+        Aprvl_Panel.Enabled = True
+        Main_Panel.Enabled = False
+        dse_list()
+        datePicker.Text = Now.ToString("dd/MM/yyyy")
 
         If MyArr.Length = 3 Then
             LinkId = Val(MyArr(1).ToString)
@@ -42,6 +43,7 @@ Public Class DSE_insu_page
             End If
 
         End If
+
     End Sub
 
     Private Sub FillMob_PAN_Based_Data()

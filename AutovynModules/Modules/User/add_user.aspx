@@ -696,7 +696,6 @@
 						child_inputs.checked = false;
 					}
 				}
-
 			}
 
             var igww = ContentPlaceHolder1_branch_list.rows.length;
@@ -901,7 +900,7 @@
 
 		document.getElementById('ContentPlaceHolder1_user_Name').addEventListener("blur", appr_SelectedIndexChanged);
 
-    </script>
+	</script>
 
 
 	<script>
