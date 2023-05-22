@@ -27,23 +27,23 @@
     End Function
 #Enable Warning BC42105 ' Function doesn't return a value on all code paths
 
-    Private Function SqlDate(ByVal MyDate As String)
+    'Private Function SqlDate(ByVal MyDate As String)
 
-        Dim RetVal As String = ""
-        If MyDate.Trim = "" Then Return ""
-        Try
-            If MyDate <> "  /  /" Then
-                RetVal = "'" + CDate(MyDate).ToString("yyyy/MM/dd") + "'"
-            Else
-                RetVal = "Null"
-            End If
-        Catch ex As Exception
-            RetVal = "'" + CDate(MyDate).ToString(" ") + "'"
-        End Try
+    '    Dim RetVal As String = ""
+    '    If MyDate.Trim = "" Then Return ""
+    '    Try
+    '        If MyDate <> "  /  /" Then
+    '            RetVal = "'" + CDate(MyDate).ToString("yyyy/MM/dd") + "'"
+    '        Else
+    '            RetVal = "Null"
+    '        End If
+    '    Catch ex As Exception
+    '        RetVal = "'" + CDate(MyDate).ToString(" ") + "'"
+    '    End Try
 
-        Return RetVal
+    '    Return RetVal
 
-    End Function
+    'End Function
 
     'Public Sub MesgBox(ByVal sMessage As String)
     '    Dim sb As New System.Text.StringBuilder
