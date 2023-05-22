@@ -560,7 +560,7 @@
 
                 </div>
                 <div class="mainloc_name" style="text-align:center; display:none; margin-top:3px;">
-                    <h3 class="selectloc_name">Multi-Location Chart</h3>
+                    <h3 class="selectloc_name">Multi Location Chart</h3>
                 </div>
                 
 
