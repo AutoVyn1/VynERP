@@ -18,9 +18,9 @@
         *{
             margin:0;
             padding:0;
-            box-sizing:border-box;
+            box-sizing:border-box;/*
             scrollbar-width: thin;
-            scrollbar-color: #397524 #DFE9EB;
+            scrollbar-color: #397524 #DFE9EB;*/
         }
 
             /* Chrome, Edge and Safari */
@@ -60,6 +60,10 @@
             margin-bottom:60px;
         }
 
+
+        .navbar {
+            
+        }
 
         .date-section{
             background-color:gainsboro;
@@ -394,7 +398,18 @@
 /* overrides */
 .sparkboxes #apexcharts-subtitle-text { fill: #8799a2 !important; }
 
-
+.mb-4 {
+    margin-bottom: 0.5rem!important;
+}
+.mt-5 {
+    margin-top: 0rem!important;
+}
+.row {
+    --mdb-gutter-x: 0.5rem !important;
+}
+.mt-4 {
+    margin-top: 0.5rem!important;
+}
 .spinner-border {
   display: none;
 }
@@ -544,6 +559,10 @@
                     </div>
 
                 </div>
+                <div class="mainloc_name" style="text-align:center; display:none; margin-top:3px;">
+                    <h3 class="selectloc_name">Multi-Location Chart</h3>
+                </div>
+                
 
       <%--          <div class="progress" style="display:none;">
   <div class="color"></div>
@@ -562,7 +581,7 @@
 </div>
 
         
-    <div id="wrapper" style="display:none;">
+    <div id="wrapper" class="blur_effect" style="display:none;">
       <div class="content-area">
         <div class="container-fluid">
         
@@ -623,7 +642,7 @@
 
         </div>
 
-
+     </div>
     
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js"></script>
@@ -709,11 +728,31 @@
 
          <script>
 
+             function disableScroll() {
+                 // Get the current page scroll position
+                 scrollTop =
+                     window.pageYOffset || document.documentElement.scrollTop;
+                 scrollLeft =
+                     window.pageXOffset || document.documentElement.scrollLeft,
+
+                     // if any scroll is attempted,
+                     // set this to the previous value
+                     window.onscroll = function () {
+                         window.scrollTo(scrollLeft, scrollTop);
+                     };
+             }
+
+             function enableScroll() {
+                 window.onscroll = function () { };
+             }
+
              $("#Load_Location").click(function () {
 
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+
 
                  $.ajax({
                      type: "POST",
@@ -723,9 +762,17 @@
                      dataType: "json",
                      beforeSend: function () {
                          $('.center').show();
+                         $('.blur_effect').css("filter", "blur(4px)");
+                         disableScroll()
+                         /*$('body').css("overflow", "hidden");*/
                      },
                      complete: function () {
                          $('.center').hide();
+                         /*$('.mainloc_name').show();*/
+                         $('.blur_effect').css("filter", "");
+                         enableScroll()
+                         /*$('body').css("overflow", "");*/
+
                      },
                      success: function (response) {
                          // Parse the JSON string to a JavaScript object
@@ -807,6 +854,13 @@
                                  labels: {
                                      rotate: -90
                                  }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
+                                 }
                              }
                          };
 
@@ -872,6 +926,13 @@
                                  labels: {
                                      rotate: -90
                                  }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
+                                 }
                              }
                          };
 
@@ -936,6 +997,13 @@
                                  labels: {
                                      rotate: -90
                                  }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
+                                 }
                              }
                          };
 
@@ -944,7 +1012,7 @@
                                  name: 'Cl Bal.',
                                  data: chart4Data.map(function (row) { return row.cl_bal; }),
                              }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
                                  height: 315
@@ -994,12 +1062,10 @@
                                  opacity: 0.5
                              },
                              tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " K"
+                                     }
                                  }
                              },
                              grid: {
@@ -1025,9 +1091,7 @@
                                      dataPointSelection: function (event, chartContext, config) {
 
                                          var ee = config.dataPointIndex;
-                                        
                                          var xValue = config.w.config.labels[ee];
-
                                          myFunction_branch(xValue);
 
                                      }
@@ -1089,14 +1153,15 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return "$ " + val + " Lac"
+                                         return  val + " Lac"
                                      }
                                  }
                              }
                          };
 
-                        
                          $('#wrapper').show();
+                         $('.mainloc_name').show();
+                         $('.selectloc_name').text('Multi-Location Chart');
 
                          var chart1 = new ApexCharts(document.querySelector("#spark3"), spark3);
                          var chart2 =new ApexCharts(document.querySelector("#spark1"), spark1);
@@ -1105,6 +1170,7 @@
                          var chart5 = new ApexCharts(document.querySelector("#donut"), optionDonut);
                          var chart6 = new ApexCharts(document.querySelector("#bar"), comparision_bar);
 
+                         /*$('.selectloc_name').text('Multi-Location Chart');*/
 
                          chart1.render();
                          chart2.render();
@@ -1168,7 +1234,7 @@
                              quarter += "Fourth Quarter"
                              da.push('January', 'Feburary', 'March')
                          }
-
+                         console.log(da);
                          var chart1Data = data.DataTable1;
 
                          var optionsArea = {
@@ -1176,7 +1242,7 @@
                                  name: 'Cl Bal.',
                                  data: chart1Data.map(function (row) { return row.cl_bal; }),
                              }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             labels: chart1Data.map(function (row) { return row.Month; }),
                              chart: {
                                  type: 'area',
                                  height: 315
@@ -1189,8 +1255,7 @@
                              },
 
                              title: {
-                                 
-                                 text: '' + quarter+' (In Thousand)',
+                                 text: '' + quarter+' (In Lakh)',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1227,12 +1292,10 @@
                                  opacity: 0.5
                              },
                              tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
                                  }
                              },
                              grid: {
@@ -1318,7 +1381,7 @@
                                  name: 'Cl Bal.',
                                  data: chart1Data.map(function (row) { return row.cl_bal; }),
                              }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             labels: chart1Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
                                  height: 315
@@ -1368,12 +1431,10 @@
                                  opacity: 0.5
                              },
                              tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " K"
+                                     }
                                  }
                              },
                              grid: {
@@ -1413,6 +1474,20 @@
                      data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
+                     beforeSend: function () {
+                         $('.center').show();
+                         $('.blur_effect').css("filter", "blur(4px)");
+                         disableScroll()
+                         /*$('body').css("overflow", "hidden");*/
+                     },
+                     complete: function () {
+                         $('.center').hide();
+                         /*$('.mainloc_name').show();*/
+                         $('.blur_effect').css("filter", "");
+                         enableScroll()
+                         /*$('body').css("overflow", "");*/
+
+                     },
                      success: function (response) {
                          // Parse the JSON string to a JavaScript object
                          var data = JSON.parse(response.d);
@@ -1475,6 +1550,13 @@
                                  type: chart1Data.map(function (row) { return row.year; }),
                                  labels: {
                                      rotate: -90
+                                 }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
                                  }
                              }
                          };
@@ -1541,7 +1623,15 @@
                                  labels: {
                                      rotate: -90
                                  }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
+                                 }
                              }
+
                          };
 
                          var spark2 = {
@@ -1605,6 +1695,13 @@
                                  labels: {
                                      rotate: -90
                                  }
+                             },
+                             tooltip: {
+                                 y: {
+                                     formatter: function (val) {
+                                         return val + " Lac"
+                                     }
+                                 }
                              }
                          };
 
@@ -1613,7 +1710,7 @@
                                  name: 'Cl Bal.',
                                  data: chart4Data.map(function (row) { return row.cl_bal; }),
                              }],
-                             //labels: chart4Data.map(function (row) { return row.day; }),
+                             labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
                                  type: 'area',
                                  height: 315
@@ -1663,12 +1760,10 @@
                                  opacity: 0.5
                              },
                              tooltip: {
-                                 x: {
-                                     format: "yyyy",
-                                 },
-                                 fixed: {
-                                     enabled: false,
-                                     position: 'topRight'
+                                 y: {
+                                     formatter: function (val) {
+                                         return  val + " K"
+                                     }
                                  }
                              },
                              grid: {
@@ -1724,7 +1819,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return "$ " + val + " Lac"
+                                         return   val + " Lac"
                                      }
                                  }
                              }
@@ -1737,7 +1832,7 @@
                          var chart4 = new ApexCharts(document.querySelector("#area"), optionsArea);
                          var chart5 = new ApexCharts(document.querySelector("#bar"), comparision_bar);
 
-
+                         $('.selectloc_name').text(xValue + ' Chart');
 
                          chart1.render();
                          chart2.render();
@@ -1885,8 +1980,6 @@
                     ifr.style.height = ifr.contentDocument.body.scrollHeight + 20 + 'px';
                 }
             });
-
-
            
         </script>
 
