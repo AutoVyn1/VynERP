@@ -12,9 +12,7 @@ Public Class common_disc
     Private LinkId As Integer = 0
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         con = New Connection
-        'If Session("user_name") = "" Then
-        '    Response.Redirect("../../Credintial/LoginPage.aspx")
-        'End If
+
         Try
             If Not IsPostBack Then
                 'datePicker.Text = Now.ToString("dd") & Now.ToString("MM") & Now.ToString("yyyy")
@@ -132,6 +130,8 @@ Public Class common_disc
                 Dim id As String = dt.Rows(0)("id").ToString
                 MesgBox1("Approved Done Successfully")
                 Whastapp_Linking(id)
+
+                Response.Redirect("DefaultPage.aspx")
             Else
                 dt = con.ReturnDtTable("select CUST_MOB from DISC_WEB where CUST_MOB='" & cust_mobile.Text & "'")
                 If dt.Rows.Count > 0 Then
@@ -298,7 +298,7 @@ Public Class common_disc
 
     Private Sub fill_grid()
         Dim calltable As String
-        calltable = "select id,CUST_NAME,VEH_REG,DISC_TYPE,DISC_AMT,REQ_BY,APRVL_BY,CURR_DATE from DISC_WEB where link_status='0'"
+        calltable = "select id,CUST_NAME,VEH_REG,DISC_TYPE,DISC_AMT,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS DSE_NAME from EMPLOYEEMASTER where req_BY=SRNO) as DSE,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS DSE_NAME from EMPLOYEEMASTER where SRNO=APRVL_BY) as Approver,CURR_DATE from DISC_WEB where link_status='0'"
         dt = con.ReturnDtTable(calltable)
         gv_Employees.DataSource = dt
         gv_Employees.DataBind()
@@ -392,16 +392,16 @@ Public Class common_disc
 
     Private Sub gv_Employees_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gv_Employees.RowDataBound
         If e.Row.RowType = DataControlRowType.Header Then
-            e.Row.Cells(3).Text = "Cust. Name"
-            e.Row.Cells(4).Text = "Vehicle No"
-            e.Row.Cells(5).Text = "Disc Type"
-            e.Row.Cells(6).Text = "Disc Amt"
-            e.Row.Cells(7).Text = "Dse Name"
-            e.Row.Cells(8).Text = "Approver"
-            e.Row.Cells(9).Text = "Date"
+            e.Row.Cells(4).Text = "Cust. Name"
+            e.Row.Cells(5).Text = "Vehicle No"
+            e.Row.Cells(6).Text = "Disc Type"
+            e.Row.Cells(7).Text = "Disc Amt"
+            e.Row.Cells(8).Text = "Dse Name"
+            e.Row.Cells(9).Text = "Approver"
+            e.Row.Cells(10).Text = "Date"
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
-            e.Row.Cells(6).HorizontalAlign = HorizontalAlign.Right ' Set the alignment of all data cells to left
+            e.Row.Cells(7).HorizontalAlign = HorizontalAlign.Right ' Set the alignment of all data cells to left
 
         End If
 

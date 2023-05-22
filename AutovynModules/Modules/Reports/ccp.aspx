@@ -8,7 +8,7 @@
     <style>
 
         *{
-            margin: 28px;
+            margin: 0px;
             padding:0;
             box-sizing:border-box;
 
