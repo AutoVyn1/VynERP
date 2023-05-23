@@ -1,6 +1,5 @@
 ﻿
-
-<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="dashboard.aspx.vb"  Inherits="AutovynERP.dashboard" %>
+<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="disc_dashboard.aspx.vb"  Inherits="AutovynERP.disc_dashboard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-  <script type="text/javascript" src="../../JS/ListSelect/virtual-select.min.js"></script>
 
     <style>
 
@@ -546,8 +544,12 @@
 
                    <asp:Label ID="Label3" CssClass="col-sm-1 col-form-label" runat="server" Text="Group"></asp:Label>
                     <div class="col-sm-2">
-                        <asp:DropDownList ID="grp_name" Class="resetting" selectionmode="multiple"  data-silent-initial-value-set="true" name="native-select" data-search="true" runat="server">
-                         
+                        <asp:DropDownList ID="grp_name" CssClass="form-control" runat="server">
+                           <asp:ListItem Value="">--Select type--</asp:ListItem>
+                           <asp:ListItem Value="add_disc">Additional Discount</asp:ListItem>
+                           <asp:ListItem Value="cons_disc">Consumer Discount</asp:ListItem>
+                           <asp:ListItem Value="Exch_disc">Exchange Discount</asp:ListItem>
+                           <asp:ListItem Value="Corp_disc">Corporation Discount</asp:ListItem>
                         </asp:DropDownList>
                     </div>
 
@@ -663,12 +665,7 @@
         });
     </script>
 
-        <script>
-            VirtualSelect.init({
-                ele: '#ContentPlaceHolder1_grp_name',
-                showOptionsOnlyOnSearch: true
-            });
-        </script>
+      
 
         	<script>
                 function restrictInput(event) {
@@ -756,7 +753,7 @@
 
                  $.ajax({
                      type: "POST",
-                     url: "dashboard.aspx/GetChartData",
+                     url: "disc_dashboard.aspx/GetChartData",
                      data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
@@ -789,23 +786,23 @@
                          
                          var total1 = 0;
                          for (var i = 0; i < chart1Data.length; i++) {
-                             total1 += chart1Data[i].cl_bal;
+                             total1 += chart1Data[i].discount;
                          }
 
                          var total2 = 0;
                          for (var i = 0; i < chart2Data.length; i++) {
-                             total2 += chart2Data[i].cl_bal;
+                             total2 += chart2Data[i].discount;
                          }
 
                          var total3 = 0;
                          for (var i = 0; i < chart3Data.length; i++) {
-                             total3 += chart3Data[i].cl_bal;
+                             total3 += chart3Data[i].discount;
                          }
 
                          var spark3 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart1Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart1Data.map(function (row) { return row.year; }),
                              chart: {
@@ -858,7 +855,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val
                                      }
                                  }
                              }
@@ -867,7 +864,7 @@
                          var spark1 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart2Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart2Data.map(function (row) { return row.Month; }),
                              chart: {
@@ -917,7 +914,7 @@
                                          fontWeight: 'bold',
                                          fontFamily: 'Roboto',
                                          color: '#263238'
-                                     }
+                                     },
                                  },
                               
                              },
@@ -930,7 +927,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              }
@@ -939,7 +936,7 @@
                          var spark2 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart3Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart3Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart3Data.map(function (row) { return row.Quarter; }),
                              chart: {
@@ -1001,7 +998,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              }
@@ -1010,7 +1007,7 @@
                          var optionsArea = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart4Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart4Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
@@ -1064,7 +1061,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " K"
+                                         return val 
                                      }
                                  }
                              },
@@ -1081,7 +1078,7 @@
                          };
 
                          var optionDonut = {
-                             series: chart5Data.map(function (row) { return row.cl_bal; }),
+                             series: chart5Data.map(function (row) { return row.discount; }),
 
                              chart: {
                                  width: 580,
@@ -1115,10 +1112,10 @@
                          var comparision_bar = {
                              series: [{
                                  name: 'Current Year',
-                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart2Data.map(function (row) { return row.discount; }),
                              }, {
                                  name: 'Previous Year',
-                                 data: chart7Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart7Data.map(function (row) { return row.discount; }),
                              }],
                              chart: {
                                  type: 'bar',
@@ -1153,7 +1150,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return  val + " Lac"
+                                         return  val 
                                      }
                                  }
                              }
@@ -1179,16 +1176,16 @@
                          chart5.render();
                          chart6.render();
 
-                         var far = chart5Data.map(function (row) { return row.cl_bal; });
+                         var far = chart5Data.map(function (row) { return row.discount; });
                          
 
-                         chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.discount; }) }]);
+                         chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.discount; }) }]);
+                         chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.discount; }) }]);
+                         chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.discount; }) }]);
                          chart5.updateSeries(far);
-                         chart6.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }, { data: chart7Data.map(function (row) { return row.cl_bal; }) }]);
-                         //chart6.updateSeries([{ data: chart7Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart6.updateSeries([{ data: chart2Data.map(function (row) { return row.discount; }) }, { data: chart7Data.map(function (row) { return row.discount; }) }]);
+                         //chart6.updateSeries([{ data: chart7Data.map(function (row) { return row.discount; }) }]);
                         
 
                          
@@ -1209,7 +1206,7 @@
 
                  $.ajax({
                      type: "POST",
-                     url: "dashboard.aspx/GetChartData2",
+                     url: "disc_dashboard.aspx/GetChartData2",
                      data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue +"'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
@@ -1240,7 +1237,7 @@
                          var optionsArea = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart1Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart1Data.map(function (row) { return row.Month; }),
                              chart: {
@@ -1294,7 +1291,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              },
@@ -1313,7 +1310,7 @@
                          var quat_chart = new ApexCharts(document.querySelector("#area"), optionsArea);
 
                          quat_chart.render();
-                         quat_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+                         quat_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.discount; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
@@ -1330,7 +1327,7 @@
 
                  $.ajax({
                      type: "POST",
-                     url: "dashboard.aspx/GetChartData_day",
+                     url: "disc_dashboard.aspx/GetChartData_day",
                      data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
@@ -1379,7 +1376,7 @@
                          var optionsAr = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart1Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart1Data.map(function (row) { return row.day; }),
                              chart: {
@@ -1394,7 +1391,7 @@
                              },
 
                              title: {
-                                 text: '' + quarter +' (In Thousand)',
+                                 text: '' + quarter +'',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1433,7 +1430,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " K"
+                                         return val 
                                      }
                                  }
                              },
@@ -1452,7 +1449,7 @@
                          var day_chart = new ApexCharts(document.querySelector("#area"), optionsAr);
 
                          day_chart.render();
-                         day_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
+                         day_chart.updateSeries([{ data: chart1Data.map(function (row) { return row.discount; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
@@ -1470,7 +1467,7 @@
 
                  $.ajax({
                      type: "POST",
-                     url: "dashboard.aspx/GetChartData_branch",
+                     url: "disc_dashboard.aspx/GetChartData_branch",
                      data: "{grp_name: '" + grp_name + "',frm_year: '" + frm_year + "',to_year: '" + to_year + "', xValue:'" + xValue + "'}",
                      contentType: "application/json; charset=utf-8",
                      dataType: "json",
@@ -1503,7 +1500,7 @@
                          var spark3 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart1Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart1Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart1Data.map(function (row) { return row.year; }),
                              chart: {
@@ -1531,7 +1528,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Yearly Expense(In Lakh) ',
+                                     text: 'Yearly Expense',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -1555,7 +1552,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              }
@@ -1564,7 +1561,7 @@
                          var spark1 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart2Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart2Data.map(function (row) { return row.Month; }),
                              chart: {
@@ -1603,7 +1600,7 @@
                              yaxis: {
 
                                  title: {
-                                     text: 'Monthly Expense(In Lakh)',
+                                     text: 'Monthly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -1627,7 +1624,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              }
@@ -1637,7 +1634,7 @@
                          var spark2 = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart3Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart3Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart3Data.map(function (row) { return row.Quarter; }),
                              chart: {
@@ -1675,7 +1672,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Quarterly Expense(In Lakh)',
+                                     text: 'Quarterly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -1699,7 +1696,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return val + " Lac"
+                                         return val 
                                      }
                                  }
                              }
@@ -1708,7 +1705,7 @@
                          var optionsArea = {
                              series: [{
                                  name: 'Cl Bal.',
-                                 data: chart4Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart4Data.map(function (row) { return row.discount; }),
                              }],
                              labels: chart4Data.map(function (row) { return row.day; }),
                              chart: {
@@ -1723,7 +1720,7 @@
                              },
 
                              title: {
-                                 text: 'April Month (In Thousand)',
+                                 text: 'April Chart',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1781,10 +1778,10 @@
                          var comparision_bar = {
                              series: [{
                                  name: 'Current Year',
-                                 data: chart2Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart2Data.map(function (row) { return row.discount; }),
                              }, {
                                  name: 'Previous Year',
-                                 data: chart5Data.map(function (row) { return row.cl_bal; }),
+                                 data: chart5Data.map(function (row) { return row.discount; }),
                              }],
                              chart: {
                                  type: 'bar',
@@ -1840,11 +1837,11 @@
                          chart4.render();
                          chart5.render();
 
-                         chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.cl_bal; }) }]);
-                         chart5.updateSeries([{ data: chart2Data.map(function (row) { return row.cl_bal; }) }, { data: chart5Data.map(function (row) { return row.cl_bal; }) }]);
+                         chart1.updateSeries([{ data: chart1Data.map(function (row) { return row.discount; }) }]);
+                         chart2.updateSeries([{ data: chart2Data.map(function (row) { return row.discount; }) }]);
+                         chart3.updateSeries([{ data: chart3Data.map(function (row) { return row.discount; }) }]);
+                         chart4.updateSeries([{ data: chart4Data.map(function (row) { return row.discount; }) }]);
+                         chart5.updateSeries([{ data: chart2Data.map(function (row) { return row.discount; }) }, { data: chart5Data.map(function (row) { return row.discount; }) }]);
 
                      },
                      error: function (xhr, ajaxOptions, thrownError) {
