@@ -343,6 +343,10 @@
                                 <li>
                                      <asp:HyperLink ID="HyperLink16" runat="server" Text="Ledger Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/Ledg_dashboard.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
                                 </li>
+
+                                <li>
+                                     <asp:HyperLink ID="HyperLink17" runat="server" Text="Discount Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/disc_dashboard.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
                              </ul>
                         </li>
 
