@@ -87,6 +87,7 @@ Public Class common_disc
 
         End Try
     End Sub
+
     Private Sub MesgBox(ByVal sMessage As String)
 
         ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: '" + sMessage + "', icon: 'warning', showConfirmButton: true})", True)
