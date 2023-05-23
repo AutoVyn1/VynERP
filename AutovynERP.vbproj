@@ -249,6 +249,7 @@
     <Content Include="AutovynModules\Media\loginbg.svg" />
     <Content Include="AutovynModules\Media\logouthome.png" />
     <Content Include="AutovynModules\Modules\Accounts\Acc_Voucher.aspx" />
+    <Content Include="AutovynModules\Modules\Admin_Panel\Admin_page.aspx" />
     <Content Include="AutovynModules\Modules\Cashier\Cashier.aspx" />
     <Content Include="AutovynModules\Modules\chassis\chassis_allot.aspx" />
     <Content Include="AutovynModules\Modules\CommonDiscount\common_disc.aspx" />
@@ -447,6 +448,13 @@
     </Compile>
     <Compile Include="AutovynModules\Modules\Accounts\Acc_Voucher.aspx.vb">
       <DependentUpon>Acc_Voucher.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Admin_Panel\Admin_page.aspx.designer.vb">
+      <DependentUpon>Admin_page.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Admin_Panel\Admin_page.aspx.vb">
+      <DependentUpon>Admin_page.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="AutovynModules\Modules\Cashier\Cashier.aspx.designer.vb">
