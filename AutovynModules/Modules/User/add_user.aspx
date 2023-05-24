@@ -609,9 +609,9 @@
 							
 <%--			<div class="col-lg-4 ">
 				<asp:CheckBoxList ID="disc_type" runat="server" CssClass="form-control">
-					
+				
 				</asp:CheckBoxList>
-			</div>--%>
+				</div>--%>
 
 
 						</div>
