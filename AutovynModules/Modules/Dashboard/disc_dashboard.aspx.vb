@@ -12,9 +12,6 @@ Imports System.IO
             Try
                 If Not IsPostBack Then
 
-
-
-
             End If
             Catch ex As Exception
 

@@ -489,7 +489,6 @@
 /*.progress{
     position: relative;
     width: 100%;
-    
 }
 .progress .color{
     position: absolute;
@@ -1017,9 +1016,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             //stroke: {
-                             //    curve: 'straight'
-                             //},
+                             stroke: {
+                                 curve: 'straight'
+                             },
 
                              title: {
                                  text: 'April Chart',
@@ -1247,9 +1246,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             //stroke: {
-                             //    curve: 'straight'
-                             //},
+                             stroke: {
+                                 curve: 'straight'
+                             },
 
                              title: {
                                  text: '' + quarter+'',
@@ -1386,9 +1385,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             //stroke: {
-                             //    curve: 'straight'
-                             //},
+                             stroke: {
+                                 curve: 'straight'
+                             },
 
                              title: {
                                  text: '' + quarter +'',
@@ -1715,9 +1714,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             //stroke: {
-                             //    curve: 'straight'
-                             //},
+                             stroke: {
+                                 curve: 'straight'
+                             },
 
                              title: {
                                  text: 'April Chart',
@@ -1851,7 +1850,6 @@
                  });
              }
 
-          
          </script>
         
 
