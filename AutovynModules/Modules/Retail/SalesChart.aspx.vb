@@ -4,12 +4,12 @@ Imports System.Globalization
 Public Class salesChart
     Inherits System.Web.UI.Page
     Private userName As New LoginPage
-    Private con As New Connection
-    Public SqlCon As New SqlConnection
-    Private com As New SqlCommand
-    Private com1 As New SqlCommand
-    Private comb As New SqlCommandBuilder
-    Private adp As New SqlDataAdapter
+    Private con
+    'Public SqlCon As New SqlConnection
+    'Private com As New SqlCommand
+    'Private com1 As New SqlCommand
+    'Private comb As New SqlCommandBuilder
+    'Private adp As New SqlDataAdapter
     Dim dt As New DataTable
     Private sql As String
     Dim GrdIndex As Integer = 0
@@ -48,10 +48,11 @@ Public Class salesChart
     End Sub
 
     Private Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        con = New Connection
         Try
-            If Session("user_name") = "" Then
-                Response.Redirect("../../../Default.aspx")
-            End If
+            'If Session("user_name") = "" Then
+            '    Response.Redirect("../../../Default.aspx")
+            'End If
             If Not IsPostBack Then
                 'user_name.Text = Convert.ToString(Session("user_name"))
                 'Branch.Text = Convert.ToString(Session("Branch"))
