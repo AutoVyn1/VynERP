@@ -830,7 +830,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Yearly Expenses (In Lac)',
+                                     text: 'Yearly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -903,7 +903,7 @@
                              yaxis: {
 
                                  title: {
-                                     text: 'Monthly Expenses (In Lac)',
+                                     text: 'Monthly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -974,7 +974,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Quarterly Expenses (In Lac)',
+                                     text: 'Quarterly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -1022,7 +1022,7 @@
                              },
 
                              title: {
-                                 text: 'April Month (In Thousand)',
+                                 text: 'April Chart',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1141,7 +1141,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Comparision (In Lac)'
+                                     text: 'Comparision Chart'
                                  }
                              },
                              fill: {
@@ -1252,7 +1252,7 @@
                              },
 
                              title: {
-                                 text: '' + quarter+' (In Lakh)',
+                                 text: '' + quarter+'',
                                  align: 'left',
                                  style: {
                                      fontSize: '14px'
@@ -1528,7 +1528,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Yearly Expense',
+                                     text: 'Yearly',
                                      align: 'left',
                                      margin: 10,
                                      offsetX: 0,
@@ -1759,7 +1759,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return  val + " K"
+                                         return  val 
                                      }
                                  }
                              },
@@ -1807,7 +1807,7 @@
                              },
                              yaxis: {
                                  title: {
-                                     text: 'Comparision (In Lac)'
+                                     text: 'Comparision Chart'
                                  }
                              },
                              fill: {
@@ -1816,7 +1816,7 @@
                              tooltip: {
                                  y: {
                                      formatter: function (val) {
-                                         return   val + " Lac"
+                                         return   val 
                                      }
                                  }
                              }

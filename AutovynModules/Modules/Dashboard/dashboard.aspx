@@ -1020,9 +1020,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             stroke: {
-                                 curve: 'straight'
-                             },
+                             //stroke: {
+                             //    curve: 'straight'
+                             //},
 
                              title: {
                                  text: 'April Month (In Thousand)',
