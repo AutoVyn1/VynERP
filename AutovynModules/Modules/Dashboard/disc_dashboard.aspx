@@ -86,15 +86,15 @@
             border-radius:6px;
             color:#fff;
         }
-
          .status-section{
-            background-color: aliceblue;
+            /*background-color: aliceblue;*/
             margin: 20px 10px;
-            border-radius:10px;
+           /* border-radius:10px;
             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
+            box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);*/
         }
+
 
         .sub-head{
             padding: 7px 0;
