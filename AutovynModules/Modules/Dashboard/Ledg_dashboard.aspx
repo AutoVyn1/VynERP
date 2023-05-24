@@ -1019,9 +1019,9 @@
 							 dataLabels: {
 								 enabled: false
 							 },
-							 stroke: {
-								 curve: 'straight'
-							 },
+							 //stroke: {
+								// curve: 'straight'
+							 //},
 
 							 title: {
 								 text: 'April Month (In Thousand)',
@@ -1249,9 +1249,9 @@
 							 dataLabels: {
 								 enabled: false
 							 },
-							 stroke: {
-								 curve: 'straight'
-							 },
+							 //stroke: {
+								// curve: 'straight'
+							 //},
 
 							 title: {
 								 text: '' + quarter + ' (In Lakh)',
@@ -1388,9 +1388,9 @@
 							 dataLabels: {
 								 enabled: false
 							 },
-							 stroke: {
-								 curve: 'straight'
-							 },
+							 //stroke: {
+								// curve: 'straight'
+							 //},
 
 							 title: {
 								 text: '' + quarter + ' (In Thousand)',
@@ -1717,9 +1717,9 @@
 							 dataLabels: {
 								 enabled: false
 							 },
-							 stroke: {
-								 curve: 'straight'
-							 },
+							 //stroke: {
+								// curve: 'straight'
+							 //},
 
 							 title: {
 								 text: 'April Month (In Thousand)',

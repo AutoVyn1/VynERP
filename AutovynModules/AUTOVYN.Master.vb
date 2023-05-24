@@ -165,12 +165,12 @@
                     End If
 
 
-                    If menu_list.Contains("6.3") Then
-                        HyperLink20.Enabled = True
-                    Else
-                        HyperLink20.Enabled = False
-                        HyperLink20.Style.Add("cursor", "not-allowed")
-                    End If
+                    'If menu_list.Contains("6.3") Then
+                    '    HyperLink20.Enabled = True
+                    'Else
+                    '    HyperLink20.Enabled = False
+                    '    HyperLink20.Style.Add("cursor", "not-allowed")
+                    'End If
 
 
                     If menu_list.Contains("6.4") Then
@@ -191,8 +191,8 @@
                     HyperLink1.Style.Add("cursor", "not-allowed")
                     HyperLink5.Enabled = False
                     HyperLink5.Style.Add("cursor", "not-allowed")
-                    HyperLink20.Enabled = False
-                    HyperLink20.Style.Add("cursor", "not-allowed")
+                    'HyperLink20.Enabled = False
+                    'HyperLink20.Style.Add("cursor", "not-allowed")
                     HyperLink4.Enabled = False
                     HyperLink4.Style.Add("cursor", "not-allowed")
                     HyperLink3.Enabled = False

@@ -1017,9 +1017,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             stroke: {
-                                 curve: 'straight'
-                             },
+                             //stroke: {
+                             //    curve: 'straight'
+                             //},
 
                              title: {
                                  text: 'April Chart',
@@ -1247,9 +1247,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             stroke: {
-                                 curve: 'straight'
-                             },
+                             //stroke: {
+                             //    curve: 'straight'
+                             //},
 
                              title: {
                                  text: '' + quarter+'',
@@ -1386,9 +1386,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             stroke: {
-                                 curve: 'straight'
-                             },
+                             //stroke: {
+                             //    curve: 'straight'
+                             //},
 
                              title: {
                                  text: '' + quarter +'',
@@ -1715,9 +1715,9 @@
                              dataLabels: {
                                  enabled: false
                              },
-                             stroke: {
-                                 curve: 'straight'
-                             },
+                             //stroke: {
+                             //    curve: 'straight'
+                             //},
 
                              title: {
                                  text: 'April Chart',

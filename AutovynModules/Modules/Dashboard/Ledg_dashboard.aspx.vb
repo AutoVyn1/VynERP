@@ -253,15 +253,10 @@ Public Class Ledg_dashboard
             grp_name.DataTextField = "Ledg_Name"
             grp_name.DataValueField = "Ledg_code"
             grp_name.DataBind()
+
         Catch ex As Exception
 
         End Try
     End Sub
-
-
-
-
-
-
 
 End Class

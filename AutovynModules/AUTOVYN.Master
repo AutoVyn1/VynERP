@@ -282,9 +282,7 @@
                                 <li>
                                      <asp:HyperLink ID="HyperLink5" runat="server" Text="Demo Car Fuel Voucher" NavigateUrl="~/AutovynModules/Modules/FuleManagement/Demo_Car_FUEL.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
                                 </li>
-                                 <li>
-                                     <asp:HyperLink ID="HyperLink20" runat="server" Text="testing function" NavigateUrl="~/AutovynModules/Modules/FuleManagement/testingdate.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
-                                </li>
+                                
 
                                 <li>
                                      <asp:HyperLink ID="HyperLink4" runat="server" Text="New Car Voucher  Summary" NavigateUrl="~/AutovynModules/Modules/FuleManagement/NewCar_summaray.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
