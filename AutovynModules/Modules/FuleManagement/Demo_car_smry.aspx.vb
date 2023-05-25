@@ -9,7 +9,7 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         con = New Connection
         Try
-            calltable = "select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,loc_from,loc_to,print_date from fuel_predict where tran_type='2' order by seq"
+            calltable = "select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_from) AS loc_from,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_to) loc_to,print_date from fuel_predict where tran_type='2' order by seq"
             dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")
 
 
@@ -23,7 +23,7 @@
     End Sub
 
     Private Sub valueSearch(value As String)
-        dt = con.ReturnDtTable("select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,loc_from,loc_to,print_date from fuel_predict where concat(dms_inv_no, enq_cust_name) Like '%" & value & "%' order by seq")
+        dt = con.ReturnDtTable("select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_from) AS loc_from,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_to) loc_to,print_date from fuel_predict where concat(dms_inv_no, enq_cust_name) Like '%" & value & "%' order by seq")
         gv_Employees.DataSource = dt
         gv_Employees.DataBind()
     End Sub

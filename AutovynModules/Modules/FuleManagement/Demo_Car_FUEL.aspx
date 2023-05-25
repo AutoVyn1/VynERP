@@ -1,22 +1,11 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="Demo_Car_FUEL.aspx.vb" Inherits="AutovynERP.Demo_Car_FUEL" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   <%-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <%-- google font--%>
-   <%-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />--%>
-    <%-- animation --%>
-<%--    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>--%>--%>
-
-   <%-- <%-- autocomplete --%>
-    <%--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+   <%-- autocomplete --%>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>--%>
-    <%-- autocomplete --%>--%>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <%-- autocomplete --%>
 
     <%-- select2 --%>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -42,7 +31,7 @@
             text-transform: uppercase;
         }
         .margin-top{
-            margin-top:50px;
+            margin-top:73px;
         }
 
         .ui-autocomplete {
@@ -155,20 +144,20 @@
 
                     <asp:Label ID="Label12" CssClass="col-md-2 col-form-label " runat="server" Text="Label">Seq No.</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="seq_no" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="seq_no" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
 
                     <asp:Label ID="Label108" CssClass="col-md-2 col-form-label  " runat="server" Text="Label">Branch Name</asp:Label>
                     <div class="col-md-2 ">
-                        <asp:TextBox ID="branch_name" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="branch_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="branch_code" runat="server" />
                         <asp:HiddenField ID="loc_code" runat="server" />
                     </div>
 
                     <asp:Label ID="Label9" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Model Name</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="modl_name" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="modl_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="modl_code" runat="server" />
 
                     </div>
@@ -189,12 +178,12 @@
 
                     <asp:Label ID="Label38" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Km driven </asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="km_driven" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="km_driven" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label4" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Average</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="km_avg" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="km_avg" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="dse_code" runat="server" />
 
                     </div>
@@ -210,13 +199,13 @@
 
                     <asp:Label ID="Label5" CssClass="col-md-2 col-form-label " runat="server" Text="Label">Chassis no.</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="Chas_no" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="Chas_no" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
 
                     <asp:Label ID="Label7" CssClass="col-md-2 col-form-label  " runat="server" Text="Label">Engine No.</asp:Label>
                     <div class="col-md-2 ">
-                        <asp:TextBox ID="engn_no" CssClass="form-control disable" ReadOnly="true" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="engn_no" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="HiddenField3" runat="server" />
                         <asp:HiddenField ID="HiddenField4" runat="server" />
                     </div>
@@ -231,15 +220,15 @@
 
                     <asp:Label ID="Label1" CssClass="col-md-2 col-form-label " runat="server" Text="Label">From</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="loc_fr" CssClass="form-control " runat="server"></asp:TextBox>
+                         <asp:DropDownList ID="loc_fr" CssClass="form-control" runat="server">
+                        </asp:DropDownList>
                     </div>
 
 
                     <asp:Label ID="Label2" CssClass="col-md-2 col-form-label  " runat="server" Text="Label">To</asp:Label>
                     <div class="col-md-2 ">
-                        <asp:TextBox ID="loc_to" CssClass="form-control " runat="server"></asp:TextBox>
-                        <asp:HiddenField ID="HiddenField1" runat="server" />
-                        <asp:HiddenField ID="HiddenField2" runat="server" />
+                        <asp:DropDownList ID="loc_to" CssClass="form-control" runat="server">
+                        </asp:DropDownList>
                     </div>
 
                     <asp:Label ID="Label10" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Type Of fuel</asp:Label>
@@ -343,31 +332,31 @@
 
 
 
-    <script>
-        $(document).ready(function () {
-            // Add event listener to the reset button
-            $("#ContentPlaceHolder1_reset").click(function (event) {
-                event.preventDefault(); // Prevent default behavior of the button
-                Swal.fire({
-                    title: "Are you sure you want to reset the form?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, reset it!"
-                }).then(function (result) {
-                    if (result.isConfirmed) {
-                        const inputs = document.querySelectorAll('.form-control');
-                        inputs.forEach(input => {
-                            input.value = '';
-                        });
-                        
-                    }
-                });
-            });
-        });
+   <script>
+	   $(document).ready(function () {
+		   // Add event listener to the reset button
+		   $("#ContentPlaceHolder1_reset").click(function (event) {
+			   event.preventDefault(); // Prevent default behavior of the button
+			   Swal.fire({
+				   title: "Are you sure you want to reset the form?",
+				   icon: "warning",
+				   showCancelButton: true,
+				   confirmButtonColor: "#3085d6",
+				   cancelButtonColor: "#d33",
+				   confirmButtonText: "Yes, reset it!"
+			   }).then(function (result) {
+				   if (result.isConfirmed) {
+					   const inputs = document.querySelectorAll('.form-control');
+					   inputs.forEach(input => {
+						   input.value = '';
+					   });
 
-    </script>
+				   }
+			   });
+		   });
+	   });
+
+   </script>
 
 
 

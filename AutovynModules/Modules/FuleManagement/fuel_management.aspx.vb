@@ -91,10 +91,13 @@ Public Class fuel_management
         Else
                 Dim print_date As String = DateTime.Now.ToString()
             Dim user_name As String = Session("user_name")
-            con.TSql("INSERT INTO fuel_predict (seq,print_date,tran_type,user_name, branch_name, gatepass_no, del_date, cust_name, fuel_type, dse_name,dms_inv_no,form_date, gatepass_date, model_name, qty, slip_to, remark) VALUES ('" + seq_no.Text + "','" + print_date + "','1','" + user_name + "','" + branch_code.Value + "','" + gp_no.Text + "','" + del_date.Text + "','" + cust_name.Text + "','" + fuel_type.Text + "','" + dse_code.Value + "','" + dms_inv.Text + "','" + date_time_now.Text + "','" + gp_date_new.Text + "','" + modl_code.Value + "','" + fuel_qty.SelectedValue + "','" + slip_to.Text + "','" + remark.Text + "')")
-            Session("fuel_inv") = seq_no.Text
-            Response.Redirect("Print_Slip.aspx")
-
+            If seq_no.ReadOnly = True Then
+                con.TSql("INSERT INTO fuel_predict (seq,print_date,tran_type,user_name, branch_name, gatepass_no, del_date, cust_name, fuel_type, dse_name,dms_inv_no,form_date, gatepass_date, model_name, qty, slip_to, remark) VALUES ('" + seq_no.Text + "','" + print_date + "','1','" + user_name + "','" + branch_code.Value + "','" + gp_no.Text + "','" + del_date.Text + "','" + cust_name.Text + "','" + fuel_type.Text + "','" + dse_code.Value + "','" + dms_inv.Text + "','" + date_time_now.Text + "','" + gp_date_new.Text + "','" + modl_code.Value + "','" + fuel_qty.SelectedValue + "','" + slip_to.Text + "','" + remark.Text + "')")
+                Session("fuel_inv") = seq_no.Text
+                Response.Redirect("Print_Slip.aspx")
+            Else
+                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Don't enter the details manually', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+            End If
         End If
 
     End Sub
@@ -132,19 +135,39 @@ Public Class fuel_management
             Next
 
             gp_no.Text = dt1.Rows(0)("GP_Seq").ToString
+            gp_no.ReadOnly = True
+
             gp_date_new.Text = dt1.Rows(0)("gp_datetime_formatted").ToString
+            gp_date_new.ReadOnly = True
             ' Check if the delivery date is not empty
             cust_name.Text = dt1.Rows(0)("cust_name").ToString
+            cust_name.ReadOnly = True
+
             modl_name.Text = dt1.Rows(0)("modl_name").ToString
+            modl_name.ReadOnly = True
+
             dse_name.Text = dt1.Rows(0)("dse_name").ToString
+            dse_name.ReadOnly = True
+
             branch_name.Text = dt1.Rows(0)("Godw_Name").ToString
+            branch_name.ReadOnly = True
+
             seq_no.Text = dt1.Rows(0)("seq").ToString
+            seq_no.ReadOnly = True
+
             fuel_type.Text = dt1.Rows(0)("FUEL_TYPE").ToString
+            fuel_type.ReadOnly = True
+
             branch_code.Value = dt1.Rows(0)("Loc_Code").ToString
+
             dse_code.Value = dt1.Rows(0)("ERP_DSE").ToString
+
             modl_code.Value = dt1.Rows(0)("Modl_Code").ToString
+
             If Not String.IsNullOrEmpty(dt1.Rows(0)("delv_date_formatted").ToString()) Then
                 del_date.Text = dt1.Rows(0)("delv_date_formatted").ToString()
+                del_date.ReadOnly = True
+
             Else
                 ' Show alert message if delivery date is empty
 
