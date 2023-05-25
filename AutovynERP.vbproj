@@ -232,6 +232,7 @@
     <Content Include="AutovynModules\DefaultPage\DefaultPage.aspx" />
     <Content Include="AutovynModules\ICM\DSE_Checklist.aspx" />
     <Content Include="AutovynModules\ICM\Pending_List.aspx" />
+    <Content Include="AutovynModules\Media\bill_back.jpg" />
     <Content Include="AutovynModules\Media\Branch_Icon.png" />
     <Content Include="AutovynModules\Media\cloud-computing.png" />
     <Content Include="AutovynModules\Media\DefaultAutovyn.png" />

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="Print_Slip.aspx.vb" Inherits="AutovynERP.Print_Slip" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <%--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>--%>
     <style>
 
       *{
@@ -20,8 +20,10 @@
       .col-md-2{
           background-color:#e9ebea;
       }
+      
 page {
-  background: white;
+  /*background: white;*/
+   background-image: url('../../Media/bill_back.jpg');
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
@@ -214,6 +216,7 @@ page[size="A5"][layout="landscape"] {
             <asp:Label ID="dms_inv" CssClass="col-md-2  " runat="server" Text="Label">DMS Inv No.</asp:Label>
                                 <div class="col-md-8 disable">
                                     <asp:TextBox ID="dmsno" CssClass="disable " ReadOnly="true" runat="server"></asp:TextBox>
+                                    
                                 </div>
                                 </div>
 
