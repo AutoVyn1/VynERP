@@ -7,16 +7,20 @@ Imports System.IO
         Private con
         Private dt As New DataTable
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        con = New Connection
-        Try
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+            con = New Connection
+            Try
             If Not IsPostBack Then
+                Year_From.Text = "2022"
+                Year_To.Text = "2023"
+                grp_name.SelectedValue = "Cons_Disc"
 
             End If
         Catch ex As Exception
 
         End Try
 
+    End Sub
 
     End Sub
 
@@ -86,9 +90,7 @@ Imports System.IO
         End Function
 
 
-
-
-        <WebMethod()>
+    <WebMethod()>
         Public Shared Function GetChartData_branch(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
             Dim con As New Connection

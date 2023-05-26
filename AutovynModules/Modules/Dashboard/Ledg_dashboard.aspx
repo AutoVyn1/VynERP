@@ -662,6 +662,13 @@
 		});
 	</script>
 
+	  <script>
+          $("document").ready(function () {
+
+              $('#Load_Location').trigger('click');
+          });
+      </script>
+
         <script>
 			VirtualSelect.init({
 				ele: '#ContentPlaceHolder1_grp_name',
