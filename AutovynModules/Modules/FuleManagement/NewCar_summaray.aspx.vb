@@ -12,25 +12,30 @@ Public Class NewCar_summaray
     Private inv As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        con = New Connection
-        Try
-            calltable = "select seq,dms_inv_no,cust_name,fuel_type,qty,slip_to,del_date,print_date from fuel_predict where tran_type='1' order by seq"
-            dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")
-            '' Bind the data to the chart
-            'Chart1.DataSource = dt1
-            'Chart1.Series("Default").XValueMember = "seq"
-            'Chart1.Series("Default").YValueMembers = "quantity"
-            'Chart1.DataBind()
+        If Session("user_name") = "" Then
+            ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Please Login first', text: '', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
+        Else
+            con = New Connection
 
-            dt = con.ReturnDtTable(calltable)
-            gv_Employees.DataSource = dt
-            gv_Employees.DataBind()
+            Try
+                calltable = "select seq,dms_inv_no,cust_name,fuel_type,qty,slip_to,del_date,print_date from fuel_predict where tran_type='1' order by seq"
+                dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")
+                '' Bind the data to the chart
+                'Chart1.DataSource = dt1
+                'Chart1.Series("Default").XValueMember = "seq"
+                'Chart1.Series("Default").YValueMembers = "quantity"
+                'Chart1.DataBind()
+
+                dt = con.ReturnDtTable(calltable)
+                gv_Employees.DataSource = dt
+                gv_Employees.DataBind()
 
 
 
-        Catch ex As Exception
+            Catch ex As Exception
 
-        End Try
+            End Try
+        End If
     End Sub
 
     <WebMethod()>

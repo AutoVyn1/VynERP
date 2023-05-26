@@ -116,9 +116,9 @@
 							 </Columns>
                              
                             <AlternatingRowStyle BackColor="White" />
-                            <HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" />
-                            <HeaderStyle CssClass="vyn-grid-header" />
-						<RowStyle CssClass="vyn-grid-row" />
+							 <HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" />
+							 <HeaderStyle CssClass="vyn-grid-header" />
+							 <RowStyle CssClass="vyn-grid-row" />
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" Width="100%" />
                             <PagerSettings FirstPageText="1" LastPageText="last" NextPageText="next" PreviousPageText="previous" />

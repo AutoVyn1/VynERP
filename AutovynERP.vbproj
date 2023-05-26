@@ -249,6 +249,7 @@
     <Content Include="AutovynModules\Modules\Dashboard\dashboard.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\disc_dashboard.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\Ledg_dashboard.aspx" />
+    <Content Include="AutovynModules\Modules\Dashboard\Other_sales.aspx" />
     <Content Include="AutovynModules\Modules\DSE\BankAPI.aspx" />
     <Content Include="AutovynModules\Modules\Finance\FinanceForm.aspx" />
     <Content Include="AutovynModules\Modules\Finance\FinanceSummary.aspx" />
@@ -488,6 +489,13 @@
     </Compile>
     <Compile Include="AutovynModules\Modules\Dashboard\Ledg_dashboard.aspx.vb">
       <DependentUpon>Ledg_dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\Other_sales.aspx.designer.vb">
+      <DependentUpon>Other_sales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\Other_sales.aspx.vb">
+      <DependentUpon>Other_sales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AutovynModules\Modules\DSE\BankAPI.aspx.designer.vb">

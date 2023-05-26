@@ -8,17 +8,21 @@ Public Class Demo_Car_FUEL
     Private dt As New DataTable
     Public jsonString As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        con = New Connection
-        If Not IsPostBack Then
-            'If Session("user_name") = "" Then
-            '    Response.Redirect("../../../Default.aspx")
-            'End If
-            date_time_now.Text = Date.Now.ToString("dd-MM-yyyy")
-            date_time_now.Enabled = False
-            loc_code.Value = Session("branchcode")
-            Branch_list()
-        End If
+        If Session("user_name") = "" Then
+            ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Please Login first', text: '', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
+        Else
+            con = New Connection
 
+            If Not IsPostBack Then
+                'If Session("user_name") = "" Then
+                '    Response.Redirect("../../../Default.aspx")
+                'End If
+                date_time_now.Text = Date.Now.ToString("dd-MM-yyyy")
+                date_time_now.Enabled = False
+                loc_code.Value = Session("branchcode")
+                Branch_list()
+            End If
+        End If
 
     End Sub
 

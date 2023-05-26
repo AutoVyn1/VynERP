@@ -966,7 +966,9 @@
 				// Do any other actions you want to do when the Enter key is pressed
 				// For example, you could call a function to validate the form data here
 
-				// Focus on the submit button to indicate that it is disabled
+				// Focus on the submit button to indicate that it isif the data has been disable then we have to create a separate code that is ery useful when we create any new request regarding to our new databse system oin our databse ssiyemtm there are several things that is keep in minded beffore foun to the further process ith system the sytem that is very important while we  c disabled
+				
+
 				submitBtn.focus();
 			}
 		});

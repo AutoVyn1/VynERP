@@ -7,19 +7,24 @@
     Private inv As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        con = New Connection
-        Try
-            calltable = "select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_from) AS loc_from,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_to) loc_to,print_date from fuel_predict where tran_type='2' order by seq"
-            dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")
+        If Session("user_name") = "" Then
+            ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Please Login first', text: '', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
+        Else
+            con = New Connection
+
+            Try
+                calltable = "select seq,reg_no,enq_cust_name,fuel_type,qty,driv_name,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_from) AS loc_from,(SELECT Godw_Name FROM Godown_Mst WHERE Godw_Code = fuel_predict.loc_to) loc_to,print_date from fuel_predict where tran_type='2' order by seq"
+                dt1 = con.ReturnDtTable("select seq,SUM(qty) as quantity from fuel_predict group by seq")
 
 
-            dt = con.ReturnDtTable(calltable)
-            gv_Employees.DataSource = dt
-            gv_Employees.DataBind()
+                dt = con.ReturnDtTable(calltable)
+                gv_Employees.DataSource = dt
+                gv_Employees.DataBind()
 
-        Catch ex As Exception
+            Catch ex As Exception
 
-        End Try
+            End Try
+        End If
     End Sub
 
     Private Sub valueSearch(value As String)

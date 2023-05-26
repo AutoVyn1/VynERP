@@ -204,7 +204,7 @@
 
 								<asp:Label ID="Label4" CssClass="col-lg-2 col-form-label" runat="server" Text="Vehicle Number"></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="VehicleNo" CssClass="form-control" runat="server"></asp:TextBox>
+									<asp:TextBox ID="VehicleNo" CssClass="form-control" oninput="validateVehicleNo()" runat="server"></asp:TextBox>
 								</div>
 							</div>
 							<!-- row -->
@@ -229,7 +229,7 @@
 						<!-- row -->
 						<div class="row buttons mt-3">
 							<div class="col-lg-12">
-								<asp:Button class="bottombuttons" ID="Submit" runat="server" Text="Submit" />
+								<asp:Button class="bottombuttons" ID="Submit" OnClientClick="return validateDropDown();" runat="server" Text="Submit" />
 							</div>
 						</div>
 
@@ -363,6 +363,120 @@
 			showOptionsOnlyOnSearch: true
 		});
     </script>
+
+	<%-- For input Validation  --%>
+    <script type="text/javascript">
+		function validateDropDown() {
+			var custname = document.getElementById('ContentPlaceHolder1_CustName');
+			var email = document.getElementById('ContentPlaceHolder1_CustEmail');
+			var address = document.getElementById('ContentPlaceHolder1_CustAddress');
+			var location = document.getElementById('ContentPlaceHolder1_location');
+			var mobile = document.getElementById('ContentPlaceHolder1_CustMobile');
+			var vehi_no = document.getElementById('ContentPlaceHolder1_VehicleNo');
+			var dse = document.getElementById('ContentPlaceHolder1_DSE_Name');
+			var isnurance = document.getElementById('ContentPlaceHolder1_InsuranceAmt');
+
+			if (mobile.value.length < 10) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please Enter 10 digit number',
+					text: '',
+				}).then(function () {
+					custname.focus();
+				});
+				return false;
+			}
+
+			if (custname.value.length < 3) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please Enter a valid customer name',
+					text: '',
+				}).then(function () {
+					custname.focus();
+				});
+				return false;
+			}
+			if (email.value.length <10) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please Enter valid email',
+					text: '',
+				}).then(function () {
+					custname.focus();
+				});
+				return false;
+			}
+
+			if (address.value.length < 3) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please the adress',
+					text: '',
+				}).then(function () {
+					custname.focus();
+				});
+				return false;
+			}
+
+			if (location.value.length < 3) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please enter the location',
+				});
+				return false;
+			}
+
+			if (vehi_no.value.length < 10 || vehi_no.value.length > 12  ) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please enter valid vehicle no.',
+				});
+				return false;
+			}
+
+			if (dse.value == '0') {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please select DSE',
+				});
+				return false;
+			}
+
+			if (isnurance.value.length < 3) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Please enter insurance amount',
+				});
+				return false;
+			}
+			return true;
+		}
+	</script>
+    <%-- For input Validation  --%>
+
+	<script>
+		function validateVehicleNo() {
+			var vehicleNo = document.getElementById('VehicleNo').value;
+
+			// Validate length
+			if (vehicleNo.length !== 10) {
+				document.getElementById('VehicleNo').setCustomValidity('Please enter a 10-character vehicle number.');
+			} else {
+				document.getElementById('VehicleNo').setCustomValidity('');
+			}
+
+			// Validate format
+			var regex = /^[A-Za-z]{2}\d{2}[A-Za-z]{2}\d{4}$/;
+			if (!regex.test(vehicleNo)) {
+				document.getElementById('VehicleNo').setCustomValidity('Please enter a vehicle number in the format: AA11AA1111');
+			} else {
+				document.getElementById('VehicleNo').setCustomValidity('');
+			}
+		}
+
+
+	</script>
 
 	
 </asp:Content>
