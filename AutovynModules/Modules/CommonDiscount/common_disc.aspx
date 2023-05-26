@@ -181,7 +181,7 @@
 
 								<asp:Label ID="Label2" CssClass="col-lg-2 col-form-label" runat="server" Text="">Mobile<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="cust_mobile" CssClass="form-control" runat="server"></asp:TextBox>
+									<asp:TextBox ID="cust_mobile" CssClass="form-control"  runat="server"></asp:TextBox>
 								</div>
 							</div>
 							<!-- row -->
@@ -191,12 +191,12 @@
 							<div class="row m-auto g-2">
 								<asp:Label ID="Label1" CssClass="col-lg-2 col-form-label" runat="server" Text="">Veh. no.<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="VehicleNo" CssClass="form-control" runat="server"></asp:TextBox>
+									<asp:TextBox ID="VehicleNo" CssClass="form-control" placeholder="AA 00 AA 0000" runat="server"></asp:TextBox>
 								</div>
 
 								<asp:Label ID="Label6" CssClass="col-lg-2 col-form-label" runat="server" Text="">Pan No.<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="pan_no" CssClass="form-control" runat="server"></asp:TextBox>
+									<asp:TextBox ID="pan_no" CssClass="form-control" placeholder="AAAAA9999A" title="Enter Valid Pan Number E.g. AAAAA9999A " runat="server"></asp:TextBox>
 								</div>
 							</div>
 							<!-- row -->
@@ -436,6 +436,8 @@
             if ((charCode > 31 && charCode < 48) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97) || charCode > 122) {
                 event.preventDefault();
 			}
+
+
             var value = document.getElementById("ContentPlaceHolder1_pan_no").value;
             if (value.length >= 10) {
                 event.preventDefault();

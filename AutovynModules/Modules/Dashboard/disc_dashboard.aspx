@@ -1,22 +1,19 @@
-﻿
-<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="disc_dashboard.aspx.vb"  Inherits="AutovynERP.disc_dashboard" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="disc_dashboard.aspx.vb"  Inherits="AutovynERP.disc_dashboard" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../../JS/ListSelect/virtual-select.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;/*
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /*
             scrollbar-width: thin;
             scrollbar-color: #397524 #DFE9EB;*/
         }
@@ -53,21 +50,20 @@
                     background-color: #62A34B;
                 }
 
-        .main-section{
-            margin-top:60px;
-            margin-bottom:60px;
+        .main-section {
+            margin-top: 60px;
+            margin-bottom: 60px;
         }
 
 
         .navbar {
-            
         }
 
-        .date-section{
-            background-color:gainsboro;
+        .date-section {
+            background-color: gainsboro;
         }
 
-        .date{
+        .date {
             font-size: 20px;
             font-weight: 700;
         }
@@ -83,48 +79,49 @@
             background-color: cornflowerblue;
             margin: 6px 10px;
             height: 37px;
-            border-radius:6px;
-            color:#fff;
+            border-radius: 6px;
+            color: #fff;
         }
-         .status-section{
+
+        .status-section {
             /*background-color: aliceblue;*/
             margin: 20px 10px;
-           /* border-radius:10px;
+            /* border-radius:10px;
             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);*/
         }
 
 
-        .sub-head{
+        .sub-head {
             padding: 7px 0;
-             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
+            -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
         }
 
-        .status{
+        .status {
             font-size: 18px;
             font-weight: 700;
         }
-        .sub-head{
+
+        .sub-head {
             padding: 7px 0;
-             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
+            -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
         }
-        
-        .loc-sub-head{
+
+        .loc-sub-head {
             padding: 7px 0;
             display: flex;
             justify-content: space-around;
         }
 
 
-        .status{
+        .status {
             font-size: 18px;
             font-weight: 700;
-
         }
 
         .lbl {
@@ -134,359 +131,409 @@
             color: green;
         }
 
-        .loc-box{
-            height:130px;
-            width :100%;
+        .loc-box {
+            height: 130px;
+            width: 100%;
             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
             box-shadow: -2px 6px 15px -11px rgb(0 0 0 / 75%);
             border-radius: 6px;
-            text-align:center;
+            text-align: center;
             margin-right: 0px;
-            font-size:18px;
-            font-weight:700;
+            font-size: 18px;
+            font-weight: 700;
         }
 
         .total {
-            background-color:#a7e2cb;
+            background-color: #a7e2cb;
             height: 59px;
             border-radius: 6px 6px 40px 40px;
             padding-top: 16px;
-            color:#000000;
-            font-size:12px;
-            font-weight:700;
+            color: #000000;
+            font-size: 12px;
+            font-weight: 700;
         }
 
-        .panel{
-            width:16%;
+        .panel {
+            width: 16%;
         }
 
-        .report-grid{
-            height:60vh;
+        .report-grid {
+            height: 60vh;
         }
 
         @media screen and (max-width: 827px) {
-            .panel{
-            width:30%;
+            .panel {
+                width: 30%;
+            }
         }
-        }
-        
+
         @media screen and (max-width: 768px) {
-            .panel{
-            width:30%;
-        }
+            .panel {
+                width: 30%;
+            }
         }
 
         @media screen and (max-width: 480px) {
-        .loc-box {
-            height: 130px;
-            width:100%;
-        }
-        .panel{
-            width:48%;
-        }
+            .loc-box {
+                height: 130px;
+                width: 100%;
+            }
 
-         .view{
-                width:100%;
-                margin-top:10px;
+            .panel {
+                width: 48%;
+            }
+
+            .view {
+                width: 100%;
+                margin-top: 10px;
             }
         }
+
         #Volume_Label {
-            font-size:20px;
-            font-weight:bold;
+            font-size: 20px;
+            font-weight: bold;
         }
+
         h1, h2, h3, h4, h5, h6, strong {
-  font-weight: 600;
-}
+            font-weight: 600;
+        }
 
-.content-area {
- 
-  margin: 0 auto;
-}
+        .content-area {
+            margin: 0 auto;
+        }
 
-#topnav {
-  background: #37474f;
-  height: 60px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 14px;
-}
+        #topnav {
+            background: #37474f;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 14px;
+        }
 
-.admin-menu {
-  color: #fff;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  flex: 0.05 0 0;
-}
+        .admin-menu {
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            flex: 0.05 0 0;
+        }
 
-.logo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex: 1 0 0;
-}
+        .logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex: 1 0 0;
+        }
 
-.logo-t {
-  width: 32px;
-  height: 32px;
-  border: 2px solid #26c6da;
-  text-align: center;
-  line-height: 28px;
-  border-radius: 50%;
-  margin-right: 15px;
-  margin-left: 5px;
-  padding-left: 3px;
-}
+        .logo-t {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #26c6da;
+            text-align: center;
+            line-height: 28px;
+            border-radius: 50%;
+            margin-right: 15px;
+            margin-left: 5px;
+            padding-left: 3px;
+        }
 
-.search-bar {
-  flex: 2 0 0;
-  align-items: center;
-  justify-content: space-between;
-  background: #232e34;
-  overflow: hidden;
-  display: flex;
-  height: 36px;
-  border-radius: 35px;
-  color: rgba(255,255,255,0.5);
-}
+        .search-bar {
+            flex: 2 0 0;
+            align-items: center;
+            justify-content: space-between;
+            background: #232e34;
+            overflow: hidden;
+            display: flex;
+            height: 36px;
+            border-radius: 35px;
+            color: rgba(255,255,255,0.5);
+        }
 
-.search-bar-dropdown {
-  flex: 1 0 0;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 18px;
-  margin-right: 15px;
-  background: #2c393f;
+        .search-bar-dropdown {
+            flex: 1 0 0;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 18px;
+            margin-right: 15px;
+            background: #2c393f;
+        }
 
-}
-.search-bar-input {
-  flex: 2 0 0;
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 18px;
-  line-height: 40px;
-  align-items: center;
-}
+        .search-bar-input {
+            flex: 2 0 0;
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 18px;
+            line-height: 40px;
+            align-items: center;
+        }
 
-.search-bar-input input[type="text"] {
-  width: 100%;
-  background: transparent;
-  border: 0;
-  color: rgba(255,255,255,0.5);
-}
-.search-bar-input input:focus{
-  outline: none;
-}
+            .search-bar-input input[type="text"] {
+                width: 100%;
+                background: transparent;
+                border: 0;
+                color: rgba(255,255,255,0.5);
+            }
 
-.box.banana_map {
-  color: #fff;
-  background: #eff4f7;
-  padding: 0;
-  box-shadow: none;
-}
-.box.banana_map .title {
-  padding-top: 40px;
-  padding-left: 25px;
-  font-size: 16px;
-}
-.box.banana_map .subtitle {
-  font-weight: 700;
-  padding-top: 10px;
-  padding-left: 25px;
-  font-size: 22px;
-}
+            .search-bar-input input:focus {
+                outline: none;
+            }
 
-.box {
-  max-height: 444px;
-}
+        .box.banana_map {
+            color: #fff;
+            background: #eff4f7;
+            padding: 0;
+            box-shadow: none;
+        }
 
-.box .banana {
-  min-height: 404px;
-  background-image: url('img/banana.png');
-  background-size: cover;
-}
-.box .map {
-  min-height: 404px;
-  background-image: url('img/map.png');
-  background-size: cover;
-}
-.box .cog-icon {
-  cursor: pointer;
-  position: absolute;
-  right: 55px;
-  top: 25px;
-  z-index: 10;
-}
+            .box.banana_map .title {
+                padding-top: 40px;
+                padding-left: 25px;
+                font-size: 16px;
+            }
 
-@media screen and (max-width:760px) {
-  #topnav { flex-wrap: wrap; }
-  .admin-menu { flex-basis: 20%; }
-  .logo { justify-content: flex-end; padding-right: 10px; }
-  .logo { flex-basis: 80%; }
-  .topnav-rightmenu, .search-bar { display: none; }
-}
+            .box.banana_map .subtitle {
+                font-weight: 700;
+                padding-top: 10px;
+                padding-left: 25px;
+                font-size: 22px;
+            }
 
-.box {
-  box-shadow: 0px 1px 22px -12px #607D8B;
-  background-color: #fff;
-  padding: 25px 35px 25px 30px;
-}
+        .box {
+            max-height: 444px;
+        }
 
-#monthly-earnings-chart #apexcharts-canvas {
-  position: relative;
-}
-#monthly-earnings-chart #apexcharts-canvas:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 58%;
-  top: 0;
-  bottom: 0;
-  background: #24bdd3;
-  opacity: 0.65;
-}
-#monthly-earnings-chart #apexcharts-title-text {
-  font-weight: 600;
-}
-#monthly-earnings-chart #apexcharts-subtitle-text {
-  font-weight: 700;
-}
-.monthly-earnings-text {
-  position: absolute;
-  left: 70px;
-  top: 187px;
-  color: #fff;
-  z-index: 10;
-}
+            .box .banana {
+                min-height: 404px;
+                background-image: url('img/banana.png');
+                background-size: cover;
+            }
 
-.monthly-earnings-text h6 {
-  font-size: 16px;
-}
-.chart-title h5 {
-  font-size: 18px;
-  color: rgba(51,51,51,1);
-  margin-bottom: 38px;
-}
+            .box .map {
+                min-height: 404px;
+                background-image: url('img/map.png');
+                background-size: cover;
+            }
+
+            .box .cog-icon {
+                cursor: pointer;
+                position: absolute;
+                right: 55px;
+                top: 25px;
+                z-index: 10;
+            }
+
+        @media screen and (max-width:760px) {
+            #topnav {
+                flex-wrap: wrap;
+            }
+
+            .admin-menu {
+                flex-basis: 20%;
+            }
+
+            .logo {
+                justify-content: flex-end;
+                padding-right: 10px;
+            }
+
+            .logo {
+                flex-basis: 80%;
+            }
+
+            .topnav-rightmenu, .search-bar {
+                display: none;
+            }
+        }
+
+        .box {
+            box-shadow: 0px 1px 22px -12px #607D8B;
+            background-color: #fff;
+            padding: 25px 35px 25px 30px;
+        }
+
+        #monthly-earnings-chart #apexcharts-canvas {
+            position: relative;
+        }
+
+            #monthly-earnings-chart #apexcharts-canvas:after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 58%;
+                top: 0;
+                bottom: 0;
+                background: #24bdd3;
+                opacity: 0.65;
+            }
+
+        #monthly-earnings-chart #apexcharts-title-text {
+            font-weight: 600;
+        }
+
+        #monthly-earnings-chart #apexcharts-subtitle-text {
+            font-weight: 700;
+        }
+
+        .monthly-earnings-text {
+            position: absolute;
+            left: 70px;
+            top: 187px;
+            color: #fff;
+            z-index: 10;
+        }
+
+            .monthly-earnings-text h6 {
+                font-size: 16px;
+            }
+
+        .chart-title h5 {
+            font-size: 18px;
+            color: rgba(51,51,51,1);
+            margin-bottom: 38px;
+        }
 
 
-@media screen and (max-width:760px) {
-  .monthly-earnings-text {
-    left: 30px;
-  }
-  .box {
-    padding: 25px 0;
-  }
-}
+        @media screen and (max-width:760px) {
+            .monthly-earnings-text {
+                left: 30px;
+            }
 
-.sparkboxes .box {
-  padding: 3px 0 0 0;
-  position: relative;
-}
+            .box {
+                padding: 25px 0;
+            }
+        }
 
-#spark1, #spark2, #spark3, #spark4 {
-  position: relative;
-  padding-top: 15px;
-}
+        .sparkboxes .box {
+            padding: 3px 0 0 0;
+            position: relative;
+        }
+
+        #spark1, #spark2, #spark3, #spark4 {
+            position: relative;
+            padding-top: 15px;
+        }
 
 
-/* overrides */
-.sparkboxes #apexcharts-subtitle-text { fill: #8799a2 !important; }
+        /* overrides */
+        .sparkboxes #apexcharts-subtitle-text {
+            fill: #8799a2 !important;
+        }
 
-.mb-4 {
-    margin-bottom: 0.5rem!important;
-}
-.mt-5 {
-    margin-top: 0rem!important;
-}
-.row {
-    --mdb-gutter-x: 0.5rem !important;
-}
-.mt-4 {
-    margin-top: 0.5rem!important;
-}
-.spinner-border {
-  display: none;
-}
-.get_data{
-    display: inline-block;
-    background-color: #6464fb;
-    color: white;
-    padding: 4px;
-    border: 1px solid #6464fb;
-    border-radius: 5px;
-    box-shadow: 2px 1px 6px #817c7c;
-}
-.get_data:hover{
-    cursor:pointer;
-}
-.get_data:active{
-        cursor: pointer;
-    background-color: #bebef3;
-    border: 1px solid #bebef3;
-    padding: 1px;
-}
-.center {
-  height: 0vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 17%;
-    position: absolute;
-    margin-left: 39%;
-    z-index: 999;
-}
-.wave {
-  width: 5px;
-  height: 100px;
-  background: linear-gradient(45deg, cyan, #005c47);
-  margin: 10px;
-  animation: wave 1s linear infinite;
-  border-radius: 20px;
-}
-.wave:nth-child(2) {
-  animation-delay: 0.1s;
-}
-.wave:nth-child(3) {
-  animation-delay: 0.2s;
-}
-.wave:nth-child(4) {
-  animation-delay: 0.3s;
-}
-.wave:nth-child(5) {
-  animation-delay: 0.4s;
-}
-.wave:nth-child(6) {
-  animation-delay: 0.5s;
-}
-.wave:nth-child(7) {
-  animation-delay: 0.6s;
-}
-.wave:nth-child(8) {
-  animation-delay: 0.7s;
-}
-.wave:nth-child(9) {
-  animation-delay: 0.8s;
-}
-.wave:nth-child(10) {
-  animation-delay: 0.9s;
-}
+        .mb-4 {
+            margin-bottom: 0.5rem !important;
+        }
 
-@keyframes wave {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-/*.progress{
+        .mt-5 {
+            margin-top: 0rem !important;
+        }
+
+        .row {
+            --mdb-gutter-x: 0.5rem !important;
+        }
+
+        .mt-4 {
+            margin-top: 0.5rem !important;
+        }
+
+        .spinner-border {
+            display: none;
+        }
+
+        .get_data {
+            display: inline-block;
+            background-color: #6464fb;
+            color: white;
+            padding: 4px;
+            border: 1px solid #6464fb;
+            border-radius: 5px;
+            box-shadow: 2px 1px 6px #817c7c;
+        }
+
+            .get_data:hover {
+                cursor: pointer;
+            }
+
+            .get_data:active {
+                cursor: pointer;
+                background-color: #bebef3;
+                border: 1px solid #bebef3;
+                padding: 1px;
+            }
+
+        .center {
+            height: 0vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 17%;
+            position: absolute;
+            margin-left: 39%;
+            z-index: 999;
+        }
+
+        .wave {
+            width: 5px;
+            height: 100px;
+            background: linear-gradient(45deg, cyan, #005c47);
+            margin: 10px;
+            animation: wave 1s linear infinite;
+            border-radius: 20px;
+        }
+
+            .wave:nth-child(2) {
+                animation-delay: 0.1s;
+            }
+
+            .wave:nth-child(3) {
+                animation-delay: 0.2s;
+            }
+
+            .wave:nth-child(4) {
+                animation-delay: 0.3s;
+            }
+
+            .wave:nth-child(5) {
+                animation-delay: 0.4s;
+            }
+
+            .wave:nth-child(6) {
+                animation-delay: 0.5s;
+            }
+
+            .wave:nth-child(7) {
+                animation-delay: 0.6s;
+            }
+
+            .wave:nth-child(8) {
+                animation-delay: 0.7s;
+            }
+
+            .wave:nth-child(9) {
+                animation-delay: 0.8s;
+            }
+
+            .wave:nth-child(10) {
+                animation-delay: 0.9s;
+            }
+
+        @keyframes wave {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(0);
+            }
+        }
+        /*.progress{
     position: relative;
     width: 100%;
 }
@@ -518,7 +565,9 @@
     </style>
  
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <div class="container-fluid main-section">
         <%-- Status Section --%>
         <div class="row status-section">
@@ -546,7 +595,7 @@
                         <asp:DropDownList ID="grp_name" CssClass="form-control" runat="server">
                            <asp:ListItem Value="">--Select type--</asp:ListItem>
                            <asp:ListItem Value="add_disc">Additional Discount</asp:ListItem>
-                           <asp:ListItem Value="cons_disc">Consumer Discount</asp:ListItem>
+                           <asp:ListItem Value="cons_disc" Selected>Consumer Discount</asp:ListItem>
                            <asp:ListItem Value="Exch_disc">Exchange Discount</asp:ListItem>
                            <asp:ListItem Value="Corp_disc">Corporation Discount</asp:ListItem>
                         </asp:DropDownList>
@@ -568,7 +617,7 @@
       <%--          <div class="progress" style="display:none;">
   <div class="color"></div>
 </div>--%>
-                <div class="center" style="display:none;">
+ <div class="center" style="display:none;">
   <div class="wave"></div>
   <div class="wave"></div>
   <div class="wave"></div>
@@ -650,12 +699,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.date.extensions.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.extensions.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/css/inputmask.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 
     <script>
         $(function () {
@@ -664,52 +712,55 @@
         });
     </script>
 
-      
+      <script>
+          $("document").ready(function () {
 
-        	<script>
-                function restrictInput(event) {
-                    var charCode = (event.which) ? event.which : event.keyCode;
-                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                        event.preventDefault();
-                    }
-                    var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+              $('#Load_Location').trigger('click');
+          });
+      </script>
 
-                    if (value.length >= 4) {
-                        event.preventDefault();
-                    }
-                   
-                }
-                function restrictInput1(event) {
-                    var charCode = (event.which) ? event.which : event.keyCode;
-                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                        event.preventDefault();
-                    }
-                    var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
-
-                    if (value2.length >= 4) {
-                        event.preventDefault();
-                    }
-                }
-
-                var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
-                var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
-
-                if (Year_From.addEventListener) {
-                    Year_From.addEventListener("keypress", restrictInput);
-                } else if (Year_From.attachEvent) {
-                    Year_From.attachEvent("onkeypress", restrictInput);
-                }
-
-                if (Year_to.addEventListener) {
-                    Year_to.addEventListener("keypress", restrictInput1);
-                } else if (Year_to.attachEvent) {
-                    Year_to.attachEvent("onkeypress", restrictInput1);
-                }
-            </script>
-
-
-
-        <script>
+    <script>
+         function restrictInput(event) {
+             var charCode = (event.which) ? event.which : event.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                 event.preventDefault();
+             }
+             var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+     
+             if (value.length >= 4) {
+                 event.preventDefault();
+             }
+            
+         }
+         function restrictInput1(event) {
+             var charCode = (event.which) ? event.which : event.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                 event.preventDefault();
+             }
+             var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
+     
+             if (value2.length >= 4) {
+                 event.preventDefault();
+             }
+         }
+     
+         var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
+         var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
+     
+         if (Year_From.addEventListener) {
+             Year_From.addEventListener("keypress", restrictInput);
+         } else if (Year_From.attachEvent) {
+             Year_From.attachEvent("onkeypress", restrictInput);
+         }
+     
+         if (Year_to.addEventListener) {
+             Year_to.addEventListener("keypress", restrictInput1);
+         } else if (Year_to.attachEvent) {
+             Year_to.attachEvent("onkeypress", restrictInput1);
+         }
+    </script>
+   
+    <script>
             function compareDates() {
                 const fromDate = new Date(document.getElementById("ContentPlaceHolder1_Year_From").value);
                 const toDate = new Date(document.getElementById("ContentPlaceHolder1_Year_To").value);
@@ -721,10 +772,9 @@
             }
         </script>
 
+    <script>
 
-         <script>
-
-             function disableScroll() {
+        function disableScroll() {
                  // Get the current page scroll position
                  scrollTop =
                      window.pageYOffset || document.documentElement.scrollTop;
@@ -738,11 +788,11 @@
                      };
              }
 
-             function enableScroll() {
-                 window.onscroll = function () { };
-             }
+        function enableScroll() {
+            window.onscroll = function () { };
+        }
 
-             $("#Load_Location").click(function () {
+        $("#Load_Location").click(function () {
 
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
@@ -1198,7 +1248,7 @@
 
              });
 
-             function myFunction(xValue) {
+        function myFunction(xValue) {
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
@@ -1319,7 +1369,7 @@
                  });
              }
 
-             function myFunction_day(xValue) {
+        function myFunction_day(xValue) {
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
@@ -1458,7 +1508,7 @@
                  });
              }
 
-             function myFunction_branch(xValue) {
+        function myFunction_branch(xValue) {
 
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
@@ -1850,10 +1900,9 @@
                  });
              }
 
-         </script>
-        
-
-        <script>
+    </script>
+       
+    <script>
             Apex.grid = {
                 padding: {
                     right: 0,
@@ -1979,5 +2028,3 @@
         </script>
 
 </asp:Content>
-
-

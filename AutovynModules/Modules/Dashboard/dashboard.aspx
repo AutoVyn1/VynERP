@@ -663,7 +663,12 @@
             inputmask.mask($('[id*=DateLabel]'));
         });
     </script>
+    <script>
+        $("document").ready(function () {
 
+            $('#Load_Location').trigger('click');
+        });
+    </script>
         <script>
             VirtualSelect.init({
                 ele: '#ContentPlaceHolder1_grp_name',
@@ -746,6 +751,13 @@
              function enableScroll() {
                  window.onscroll = function () { };
              }
+
+             //$('#Load_Location').on('click', function (e) {
+
+             //       myFunction(xValue)
+
+             //})
+             
 
              $("#Load_Location").click(function () {
 
