@@ -163,11 +163,11 @@
                                 <li>
                                     <asp:HyperLink ID="Sales_3_2" runat="server" Text="Sales Discount Approval Report" NavigateUrl="~/AutovynModules/Modules/Sales/SalesDiscountApprovalReport.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
                                 </li>
-                              <%--  <li>
-                                    <asp:HyperLink ID="Sales_3_3" runat="server" Text="Workshop Discount" NavigateUrl="~/AutovynModules/Modules/Sales/WorkshopDiscount.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
-                                </li>
+                               <%-- <li>
+                                    <asp:HyperLink ID="Sales_3_3" runat="server" Text="Workshop Discount" NavigateUrl="~/AutovynModules/Modules/Retail/SalesPage.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>--%>
 
-                                <li>
+<%--                                <li>
                                     <asp:HyperLink ID="Sales_3_4" runat="server" Text="Workshop Discount Approval Report" NavigateUrl="~/AutovynModules/Modules/Sales/WorkshopDiscountApprovalReport.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
                                 </li>--%>
                             </ul>

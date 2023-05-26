@@ -15,13 +15,18 @@
     <%-- swet --%>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-         * {
+        *{
             margin:0;
             padding:0;
             font-family: 'Dosis', sans-serif;
             scrollbar-width: thin;
             scrollbar-color: #397524 #DFE9EB;
         }
+
+		body {
+			background-image: url("../../Media/loginbg.svg");
+			font-size: 13px;
+		}
 
         .form-control {
             text-transform: uppercase;
@@ -56,14 +61,26 @@
             }
 
         .section-first {
-            background: rgb(255 251 229);
-            padding: 4px 9px;
-            -webkit-box-shadow: -1px -4px 22px -8px rgb(0 0 0 / 75%);
-            -moz-box-shadow: -1px -4px 22px -8px rgba(0, 0, 0, 0.75);
-            box-shadow: -1px 10px 4px -9px rgb(0 0 0 / 56%);
-            border-radius: 10px;
+            display: flex;
+			justify-content: space-around;
+			flex-direction: column;
+			width: 100%;
+			margin: auto;
+			background: #ffffff91;
+			padding: 18px 9px;
+			-webkit-box-shadow: -1px -4px 22px -8px rgb(0 0 0 / 75%);
+			-moz-box-shadow: -1px -4px 22px -8px rgba(0, 0, 0, 0.75);
+			box-shadow: -1px 10px 4px -9px rgb(0 0 0 / 56%);
+			border-radius: 10px;
         }
 
+        .section-second {
+            display: flex;
+			justify-content: space-around;
+			flex-direction: column;
+			width: 100%;
+			
+        }
 
 
         .disable {
@@ -93,7 +110,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid  margin-top">
         <!--section 1-->
-        <div class="section-first pt-0 ">
+        <div class="section-second pt-0 ">
             <div class="title  mb-0">
                 <span>Fuel Management System(New Car)</span>
             </div>
@@ -127,20 +144,20 @@
 
                     <asp:Label ID="Label12" CssClass="col-md-2 col-form-label " runat="server" Text="Label">Seq No.</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="seq_no" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="seq_no" CssClass="form-control disable"   runat="server"></asp:TextBox>
                     </div>
 
 
                     <asp:Label ID="Label108" CssClass="col-md-2 col-form-label  " runat="server" Text="Label">Branch Name</asp:Label>
                     <div class="col-md-2 ">
-                        <asp:TextBox ID="branch_name" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="branch_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="branch_code" runat="server" />
                         <asp:HiddenField ID="loc_code" runat="server" />
                     </div>
 
                     <asp:Label ID="Label9" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Model Name</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="modl_name" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="modl_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="modl_code" runat="server" />
 
                     </div>
@@ -152,16 +169,16 @@
 
                     <asp:Label ID="Label31" CssClass="col-md-2 col-form-label" runat="server" Text="Label">GatePass No.</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="gp_no" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="gp_no" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
                     <asp:Label ID="Label32" CssClass="col-md-2 col-form-label" runat="server" Text="Label">GatePass Date</asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="gp_date_new" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="gp_date_new" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label38" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Delievry DATE </asp:Label>
                     <div class="col-md-2">
-                        <asp:TextBox ID="del_date" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="del_date" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
                 </div>
@@ -172,14 +189,14 @@
                 <div class="row mb-1">
                     <asp:Label ID="Label8" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Customer Name</asp:Label>
                     <div class="col-md-6">
-                        <asp:TextBox ID="cust_name" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="cust_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label10" CssClass="col-md-2 col-form-label" runat="server" Text="Label">Type Of fuel</asp:Label>
                     <div class="col-md-2">
 
 
-                        <asp:TextBox ID="fuel_type" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="fuel_type" CssClass="form-control disable"  runat="server"></asp:TextBox>
                     </div>
 
 
@@ -189,7 +206,7 @@
                 <div class="row mb-1">
                     <asp:Label ID="Label4" CssClass="col-md-2 col-form-label" runat="server" Text="Label">DSE Name</asp:Label>
                     <div class="col-md-6">
-                        <asp:TextBox ID="dse_name" CssClass="form-control disable" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="dse_name" CssClass="form-control disable"  runat="server"></asp:TextBox>
                         <asp:HiddenField ID="dse_code" runat="server" />
 
                     </div>
@@ -307,7 +324,7 @@
 
 
     <%-- LOAD DATA --%>
-    <script>
+    <%--<script>
         $(document).ready(function () {
             $('#ContentPlaceHolder1_dms_inv').keypress(function (e) {
                 if (e.which == 13) {
@@ -401,7 +418,7 @@
                 }
             });
         });
-    </script>
+    </script>--%>
 
         <script>
             $(document).ready(function () {
@@ -472,7 +489,7 @@
  </script>
 
 
-    <script>
+   <%-- <script>
 
         $(document).ready(function () {
             var timer;
@@ -507,6 +524,6 @@
         });
 
 
-    </script>
+    </script>--%>
 
 </asp:Content>

@@ -16,6 +16,7 @@ Public Class Demo_Car_FUEL
             date_time_now.Text = Date.Now.ToString("dd-MM-yyyy")
             date_time_now.Enabled = False
             loc_code.Value = Session("branchcode")
+            Branch_list()
         End If
 
 
@@ -89,7 +90,7 @@ Public Class Demo_Car_FUEL
         Else
             Dim print_date As String = DateTime.Now.ToString()
             Dim user_name As String = Session("user_name")
-            con.TSql("INSERT INTO fuel_predict (seq,print_date,tran_type,user_name, branch_name,   fuel_type,reg_no,form_date,  model_name, qty, driv_name, remark,chas_no,engine_no,loc_from,loc_to,enq_no,enq_cust_name) VALUES ('" + seq_no.Text + "','" + print_date + "','2','" + user_name + "','" + branch_code.Value + "','" + fuel_type.SelectedItem.ToString() + "','" + dms_inv.Text + "','" + date_time_now.Text + "','" + modl_code.Value + "','" + fuel_qty.SelectedItem.ToString() + "','" + slip_to.Text + "','" + remark.Text + "','" + Chas_no.Text + "','" + engn_no.Text + "','" + loc_fr.Text + "','" + loc_to.Text + "','" + enquery.Text + "','" + cust_name.Text + "')")
+            con.TSql("INSERT INTO fuel_predict (seq,print_date,tran_type,user_name, branch_name,   fuel_type,reg_no,form_date,  model_name, qty, driv_name, remark,chas_no,engine_no,loc_from,loc_to,enq_no,enq_cust_name) VALUES ('" + seq_no.Text + "','" + print_date + "','2','" + user_name + "','" + branch_code.Value + "','" + fuel_type.SelectedItem.ToString() + "','" + dms_inv.Text + "','" + date_time_now.Text + "','" + modl_code.Value + "','" + fuel_qty.SelectedItem.ToString() + "','" + slip_to.Text + "','" + remark.Text + "','" + Chas_no.Text + "','" + engn_no.Text + "','" + loc_fr.SelectedValue + "','" + loc_to.SelectedValue + "','" + enquery.Text + "','" + cust_name.Text + "')")
             Session("fuel_inv") = seq_no.Text
             Response.Redirect("Print_Slip.aspx")
 
@@ -122,16 +123,29 @@ Public Class Demo_Car_FUEL
             Next
 
             km_driven.Text = dt1.Rows(0)("Km_Run").ToString
+            km_driven.ReadOnly = True
+
             km_avg.Text = dt1.Rows(0)("Avj_Km").ToString
+            km_avg.ReadOnly = True
 
             modl_name.Text = dt1.Rows(0)("modl_name").ToString
+            modl_name.ReadOnly = True
+
             branch_name.Text = dt1.Rows(0)("branch").ToString
+            branch_name.ReadOnly = True
+
             branch_code.Value = dt1.Rows(0)("loc_code").ToString
             modl_code.Value = dt1.Rows(0)("Modl_Code").ToString
 
             Chas_no.Text = dt1.Rows(0)("Chas_No").ToString
+            Chas_no.ReadOnly = True
+
             engn_no.Text = dt1.Rows(0)("Eng_No").ToString
+            engn_no.ReadOnly = True
+
             seq_no.Text = dt1.Rows(0)("seq").ToString
+            seq_no.ReadOnly = True
+
 
         Else
             ' Show alert message
@@ -141,5 +155,26 @@ Public Class Demo_Car_FUEL
         End If
 
 
+    End Sub
+
+    Private Sub Branch_list()
+        Try
+            dt = con.ReturnDtTable("Select godw_Name,Godw_Code from Godown_Mst where Export_type<3  order by godw_code")
+            dt.Rows.Add()
+            dt.Rows(dt.Rows.Count - 1)("Godw_Code") = 0
+            dt.Rows(dt.Rows.Count - 1)("godw_Name") = "----Select----"
+            dt = dt.Select("Godw_Code>=0", "Godw_Code").CopyToDataTable
+            loc_fr.DataSource = dt
+            loc_fr.DataTextField = "godw_Name"
+            loc_fr.DataValueField = "Godw_Code"
+            loc_fr.DataBind()
+
+            loc_to.DataSource = dt
+            loc_to.DataTextField = "godw_Name"
+            loc_to.DataValueField = "Godw_Code"
+            loc_to.DataBind()
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

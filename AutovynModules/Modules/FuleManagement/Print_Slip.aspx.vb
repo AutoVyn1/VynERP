@@ -23,7 +23,8 @@
 
             End Try
         ElseIf validator = 2 Then
-            Dim dt As DataTable = con.ReturnDtTable("select * from fuel_predict where seq='" + Session("fuel_inv") + "'")
+            Dim dt As DataTable = con.ReturnDtTable("select (select Godw_Name from Godown_Mst where Godw_Code=fuel_predict.loc_from) as loc_from,
+            (select Godw_Name from Godown_Mst where Godw_Code=fuel_predict.loc_to) as loc_to,* from fuel_predict where seq='" + Session("fuel_inv") + "'")
             dms_inv.Text = "Reg. No."
             deldate1.Text = "From"
             gpno1.Text = "To"

@@ -1,0 +1,58 @@
+﻿
+.my-class td {
+    padding: 0 5px;
+}
+.vyn-grid {
+    border: 1px solid #c9d1c9;
+    background-color: hsla(40deg, 4%, 36%, 0.25);
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .vyn-grid td {
+        padding: 0 5px;
+    }
+
+
+.vyn-grid-header {
+    background-color: #6B696B;
+    color: white;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.vyn-grid-row {
+    background-color: #f5f5f5;
+}
+
+.selected-row {
+    background-color: #336699;
+    color: white;
+    font-weight: bold;
+}
+
+.pager-style {
+    background-color: #999999;
+    color: black;
+    text-align: center;
+}
+
+
+
+/*Used grid Styel*/
+/*
+<asp:GridView ID="Data_Grid" runat="server" Style="top: 0px; border: 1px solid #c9d1c9;  text-align: center; border-collapse: inherit; background-color: hsla(40deg, 4%, 36%, 0.35); position: relative; width: 100%; table-layout: auto;"
+ShowHeaderWhenEmpty="True" CellPadding="3" BackColor="White" RowStyle-CssClass="my-class" CssClass="vyn-grid" PagerStyle-CssClass="myPagerStyle" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellSpacing="1" >
+
+<AlternatingRowStyle BackColor="White" / >
+<HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" / >
+<HeaderStyle CssClass="vyn-grid-header" / >
+<RowStyle CssClass="vyn-grid-row" / >
+<FooterStyle BackColor="#CCCCCC" / >
+<HeaderStyle Font-Bold="True" ForeColor="White" Width="100%" / >
+<PagerSettings FirstPageText="1" LastPageText="last" NextPageText="next" PreviousPageText="previous" / >
+<PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" / >
+
+</asp:GridView >
+/*used grid*/

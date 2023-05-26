@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="InsuranceData.aspx.vb" Inherits="AutovynERP.InsuranceData" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+	<%-- local style for grid--%>
+	<link rel="stylesheet" href="../../CSS/Gridview.css" />
+	<%-- local style --%>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<style>
         
@@ -61,14 +64,7 @@
 	            cursor: pointer;
 	        }
 		
-		.my-class td{
-			padding: 0 5px;
-		}
-
-		
-
-
-
+	
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -110,8 +106,8 @@
 					</div>
 
 					<asp:Panel ID="Panel1" CssClass="grid_panel" ScrollBars="Horizontal" runat="server">
-                         <asp:GridView ID="Data_Grid" runat="server" Style="top: 0px; border: 1px solid #6fd472; text-align: center; border-collapse: inherit; background-color: hsla(40deg, 4%, 36%, 0.35); position: relative; width: 100%; table-layout: auto;"
-                            ShowHeaderWhenEmpty="True" CellPadding="3" BackColor="White" RowStyle-CssClass="my-class" PagerStyle-CssClass="myPagerStyle" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellSpacing="1">
+                         <asp:GridView ID="Data_Grid" runat="server" Style="top: 0px; border: 1px solid #c9d1c9;  text-align: center; border-collapse: inherit; background-color: hsla(40deg, 4%, 36%, 0.35); position: relative; width: 100%; table-layout: auto;"
+                            ShowHeaderWhenEmpty="True" CellPadding="3" BackColor="White" RowStyle-CssClass="my-class" CssClass="vyn-grid" PagerStyle-CssClass="myPagerStyle" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellSpacing="1">
 							 <Columns>
                                  <asp:CommandField ShowSelectButton="True" HeaderText="View Receipt" ButtonType="Image" SelectImageUrl="https://png.pngtree.com/png-clipart/20191027/ourmid/pngtree-view-icon-png-image_1869829.jpg" SelectText="View Receipt">
                                     <ControlStyle Width="20px" />
@@ -121,9 +117,8 @@
                              
                             <AlternatingRowStyle BackColor="White" />
                             <HeaderStyle BackColor="#6B696B" Font-Bold="true" Font-Size="Larger" ForeColor="White" />
-                            <RowStyle BackColor="#f5f5f5" />
-                            <HeaderStyle BackColor="#0C4160" ForeColor="WhiteSmoke" Width="100%" />
-                             
+                            <HeaderStyle CssClass="vyn-grid-header" />
+						<RowStyle CssClass="vyn-grid-row" />
                             <FooterStyle BackColor="#CCCCCC" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" Width="100%" />
                             <PagerSettings FirstPageText="1" LastPageText="last" NextPageText="next" PreviousPageText="previous" />

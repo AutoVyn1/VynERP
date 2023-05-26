@@ -18,9 +18,13 @@ Imports System.IO
             End If
         Catch ex As Exception
 
-            End Try
+        End Try
 
     End Sub
+
+    End Sub
+
+
 
     <WebMethod()>
         Public Shared Function GetChartData(grp_name As String, frm_year As String, to_year As String) As String
