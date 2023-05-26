@@ -228,6 +228,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AutovynModules\CSS\Gridview.css" />
     <Content Include="AutovynModules\DefaultPage\css\defaultpage.css" />
     <Content Include="AutovynModules\DefaultPage\DefaultPage.aspx" />
     <Content Include="AutovynModules\ICM\DSE_Checklist.aspx" />
