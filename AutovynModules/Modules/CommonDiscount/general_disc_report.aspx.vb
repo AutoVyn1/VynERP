@@ -20,7 +20,7 @@
             If appr_status.Text = "" Then
                 ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Please Select Your Report Status', text: '', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
             Else
-                dt = con.ReturnDtTable("select cust_name,cust_mob,veh_reg,disc_type,aprvl_amt,req_by,aprvl_by from disc_web where aprvl_status='" + appr_status.Text + "' and curr_Date between '" & date_form.Text & "' and '" & date_upto.Text & "' ")
+                dt = con.ReturnDtTable("select cust_name,veh_reg,disc_type,aprvl_amt,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS REQ_BY from EMPLOYEEMASTER where req_BY=SRNO) as DSE,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS DSE_NAME from EMPLOYEEMASTER where SRNO=APRVL_BY) as APRVL_BY, CURR_DATE from disc_web where aprvl_status='" + appr_status.Text + "' and curr_Date between '" & date_form.Text & "' and '" & date_upto.Text & "' ")
 
                 'and status='" & appr_status.Text & "'
 
@@ -35,6 +35,23 @@
 
 
         End Try
+    End Sub
+
+    Private Sub gv_Employees_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles sales_Data.RowDataBound
+        If e.Row.RowType = DataControlRowType.Header Then
+            e.Row.Cells(0).Text = "Cust. Name"
+            e.Row.Cells(1).Text = "Vehicle No"
+            e.Row.Cells(2).Text = "Disc Type"
+            e.Row.Cells(3).Text = "Aprvl Amt"
+            e.Row.Cells(4).Text = "DSE"
+            e.Row.Cells(5).Text = "Approver"
+            e.Row.Cells(6).Text = "Date"
+        End If
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Cells(3).HorizontalAlign = HorizontalAlign.Right ' Set the alignment of all data cells to left
+
+        End If
+
     End Sub
 
 End Class

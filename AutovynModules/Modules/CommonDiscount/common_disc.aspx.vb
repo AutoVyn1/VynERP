@@ -418,11 +418,11 @@ Public Class common_disc
 
     Private Sub valueSearch(value As String)
 
-        dt = con.ReturnDtTable("select id,CUST_NAME,VEH_REG,DISC_TYPE,DISC_AMT,REQ_BY,APRVL_BY,CURR_DATE from DISC_WEB where link_status='0' and concat(VEH_REG,CUST_NAME,CUST_MOB) Like '%" & value & "%' ")
+        dt = con.ReturnDtTable("select id,CUST_NAME,VEH_REG,DISC_TYPE,DISC_AMT,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS REQ_BY from EMPLOYEEMASTER where req_BY=SRNO) as DSE,(select CONCAT(EMPFIRSTNAME,' ', EMPLASTNAME) AS DSE_NAME from EMPLOYEEMASTER where SRNO=APRVL_BY) as APRVL_BY,CURR_DATE from DISC_WEB where link_status='0' and concat(VEH_REG,CUST_NAME,CUST_MOB) Like '%" & value & "%' ")
+
         gv_Employees.DataSource = dt
         gv_Employees.DataBind()
     End Sub
-
 
     <WebMethod()>
     Public Shared Function GetChartData(va As String) As String
@@ -435,8 +435,6 @@ Public Class common_disc
 
         ' Convert the DataTable to a JSON string
         Dim json As String = JsonConvert.SerializeObject(TranDt)
-
-
 
         ' Return the JSON string
         Return json

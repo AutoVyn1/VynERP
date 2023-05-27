@@ -29,8 +29,8 @@ Public Class DbPath
             Exit Sub
         End If
         Dim f() As String = System.Environment.GetCommandLineArgs
-        Dim UID As String = "manoj"
-        SQLPWD = "manoj@#5010"
+        Dim UID As String = "aadil"
+        SQLPWD = "aadil@#5010"
         SQLInstance = "103.74.65.22,4650"
         DbName = "OM02DB21"
         LocPath = "Data Source=" & SQLInstance & ";Initial Catalog=" & DbName & ";User ID=" & UID & ";Password=" & SQLPWD & ""

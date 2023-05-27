@@ -7,9 +7,9 @@ Imports System.IO
         Private con
         Private dt As New DataTable
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-            con = New Connection
-            Try
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        con = New Connection
+        Try
             If Not IsPostBack Then
                 Year_From.Text = "2022"
                 Year_To.Text = "2023"
@@ -21,9 +21,6 @@ Imports System.IO
         End Try
 
     End Sub
-
-    End Sub
-
 
 
     <WebMethod()>
