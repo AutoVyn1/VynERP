@@ -242,9 +242,6 @@ Public Class add_user
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("SELECT * FROM user_cloud INNER JOIN rights_cloud ON user_cloud.user_code = rights_cloud.user_code where user_cloud.user_name='" + va + "' and user_cloud.export_type<3 and rights_cloud.export_type<3")
 
-
-
-
         ' Convert the DataTable to a JSON string 
 
         Dim json As String = JsonConvert.SerializeObject(TranDt)
