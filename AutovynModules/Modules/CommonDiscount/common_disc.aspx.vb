@@ -132,7 +132,7 @@ Public Class common_disc
                 MesgBox1("Approved Done Successfully")
                 Whastapp_Linking(id)
 
-                Response.Redirect("DefaultPage.aspx")
+                Response.Redirect("../../DefaultPage/DefaultPage.aspx")
             Else
                 dt = con.ReturnDtTable("select CUST_MOB from DISC_WEB where CUST_MOB='" & cust_mobile.Text & "'")
                 If dt.Rows.Count > 0 Then
