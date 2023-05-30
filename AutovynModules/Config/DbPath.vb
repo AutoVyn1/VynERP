@@ -15,8 +15,8 @@ Public Class DbPath
         Dim MyClientId As String = ""
 
         If Not LoginPage.clientid Is Nothing Then
-            'MyClientId = LoginPage.clientid.Replace(".", "").Trim
             MyClientId = HttpContext.Current.Session("client_id").Replace(".", "").Trim
+
 
         Else
             Exit Sub
