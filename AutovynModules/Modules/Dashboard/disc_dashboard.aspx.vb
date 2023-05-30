@@ -21,9 +21,6 @@ Imports System.Web.Services
 
     End Sub
 
-
-
-
     <WebMethod()>
     Public Shared Function GetChartData(grp_name As String, frm_year As String, to_year As String) As String
 
@@ -31,39 +28,7 @@ Imports System.Web.Services
 
         HttpContext.Current.Session("YourKey") = ""
 
-        Dim disc = ""
-
-        If grp_name = "add_disc" Then
-            disc = "Sum(Adnl_Disc) as discount"
-
-        ElseIf grp_name = "cons_disc" Then
-            disc = "Sum(Cons_Disc) as discount"
-
-        ElseIf grp_name = "Exch_disc" Then
-            disc = "Sum(Exch_Disc) as discount"
-
-        ElseIf grp_name = "Corp_disc" Then
-            disc = "Sum(Corp_Disc) as discount"
-
-        ElseIf grp_name = "MGA_disc" Then
-            disc = "Sum(MGA_Pric) as discount"
-
-        ElseIf grp_name = "Extended_disc" Then
-            disc = "Sum(EW_PolicyAmt) as discount"
-
-        ElseIf grp_name = "CCP_disc" Then
-            disc = "Sum(PPC_Chrgs) as discount"
-
-        ElseIf grp_name = "Insuarance_disc" Then
-            disc = "Sum(MI_PolicyAmt) as discount"
-
-        ElseIf grp_name = "Nexa_disc" Then
-            disc = "Sum(Nexa_Card) as discount"
-
-        ElseIf grp_name = "RTO_disc" Then
-            disc = "Sum(RTO_Pric) as discount"
-
-        End If
+        Dim disc As String = NewMethod(grp_name)
 
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("WITH ordered_data AS ( SELECT DISTINCT ICM_MST.Tran_Id, INV_Date ,Exch_Disc, Corp_Disc, Cons_Disc, MGA_Pric,EW_PolicyAmt,PPC_Chrgs,MI_PolicyAmt,Nexa_Card,RTO_Pric,Adnl_Disc FROM ICM_DTL INNER JOIN ICM_MST ON ICM_MST.Tran_Id = ICM_DTL.Tran_Id WHERE Inv_Date BETWEEN  '04/01/" + frm_year + "' and '03/31/" + to_year + "' AND ICM_MST.EXPORT_TYPE < 3 AND ICM_DTL.EXPORT_TYPE < 3  ) SELECT CONCAT(CAST(YEAR(DATEADD(month, -3, Inv_Date)) AS VARCHAR),'-', CAST(YEAR(DATEADD(month, 9, Inv_Date)) AS VARCHAR) ) AS year, " + disc + " FROM ordered_data GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Inv_Date)) AS VARCHAR),  '-', CAST(YEAR(DATEADD(month, 9, Inv_Date)) AS VARCHAR) ) ORDER BY  year")
@@ -105,6 +70,34 @@ Imports System.Web.Services
         Return jsown
     End Function
 
+    Private Shared Function NewMethod(grp_name As String) As String
+        Dim disc = ""
+
+        Select Case grp_name
+            Case "add_disc"
+                disc = "Sum(Adnl_Disc) as discount"
+            Case "cons_disc"
+                disc = "Sum(Cons_Disc) as discount"
+            Case "Exch_disc"
+                disc = "Sum(Exch_Disc) as discount"
+            Case "Corp_disc"
+                disc = "Sum(Corp_Disc) as discount"
+            Case "MGA_disc"
+                disc = "Sum(MGA_Pric) as discount"
+            Case "Extended_disc"
+                disc = "Sum(EW_PolicyAmt) as discount"
+            Case "CCP_disc"
+                disc = "Sum(PPC_Chrgs) as discount"
+            Case "Insuarance_disc"
+                disc = "Sum(MI_PolicyAmt) as discount"
+            Case "Nexa_disc"
+                disc = "Sum(Nexa_Card) as discount"
+            Case "RTO_disc"
+                disc = "Sum(RTO_Pric) as discount"
+        End Select
+
+        Return disc
+    End Function
 
     <WebMethod()>
     Public Shared Function GetChartData_branch(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
@@ -117,39 +110,7 @@ Imports System.Web.Services
 
         HttpContext.Current.Session("YourKey") = loc_code
 
-        Dim disc = ""
-
-        If grp_name = "add_disc" Then
-            disc = "Sum(Adnl_Disc) as discount"
-
-        ElseIf grp_name = "cons_disc" Then
-            disc = "Sum(Cons_Disc) as discount"
-
-        ElseIf grp_name = "Exch_disc" Then
-            disc = "Sum(Exch_Disc) as discount"
-
-        ElseIf grp_name = "Corp_disc" Then
-            disc = "Sum(Corp_Disc) as discount"
-
-        ElseIf grp_name = "MGA_disc" Then
-            disc = "Sum(MGA_Pric) as discount"
-
-        ElseIf grp_name = "Extended_disc" Then
-            disc = "Sum(EW_PolicyAmt) as discount"
-
-        ElseIf grp_name = "CCP_disc" Then
-            disc = "Sum(PPC_Chrgs) as discount"
-
-        ElseIf grp_name = "Insuarance_disc" Then
-            disc = "Sum(MI_PolicyAmt) as discount"
-
-        ElseIf grp_name = "Nexa_disc" Then
-            disc = "Sum(Nexa_Card) as discount"
-
-        ElseIf grp_name = "RTO_disc" Then
-            disc = "Sum(RTO_Pric) as discount"
-
-        End If
+        Dim disc As String = NewMethod(grp_name)
 
         Dim TranDt As DataTable
         'TranDt = con.ReturnDtTable("SELECT CONCAT(CAST(YEAR(DATEADD(month, -3, Inv_Date)) AS VARCHAR),'-', CAST(YEAR(DATEADD(month, 9, Inv_Date)) AS VARCHAR) ) AS year, " + disc + " FROM ICM_DTL,ICM_MST where ICM_MST.Tran_Id=ICM_DTL.Tran_Id and Inv_Date BETWEEN  '04/01/" + frm_year + "' and '03/31/" + to_year + "' and  ICM_MST.EXPORT_TYPE<3 and ICM_DTL.EXPORT_TYPE<3 and Loc_Code ='" + loc_code + "' GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Inv_Date)) AS VARCHAR),  '-', CAST(YEAR(DATEADD(month, 9, Inv_Date)) AS VARCHAR) )ORDER BY  year")
@@ -196,39 +157,7 @@ Imports System.Web.Services
     <WebMethod()>
     Public Shared Function GetChartData2(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
-        Dim disc = ""
-
-        If grp_name = "add_disc" Then
-            disc = "Sum(Adnl_Disc) as discount"
-
-        ElseIf grp_name = "cons_disc" Then
-            disc = "Sum(Cons_Disc) as discount"
-
-        ElseIf grp_name = "Exch_disc" Then
-            disc = "Sum(Exch_Disc) as discount"
-
-        ElseIf grp_name = "Corp_disc" Then
-            disc = "Sum(Corp_Disc) as discount"
-
-        ElseIf grp_name = "MGA_disc" Then
-            disc = "Sum(MGA_Pric) as discount"
-
-        ElseIf grp_name = "Extended_disc" Then
-            disc = "Sum(EW_PolicyAmt) as discount"
-
-        ElseIf grp_name = "CCP_disc" Then
-            disc = "Sum(PPC_Chrgs) as discount"
-
-        ElseIf grp_name = "Insuarance_disc" Then
-            disc = "Sum(MI_PolicyAmt) as discount"
-
-        ElseIf grp_name = "Nexa_disc" Then
-            disc = "Sum(Nexa_Card) as discount"
-
-        ElseIf grp_name = "RTO_disc" Then
-            disc = "Sum(RTO_Pric) as discount"
-
-        End If
+        Dim disc As String = NewMethod(grp_name)
 
         Dim loc_code = ""
         If HttpContext.Current.Session("YourKey") IsNot "" Then
@@ -242,19 +171,16 @@ Imports System.Web.Services
         Dim con As New Connection
         Dim datew = ""
 
-        If xValue = "Q 4" Then
-            datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
-
-        ElseIf xValue = "Q 1" Then
-            datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
-
-        ElseIf xValue = "Q 2" Then
-            datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
-
-        ElseIf xValue = "Q 3" Then
-            datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
-
-        End If
+        Select Case xValue
+            Case "Q 4"
+                datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
+            Case "Q 1"
+                datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
+            Case "Q 2"
+                datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
+            Case "Q 3"
+                datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
+        End Select
 
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("WITH ordered_data AS ( SELECT DISTINCT ICM_MST.Tran_Id, INV_Date ,Exch_Disc, Corp_Disc, Cons_Disc, MGA_Pric,EW_PolicyAmt,PPC_Chrgs,MI_PolicyAmt,Nexa_Card,RTO_Pric,Adnl_Disc FROM ICM_DTL INNER JOIN ICM_MST ON ICM_MST.Tran_Id = ICM_DTL.Tran_Id WHERE Inv_Date BETWEEN '" + datew + "' " + loc_code + "  AND ICM_MST.EXPORT_TYPE < 3 AND ICM_DTL.EXPORT_TYPE < 3  ) SELECT  LEFT(DATENAME(MONTH, Inv_Date), 3) AS [Month], " + disc + " FROM ordered_data GROUP BY LEFT(DATENAME(MONTH, Inv_Date), 3),year(Inv_Date), MONTH(Inv_Date) ORDER BY year(Inv_Date),MONTH(Inv_Date)")
@@ -274,39 +200,7 @@ Imports System.Web.Services
     <WebMethod()>
     Public Shared Function GetChartData_day(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
-        Dim disc = ""
-
-        If grp_name = "add_disc" Then
-            disc = "Sum(Adnl_Disc) as discount"
-
-        ElseIf grp_name = "cons_disc" Then
-            disc = "Sum(Cons_Disc) as discount"
-
-        ElseIf grp_name = "Exch_disc" Then
-            disc = "Sum(Exch_Disc) as discount"
-
-        ElseIf grp_name = "Corp_disc" Then
-            disc = "Sum(Corp_Disc) as discount"
-
-        ElseIf grp_name = "MGA_disc" Then
-            disc = "Sum(MGA_Pric) as discount"
-
-        ElseIf grp_name = "Extended_disc" Then
-            disc = "Sum(EW_PolicyAmt) as discount"
-
-        ElseIf grp_name = "CCP_disc" Then
-            disc = "Sum(PPC_Chrgs) as discount"
-
-        ElseIf grp_name = "Insuarance_disc" Then
-            disc = "Sum(MI_PolicyAmt) as discount"
-
-        ElseIf grp_name = "Nexa_disc" Then
-            disc = "Sum(Nexa_Card) as discount"
-
-        ElseIf grp_name = "RTO_disc" Then
-            disc = "Sum(RTO_Pric) as discount"
-
-        End If
+        Dim disc As String = NewMethod(grp_name)
 
         Dim loc_code = ""
         If HttpContext.Current.Session("YourKey") IsNot Nothing Then
@@ -320,43 +214,32 @@ Imports System.Web.Services
         Dim con As New Connection
         Dim datew = ""
 
-        If xValue = "Jan" Then
-            datew = "01/01/" + to_year + "' and '01/31/" + to_year + ""
-
-        ElseIf xValue = "Feb" Then
-            datew = "02/01/" + to_year + "' and '02/28/" + to_year + ""
-
-        ElseIf xValue = "Mar" Then
-            datew = "03/01/" + to_year + "' and '03/31/" + to_year + ""
-
-        ElseIf xValue = "Apr" Then
-            datew = "04/01/" + frm_year + "' and '04/30/" + frm_year + ""
-
-        ElseIf xValue = "May" Then
-            datew = "05/01/" + frm_year + "' and '05/31/" + frm_year + ""
-
-        ElseIf xValue = "Jun" Then
-            datew = "06/01/" + frm_year + "' and '06/30/" + frm_year + ""
-
-        ElseIf xValue = "Jul" Then
-            datew = "07/01/" + frm_year + "' and '07/31/" + frm_year + ""
-
-        ElseIf xValue = "Aug" Then
-            datew = "08/01/" + frm_year + "' and '08/31/" + frm_year + ""
-
-        ElseIf xValue = "Sep" Then
-            datew = "09/01/" + frm_year + "' and '09/30/" + frm_year + ""
-
-        ElseIf xValue = "Oct" Then
-            datew = "10/01/" + frm_year + "' and '10/31/" + frm_year + ""
-
-        ElseIf xValue = "Nov" Then
-            datew = "11/01/" + frm_year + "' and '11/30/" + frm_year + ""
-
-        ElseIf xValue = "Dec" Then
-            datew = "12/01/" + frm_year + "' and '12/31/" + frm_year + ""
-
-        End If
+        Select Case xValue
+            Case "Jan"
+                datew = "01/01/" + to_year + "' and '01/31/" + to_year + ""
+            Case "Feb"
+                datew = "02/01/" + to_year + "' and '02/28/" + to_year + ""
+            Case "Mar"
+                datew = "03/01/" + to_year + "' and '03/31/" + to_year + ""
+            Case "Apr"
+                datew = "04/01/" + frm_year + "' and '04/30/" + frm_year + ""
+            Case "May"
+                datew = "05/01/" + frm_year + "' and '05/31/" + frm_year + ""
+            Case "Jun"
+                datew = "06/01/" + frm_year + "' and '06/30/" + frm_year + ""
+            Case "Jul"
+                datew = "07/01/" + frm_year + "' and '07/31/" + frm_year + ""
+            Case "Aug"
+                datew = "08/01/" + frm_year + "' and '08/31/" + frm_year + ""
+            Case "Sep"
+                datew = "09/01/" + frm_year + "' and '09/30/" + frm_year + ""
+            Case "Oct"
+                datew = "10/01/" + frm_year + "' and '10/31/" + frm_year + ""
+            Case "Nov"
+                datew = "11/01/" + frm_year + "' and '11/30/" + frm_year + ""
+            Case "Dec"
+                datew = "12/01/" + frm_year + "' and '12/31/" + frm_year + ""
+        End Select
 
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("WITH ordered_data AS ( SELECT DISTINCT ICM_MST.Tran_Id, INV_Date ,Exch_Disc, Corp_Disc, Cons_Disc, MGA_Pric,EW_PolicyAmt,PPC_Chrgs,MI_PolicyAmt,Nexa_Card,RTO_Pric,Adnl_Disc FROM ICM_DTL INNER JOIN ICM_MST ON ICM_MST.Tran_Id = ICM_DTL.Tran_Id WHERE Inv_Date BETWEEN '" + datew + "' " + loc_code + " AND ICM_MST.EXPORT_TYPE < 3 AND ICM_DTL.EXPORT_TYPE < 3  ) SELECT  'Day '+ cast(day(Inv_Date)AS VARCHAR) as day, " + disc + " FROM ordered_data GROUP BY LEFT(DATENAME(MONTH, Inv_Date), 3),year(Inv_Date), MONTH(Inv_Date),day(Inv_Date) ORDER BY year(Inv_Date), MONTH(Inv_Date),day(Inv_Date)")
@@ -365,10 +248,11 @@ Imports System.Web.Services
            .DataTable1 = TranDt
          }
 
-        'Convert the DataTable to a JSON string
-        Dim jsown As String = JsonConvert.SerializeObject(json)
+            'Convert the DataTable to a JSON string
+            Dim jsown As String = JsonConvert.SerializeObject(json)
 
-        'Return the JSON string
-        Return jsown
-    End Function
+            'Return the JSON string
+            Return jsown
+        End Function
+
 End Class
