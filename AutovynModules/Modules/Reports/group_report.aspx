@@ -4,7 +4,8 @@
 	<%-- local style for grid --%>
 	<link rel="stylesheet" href="../../CSS/Gridview.css" />
 	<%-- local style --%>
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -262,12 +263,12 @@
 
 					<asp:Label ID="Label2" CssClass="col-sm-1 col-form-label" runat="server" Text="Date From"></asp:Label>
 					<div class="col-sm-1" style="width: 138px;">
-						<asp:TextBox ID="Year_From" CssClass="form-control" runat="server" onchange="compareDates()"></asp:TextBox>
+						<asp:TextBox ID="Year_From" CssClass="form-control" placeholder="MM/DD/YYYY" onchange="compareDates()" runat="server" ></asp:TextBox>
 					</div>
 
 					<asp:Label ID="Label1" CssClass="col-sm-1 col-form-label" runat="server" Text="Date To"></asp:Label>
 					<div class="col-sm-1" style="width: 138px;">
-						<asp:TextBox ID="Year_To" CssClass="form-control" runat="server" onchange="compareDates()"></asp:TextBox>
+						<asp:TextBox ID="Year_To" CssClass="form-control" placeholder="MM/DD/YYYY" onchange="compareDates()" runat="server" ></asp:TextBox>
 					</div>
 
 					<asp:Label ID="Label3" CssClass="col-sm-1 col-form-label" runat="server" Text="Group"></asp:Label>
@@ -277,7 +278,7 @@
 					</div>
 
 					<div class="col-sm-1">
-						<asp:Button ID="Load_Location" Text="Load" runat="server" CssClass="btn view" />
+						<asp:Button ID="Load_Location" Text="Load" runat="server" OnClientClick="return validateDropDown();" CssClass="btn view" />
 					</div>
 
 				</div>
@@ -336,12 +337,80 @@
 			   });
 	</script>
 
+	<script type="text/javascript">
+        function validateDropDown() {
+            var year_from = document.getElementById("ContentPlaceHolder1_Year_From").value;
+            var year_to = document.getElementById("ContentPlaceHolder1_Year_To").value;
+
+
+            if (year_from == '' || year_to == '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please Enter Year',
+                });
+                return false;
+            }
+            if (year_from.length < 4 || year_to.length < 4) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please Enter Valid Year',
+                });
+                return false;
+            }
+        }
+    </script>
+
 	<script>
         VirtualSelect.init({
 				   ele: '#ContentPlaceHolder1_grp_name',
 				   showOptionsOnlyOnSearch: true
 			   });
 	</script>
+
+	      	<script>
+                  function restrictInput(event) {
+                      var charCode = (event.which) ? event.which : event.keyCode;
+                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                          event.preventDefault();
+                      }
+                      var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+
+                      if (value.length >= 0) {
+                          event.preventDefault();
+                      }
+
+                  }
+                  function restrictInput1(event) {
+                      var charCode = (event.which) ? event.which : event.keyCode;
+                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                          event.preventDefault();
+                      }
+                      var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
+
+                      if (value2.length >= 0) {
+                          event.preventDefault();
+                      }
+                  }
+
+                  var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
+                  var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
+
+                  if (Year_From.addEventListener) {
+                      Year_From.addEventListener("keypress", restrictInput);
+                  } else if (Year_From.attachEvent) {
+                      Year_From.attachEvent("onkeypress", restrictInput);
+                  }
+
+                  if (Year_to.addEventListener) {
+                      Year_to.addEventListener("keypress", restrictInput1);
+                  } else if (Year_to.attachEvent) {
+                      Year_to.attachEvent("onkeypress", restrictInput1);
+                  }
+              </script>
+
+
+
+
 
 	<script>
 

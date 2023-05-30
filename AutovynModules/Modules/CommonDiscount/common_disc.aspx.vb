@@ -141,10 +141,7 @@ Public Class common_disc
 
                     'Dim mob As String = dt.Rows(0)("mob").ToString
 
-                    con.TSql("INSERT INTO DISC_WEB (CUST_NAME,CUST_MOB,VEH_REG,PAN_NO,DISC_TYPE,DISC_AMT,REQ_BY,REQ_NO,APRVL_BY,APRVL_NO,CURR_DATE,REMARK,link_status) VALUES('" & CustName.Text & "','" & cust_mobile.Text & "',
-                    '" & VehicleNo.Text & "','" & pan_no.Text & "','" & disc_type.Text & "',
-                    '" & disc_Amt.Text & "','" & SRM.Text & "',
-                    '" & Req_mobno.Text & "','" & Aprvl_By.Text & "','" & approver_no.Text & "','" & curr_date & "','" & remark.Text & "','0')")
+                    con.TSql("INSERT INTO DISC_WEB (CUST_NAME,CUST_MOB,VEH_REG,PAN_NO,DISC_TYPE,DISC_AMT,REQ_BY,REQ_NO,APRVL_BY,APRVL_NO,CURR_DATE,REMARK,link_status) VALUES('" & CustName.Text & "','" & cust_mobile.Text & "', '" & VehicleNo.Text & "','" & pan_no.Text & "','" & disc_type.Text & "', '" & disc_Amt.Text & "','" & SRM.Text & "', '" & Req_mobno.Text & "','" & Aprvl_By.Text & "','" & approver_no.Text & "','" & curr_date & "','" & remark.Text & "','0')")
 
                     fill_grid()
                     ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Link created successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)

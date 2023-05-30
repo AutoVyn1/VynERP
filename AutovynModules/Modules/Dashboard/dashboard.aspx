@@ -268,6 +268,31 @@
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
+                 if (frm_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+                     
+                     });
+                     return false;
+                 }
+                 if (to_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+                     });
+                     return false;
+                 }
+                 
+
+                 if (grp_name == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Select Value',
+                     });
+                     return false;
+                 }
+
 
 
                  $.ajax({
@@ -723,6 +748,31 @@
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
+                 if (frm_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+
+                     });
+                     return false;
+                 }
+                 if (to_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+                     });
+                     return false;
+                 }
+
+
+                 if (grp_name == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Select Value',
+                     });
+                     return false;
+                 }
+
                  $.ajax({
                      type: "POST",
                      url: "dashboard.aspx/GetChartData2",
@@ -843,6 +893,31 @@
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 if (frm_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+
+                     });
+                     return false;
+                 }
+                 if (to_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+                     });
+                     return false;
+                 }
+
+
+                 if (grp_name == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Select Value',
+                     });
+                     return false;
+                 }
 
                  $.ajax({
                      type: "POST",
@@ -983,6 +1058,31 @@
                  var frm_year = $('#ContentPlaceHolder1_Year_From').val();
                  var to_year = $('#ContentPlaceHolder1_Year_To').val();
                  var grp_name = $('#ContentPlaceHolder1_grp_name').val();
+
+                 if (frm_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+
+                     });
+                     return false;
+                 }
+                 if (to_year == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Enter Year',
+                     });
+                     return false;
+                 }
+
+
+                 if (grp_name == '') {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Please Select Value',
+                     });
+                     return false;
+                 }
 
                  $.ajax({
                      type: "POST",

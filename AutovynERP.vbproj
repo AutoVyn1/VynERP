@@ -228,6 +228,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AutovynModules\CSS\Dashboard.css" />
     <Content Include="AutovynModules\CSS\Gridview.css" />
     <Content Include="AutovynModules\DefaultPage\css\defaultpage.css" />
     <Content Include="AutovynModules\DefaultPage\DefaultPage.aspx" />
@@ -282,6 +283,8 @@
     <Content Include="AutovynModules\Modules\TV\Truevalue.aspx" />
     <Content Include="AutovynModules\Admin\Admin.aspx" />
     <Content Include="AutovynModules\Modules\User\add_user.aspx" />
+    <Content Include="AutovynModules\Modules\User\Dealer_setup.aspx" />
+    <Content Include="AutovynModules\Modules\User\WebForm1.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="AutovynModules\Credintial\Loader.aspx" />
     <Content Include="AutovynModules\Media\Nav-back.png" />
@@ -720,6 +723,20 @@
     </Compile>
     <Compile Include="AutovynModules\Modules\User\add_user.aspx.vb">
       <DependentUpon>add_user.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\User\Dealer_setup.aspx.designer.vb">
+      <DependentUpon>Dealer_setup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\User\Dealer_setup.aspx.vb">
+      <DependentUpon>Dealer_setup.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\User\WebForm1.aspx.designer.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\User\WebForm1.aspx.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.vb">

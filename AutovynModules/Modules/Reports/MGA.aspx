@@ -2,6 +2,8 @@
 
 <%@ Page Title="MGA" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="MGA.aspx.vb"  Inherits="AutovynERP.MGA" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -230,12 +232,12 @@
 
                     <asp:Label ID="Label2" CssClass="col-sm-1 col-form-label" runat="server" Text="Year From"></asp:Label>
                     <div class="col-sm-1">
-                        <asp:TextBox ID="Year_From" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="Year_From" CssClass="form-control"  placeholder="YYYY" onchange="compareDates()" runat="server"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label1" CssClass="col-sm-1 col-form-label" runat="server" Text="Year To"></asp:Label>
                     <div class="col-sm-1">
-                        <asp:TextBox ID="Year_To" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="Year_To" CssClass="form-control"  placeholder="YYYY" onchange="compareDates()" runat="server"></asp:TextBox>
                     </div>
 
 <%--                    <asp:Label ID="Label3" CssClass="col-sm-1 col-form-label" runat="server" Text="Report"></asp:Label>--%>
@@ -248,7 +250,7 @@
                     </div>
 
                     <div class="col-sm-2">
-                        <asp:Button ID="Load_Location" Text="Load" runat="server" CssClass="btn view" />
+                        <asp:Button ID="Load_Location" Text="Load" runat="server" OnClientClick="return validateDropDown();" CssClass="btn view" />
                     </div>
 
                 </div>
@@ -306,9 +308,89 @@
             var inputmask = new Inputmask("99/99/9999", { placeholder: 'dd/mm/yyyy' });
             inputmask.mask($('[id*=DateLabel]'));
         });
-</script>
+</script>   
 
-       <script>
+    <script type="text/javascript">
+        function validateDropDown() {
+            var year_from = document.getElementById("ContentPlaceHolder1_Year_From").value;
+            var year_to = document.getElementById("ContentPlaceHolder1_Year_To").value;
+
+
+            if (year_from == '' || year_to == '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please Enter Year',
+                });
+                return false;
+            }
+            if (year_from.length < 4 || year_to.length < 4) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Please Enter Valid Year',
+                });
+                return false;
+            }
+        }
+    </script>
+
+    
+      	<script>
+              function restrictInput(event) {
+                  var charCode = (event.which) ? event.which : event.keyCode;
+                  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                      event.preventDefault();
+                  }
+                  var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+
+                  if (value.length >= 4) {
+                      event.preventDefault();
+                  }
+
+              }
+              function restrictInput1(event) {
+                  var charCode = (event.which) ? event.which : event.keyCode;
+                  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                      event.preventDefault();
+                  }
+                  var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
+
+                  if (value2.length >= 4) {
+                      event.preventDefault();
+                  }
+              }
+
+              var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
+              var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
+
+              if (Year_From.addEventListener) {
+                  Year_From.addEventListener("keypress", restrictInput);
+              } else if (Year_From.attachEvent) {
+                  Year_From.attachEvent("onkeypress", restrictInput);
+              }
+
+              if (Year_to.addEventListener) {
+                  Year_to.addEventListener("keypress", restrictInput1);
+              } else if (Year_to.attachEvent) {
+                  Year_to.attachEvent("onkeypress", restrictInput1);
+              }
+          </script>
+
+
+
+        <script>
+            function compareDates() {
+                const fromDate = new Date(document.getElementById("ContentPlaceHolder1_Year_From").value);
+                const toDate = new Date(document.getElementById("ContentPlaceHolder1_Year_To").value);
+
+                if (toDate < fromDate) {
+                    alert("To date must be greater than from date.");
+                    document.getElementById("ContentPlaceHolder1_Year_To").value = "";
+                }
+            }
+        </script>
+
+    
+    <script>
 
 
            $("tr").click(function () {
