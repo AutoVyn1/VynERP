@@ -1,6 +1,5 @@
-﻿
-Imports System.IO
-    Imports System.Web.Services
+﻿Imports System.IO
+Imports System.Web.Services
     Imports Newtonsoft.Json
     Public Class disc_dashboard
         Inherits System.Web.UI.Page
@@ -366,19 +365,10 @@ Imports System.IO
            .DataTable1 = TranDt
          }
 
-            'Convert the DataTable to a JSON string
-            Dim jsown As String = JsonConvert.SerializeObject(json)
+        'Convert the DataTable to a JSON string
+        Dim jsown As String = JsonConvert.SerializeObject(json)
 
-            'Return the JSON string
-            Return jsown
-        End Function
-
-
-
-
-
-
-
-
-
+        'Return the JSON string
+        Return jsown
+    End Function
 End Class

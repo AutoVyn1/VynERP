@@ -18,8 +18,8 @@
     Protected Sub Saleshow_Click(sender As Object, e As EventArgs) Handles Saleshow.Click
         Try
             dt = con.ReturnDtTable("select 0 as Srno, cust_name,Mob,(select godw_name from Godown_Mst where Godown_Mst.Godw_Code=location) as Branch,
-(select top 1 misc_name from misc_mst where misc_type=14 and misc_code=Modl_Var) as Modl_Var, 
-status,remark from dise_aprvl where curr_Date between '" & SqlDate(date_form.Text) & "' and '" & SqlDate(date_upto.Text) & "' ")
+            (select top 1 misc_name from misc_mst where misc_type=14 and misc_code=Modl_Var) as Modl_Var, 
+            status,remark from dise_aprvl where curr_Date between '" & SqlDate(date_form.Text) & "' and '" & SqlDate(date_upto.Text) & "' ")
 
             'and status='" & appr_status.Text & "'
 
