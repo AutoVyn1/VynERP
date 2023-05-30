@@ -19,7 +19,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<%-- Apex charts --%>
 
-
+    <%-- virtual select link --%>
+	<script type="text/javascript" src="../../JS/ListSelect/virtual-select.min.js"></script>
+	<link rel="stylesheet" href="../../JS/ListSelect/virtual-select.min.css" />
+	<%-- virtual select link --%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid main-section">
