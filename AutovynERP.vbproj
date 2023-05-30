@@ -284,7 +284,6 @@
     <Content Include="AutovynModules\Admin\Admin.aspx" />
     <Content Include="AutovynModules\Modules\User\add_user.aspx" />
     <Content Include="AutovynModules\Modules\User\Dealer_setup.aspx" />
-    <Content Include="AutovynModules\Modules\User\WebForm1.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="AutovynModules\Credintial\Loader.aspx" />
     <Content Include="AutovynModules\Media\Nav-back.png" />
@@ -730,13 +729,6 @@
     </Compile>
     <Compile Include="AutovynModules\Modules\User\Dealer_setup.aspx.vb">
       <DependentUpon>Dealer_setup.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="AutovynModules\Modules\User\WebForm1.aspx.designer.vb">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AutovynModules\Modules\User\WebForm1.aspx.vb">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.vb">

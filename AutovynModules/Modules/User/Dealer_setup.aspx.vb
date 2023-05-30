@@ -24,7 +24,7 @@
 			validator = con.ReturnDtTable("Select * from user_cloud")
 			If validator Is Nothing Then
 				sqlqry()
-				MesgBox("Setup created successfully")
+				ClientScript.RegisterStartupScript(Me.GetType(), "success", "Swal.fire({title: 'Setup Created Successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
 
 			Else
 				MesgBox1("Setup already created")
@@ -44,10 +44,18 @@
 			If validator Is Nothing Then
 				MesgBox1("Setup not available")
 			Else
-				sqlqry2()
-				MesgBox("Setup dropped successfully")
+
+				Dim valid1 As String
+				valid1 = con.ExecuteScaler("select user_name from user_cloud where user_name='" + Session("user_name") + "'")
+				If valid1 = "manoj" Then
+					sqlqry2()
+					ClientScript.RegisterStartupScript(Me.GetType(), "success", "Swal.fire({title: 'Setup Dropped Successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
+				Else
+					ClientScript.RegisterStartupScript(Me.GetType(), "success", "Swal.fire({title: 'You have no rights to drop the setup', text: '', icon: 'error', showConfirmButton: true}).then(function() { window.location.href='../../Credintial/LoginPage.aspx'; });", True)
+				End If
+
 			End If
-		Catch ex As Exception
+        Catch ex As Exception
 			MesgBox1("Process can't be completed ")
 		End Try
 	End Sub
@@ -252,6 +260,7 @@
 	Private Sub sqlqry2()
 		Dim qry As String
 		Dim con As New Connection
+
 		qry = "drop table cloud_setup_vyn
 				drop table user_cloud
 				drop table rights_cloud
@@ -263,8 +272,12 @@
 				drop table fuel_predict
 				drop table Cloud_ledg"
 
-		'execution of statement
-		con.TSql("" + qry + "")
+			'execution of statement
+			con.TSql("" + qry + "")
+
+		ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'You have no Rights to do this action', text: '', icon: 'warning', showConfirmButton: true}).then(function() { window.location.href='" + Request.Url.AbsoluteUri + "'; });", True)
+
+
 	End Sub
 
 
