@@ -1,24 +1,28 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="disc_dashboard.aspx.vb" Inherits="AutovynERP.disc_dashboard" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="disc_dashboard.aspx.vb"  Inherits="AutovynERP.disc_dashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-	<%-- Local style --%>
-	<link rel="stylesheet" href="../../CSS/Dashboard.css" />
-	<%-- Local style --%>
 
-	<%-- Jquery and bootstrap Alert --%>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<%-- Jquery and bootstrap Alert --%>
-
-	<%-- Sweet Alert --%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<%-- Sweet Alert --%>
+    <link rel="stylesheet" href="../../JS/ListSelect/virtual-select.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /*
+            scrollbar-width: thin;
+            scrollbar-color: #397524 #DFE9EB;*/
+        }
 
-	<%-- Apex charts --%>
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<%-- Apex charts --%>
+            /* Chrome, Edge and Safari */
+            *::-webkit-scrollbar {
+                width: 7px;
+                width: 7px;
+            }
 
     
  
