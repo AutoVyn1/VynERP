@@ -39,12 +39,12 @@
                     </div>--%>
 
                     <asp:Label ID="Label2" CssClass="col-sm-1 col-form-label" runat="server" Text="Date From"></asp:Label>
-                    <div class="col-sm-1" style="width:138px;">
+                    <div class="col-sm-1">
                         <asp:TextBox ID="Year_From" CssClass="form-control" MaxLength="4" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label1" CssClass="col-sm-1 col-form-label" runat="server" Text="Date To"></asp:Label>
-                    <div class="col-sm-1" style="width:138px;">
+                    <div class="col-sm-1">
                         <asp:TextBox ID="Year_To" CssClass="form-control" MaxLength="4" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
                     </div>
 
