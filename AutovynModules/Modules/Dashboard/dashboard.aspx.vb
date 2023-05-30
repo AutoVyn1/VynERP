@@ -141,19 +141,16 @@ Public Class dashboard
         Dim con As New Connection
         Dim datew = ""
 
-        If xValue = "Q 4" Then
-            datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
-
-        ElseIf xValue = "Q 1" Then
-            datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
-
-        ElseIf xValue = "Q 2" Then
-            datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
-
-        ElseIf xValue = "Q 3" Then
-            datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
-
-        End If
+        Select Case xValue
+            Case "Q 4"
+                datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
+            Case "Q 1"
+                datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
+            Case "Q 2"
+                datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
+            Case "Q 3"
+                datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
+        End Select
 
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("select LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], cast(sum(iif(amt_drcr=1,post_amt,post_amt*-1))/100000 AS VARCHAR) + ' L' AS cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '" + datew + "' " + loc_code + "  group by LEFT(DATENAME(MONTH, Acnt_Date), 3), month(Acnt_Date) order by month(Acnt_Date)")
@@ -187,43 +184,32 @@ Public Class dashboard
         Dim con As New Connection
         Dim datew = ""
 
-        If xValue = "Jan" Then
-            datew = "01/01/" + to_year + "' and '01/31/" + to_year + ""
-
-        ElseIf xValue = "Feb" Then
-            datew = "02/01/" + to_year + "' and '02/28/" + to_year + ""
-
-        ElseIf xValue = "Mar" Then
-            datew = "03/01/" + to_year + "' and '03/31/" + to_year + ""
-
-        ElseIf xValue = "Apr" Then
-            datew = "04/01/" + frm_year + "' and '04/30/" + frm_year + ""
-
-        ElseIf xValue = "May" Then
-            datew = "05/01/" + frm_year + "' and '05/31/" + frm_year + ""
-
-        ElseIf xValue = "Jun" Then
-            datew = "06/01/" + frm_year + "' and '06/30/" + frm_year + ""
-
-        ElseIf xValue = "Jul" Then
-            datew = "07/01/" + frm_year + "' and '07/31/" + frm_year + ""
-
-        ElseIf xValue = "Aug" Then
-            datew = "08/01/" + frm_year + "' and '08/31/" + frm_year + ""
-
-        ElseIf xValue = "Sep" Then
-            datew = "09/01/" + frm_year + "' and '09/30/" + frm_year + ""
-
-        ElseIf xValue = "Oct" Then
-            datew = "10/01/" + frm_year + "' and '10/31/" + frm_year + ""
-
-        ElseIf xValue = "Nov" Then
-            datew = "11/01/" + frm_year + "' and '11/30/" + frm_year + ""
-
-        ElseIf xValue = "Dec" Then
-            datew = "12/01/" + frm_year + "' and '12/31/" + frm_year + ""
-
-        End If
+        Select Case xValue
+            Case "Jan"
+                datew = "01/01/" + to_year + "' and '01/31/" + to_year + ""
+            Case "Feb"
+                datew = "02/01/" + to_year + "' and '02/28/" + to_year + ""
+            Case "Mar"
+                datew = "03/01/" + to_year + "' and '03/31/" + to_year + ""
+            Case "Apr"
+                datew = "04/01/" + frm_year + "' and '04/30/" + frm_year + ""
+            Case "May"
+                datew = "05/01/" + frm_year + "' and '05/31/" + frm_year + ""
+            Case "Jun"
+                datew = "06/01/" + frm_year + "' and '06/30/" + frm_year + ""
+            Case "Jul"
+                datew = "07/01/" + frm_year + "' and '07/31/" + frm_year + ""
+            Case "Aug"
+                datew = "08/01/" + frm_year + "' and '08/31/" + frm_year + ""
+            Case "Sep"
+                datew = "09/01/" + frm_year + "' and '09/30/" + frm_year + ""
+            Case "Oct"
+                datew = "10/01/" + frm_year + "' and '10/31/" + frm_year + ""
+            Case "Nov"
+                datew = "11/01/" + frm_year + "' and '11/30/" + frm_year + ""
+            Case "Dec"
+                datew = "12/01/" + frm_year + "' and '12/31/" + frm_year + ""
+        End Select
 
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("select  'Day '+ cast(day(Acnt_Date)AS VARCHAR) as day,  cast(sum(iif(amt_drcr=1,post_amt,post_amt*-1))/1000 AS VARCHAR) + ' K' AS cl_bal from acnt_post  where ledg_ac in(select ledg_code from ledg_mst where group_code= '" + grp_name + "') and Acnt_Date between '" + datew + "' " + loc_code + " group by day(Acnt_Date) order by day(Acnt_Date)")

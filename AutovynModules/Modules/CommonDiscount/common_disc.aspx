@@ -191,7 +191,7 @@
 							<div class="row m-auto g-2">
 								<asp:Label ID="Label1" CssClass="col-lg-2 col-form-label" runat="server" Text="">Veh. no.<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="VehicleNo" CssClass="form-control" placeholder="AA 00 AA 0000" runat="server"></asp:TextBox>
+									<asp:TextBox ID="VehicleNo" CssClass="form-control" placeholder="AA 00 AA 0000" title="Enter Valid Reg. Number E.g. AA 00 AA 0000 " runat="server"></asp:TextBox>
 								</div>
 
 								<asp:Label ID="Label6" CssClass="col-lg-2 col-form-label" runat="server" Text="">Pan No.<label class="red_req">*</label></asp:Label>
@@ -618,7 +618,7 @@
                 });
                 return false;
 			}
-            if (mobile < 10) {
+			if (mobile.length < 10) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Please Enter Valid Mobile No.',
@@ -633,7 +633,7 @@
                 });
                 return false;
 			}
-            if (VehicleNo < 10) {
+			if (VehicleNo.length < 10) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Please Enter Valid Vehicle No.',
@@ -648,7 +648,7 @@
                 return false;
 			}
 
-            if (pan < 10) {
+			if (pan.length < 10) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Please Enter Valid Pan No.',

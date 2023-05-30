@@ -201,9 +201,9 @@ Imports System.IO
             End If
 
             Dim TranDt As DataTable
-            TranDt = con.ReturnDtTable("SELECT  LEFT(DATENAME(MONTH, Inv_Date), 3) AS [Month],  " + disc + " FROM ICM_DTL,ICM_MST where ICM_MST.Tran_Id=ICM_DTL.Tran_Id and Inv_Date BETWEEN '" + datew + "' " + loc_code + " and  ICM_MST.EXPORT_TYPE<3 and ICM_DTL.EXPORT_TYPE<3  GROUP BY LEFT(DATENAME(MONTH, Inv_Date), 3),year(Inv_Date), MONTH(Inv_Date) ORDER BY year(Inv_Date),MONTH(Inv_Date)")
+        TranDt = con.ReturnDtTable("SELECT3  LEFT(DATENAME(MONTH, Inv_Date), 3) AS [Month],  " + disc + " FROM ICM_DTL,ICM_MST where ICM_MST.Tran_Id=ICM_DTL.Tran_Id and Inv_Date BETWEEN '" + datew + "' " + loc_code + " and  ICM_MST.EXPORT_TYPE<3 and ICM_DTL.EXPORT_TYPE<3  GROUP BY LEFT(DATENAME(MONTH, Inv_Date), 3),year(Inv_Date), MONTH(Inv_Date) ORDER BY year(Inv_Date),MONTH(Inv_Date)")
 
-            Dim json = New With {
+        Dim json = New With {
            .DataTable1 = TranDt
          }
 
