@@ -181,7 +181,7 @@
 
 								<asp:Label ID="Label2" CssClass="col-lg-2 col-form-label" runat="server" Text="">Mobile<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="cust_mobile" CssClass="form-control"  runat="server"></asp:TextBox>
+									<asp:TextBox ID="cust_mobile" MaxLength="10" CssClass="form-control"  runat="server"></asp:TextBox>
 								</div>
 							</div>
 							<!-- row -->
@@ -191,12 +191,12 @@
 							<div class="row m-auto g-2">
 								<asp:Label ID="Label1" CssClass="col-lg-2 col-form-label" runat="server" Text="">Veh. no.<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="VehicleNo" CssClass="form-control" placeholder="AA 00 AA 0000" title="Enter Valid Reg. Number E.g. AA 00 AA 0000 " runat="server"></asp:TextBox>
+									<asp:TextBox ID="VehicleNo" CssClass="form-control" MaxLength="10" placeholder="AA 00 AA 0000" title="Enter Valid Reg. Number E.g. AA 00 AA 0000 " runat="server"></asp:TextBox>
 								</div>
 
 								<asp:Label ID="Label6" CssClass="col-lg-2 col-form-label" runat="server" Text="">Pan No.<label class="red_req">*</label></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="pan_no" CssClass="form-control" placeholder="AAAAA9999A" title="Enter Valid Pan Number E.g. AAAAA9999A " runat="server"></asp:TextBox>
+									<asp:TextBox ID="pan_no" CssClass="form-control" MaxLength="10" placeholder="AAAAA9999A" title="Enter Valid Pan Number E.g. AAAAA9999A " runat="server"></asp:TextBox>
 								</div>
 							</div>
 							<!-- row -->
@@ -419,18 +419,59 @@
 
 
 	<%-- Function for allowing only numbers and length of numbers --%>
-	<script>    
+
+	<script>
+        var inputElement = document.getElementById("ContentPlaceHolder1_cust_mobile");
+        inputElement.addEventListener("keydown", restrictInput);
+        inputElement.addEventListener("input", restrictInput);
+        inputElement.addEventListener("touchstart", restrictInput);
+        inputElement.addEventListener("touchend", restrictInput);
+
+        var inputElement1 = document.getElementById("ContentPlaceHolder1_disc_Amt");
+        inputElement1.addEventListener("keydown", restrictInput);
+        inputElement1.addEventListener("input", restrictInput);
+        inputElement1.addEventListener("touchstart", restrictInput);
+		inputElement1.addEventListener("touchend", restrictInput);
+        inputElement1.addEventListener("blur", addSuffix);
+
+        var inputElement2 = document.getElementById("ContentPlaceHolder1_APRVL_AMT");
+        inputElement2.addEventListener("keydown", restrictInput);
+        inputElement2.addEventListener("input", restrictInput);
+        inputElement2.addEventListener("touchstart", restrictInput);
+		inputElement2.addEventListener("touchend", restrictInput);
+        inputElement2.addEventListener("blur", addSuffix);
+
         function restrictInput(event) {
-            var charCode = (event.which) ? event.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                event.preventDefault();
-            }
-            var value = document.getElementById("ContentPlaceHolder1_cust_mobile").value;
-            if (value.length >= 10) {
-                event.preventDefault();
+
+            var inputElement = event.target;
+			var inputValue = inputElement.value;
+
+            /*console.log(inputElement)*/
+
+            // Remove non-numeric characters from the input value
+            inputValue = inputValue.replace(/\D/g, "");
+
+            // Update the input value with the cleaned numeric value
+			inputElement.value = inputValue;
+
+            
+		}
+
+		function addSuffix(event) {
+
+			var inputValue = event.target;
+			var value = inputValue.value;
+
+            if (!value.endsWith(".00")) {
+                inputValue.value = value + ".00";
             }
 		}
 
+    </script>
+
+
+	<script>    
+       
         function restrictspecial_char_pan(event) {
             var charCode = (event.which) ? event.which : event.keyCode;
             if ((charCode > 31 && charCode < 48) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97) || charCode > 122) {
@@ -444,6 +485,7 @@
             }
           
 		}
+
         function restrictspecial_char_veh(event) {
             var charCode = (event.which) ? event.which : event.keyCode;
             if ((charCode > 31 && charCode < 48) || (charCode > 57 && charCode < 65) || (charCode > 90 && charCode < 97) || charCode > 122) {
@@ -456,36 +498,8 @@
 
         }
 
-        function Onlynumber(event) {
-            var charCode = (event.which) ? event.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                event.preventDefault();
-            }
-        }
-
-        function addSuffix(event) {
-            var value = document.getElementById("ContentPlaceHolder1_disc_Amt").value;
-            if (!value.endsWith(".00") && value != "") {
-                document.getElementById("ContentPlaceHolder1_disc_Amt").value = value + ".00";
-			}
-
-            //var app_value = document.getElementById("ContentPlaceHolder1_APRVL_AMT").value;
-            //if (!app_value.endsWith(".00") && app_value != "") {
-            //    document.getElementById("ContentPlaceHolder1_APRVL_AMT").value = app_value + ".00";
-            //}
-        }
-
-        var custMobile = document.getElementById("ContentPlaceHolder1_cust_mobile");
-        var insuamount = document.getElementById("ContentPlaceHolder1_disc_Amt");
-        var appr_amount = document.getElementById("ContentPlaceHolder1_APRVL_AMT");
         var VehicleNo = document.getElementById("ContentPlaceHolder1_VehicleNo");
         var pan_no = document.getElementById("ContentPlaceHolder1_pan_no");
-
-        if (custMobile.addEventListener) {
-            custMobile.addEventListener("keypress", restrictInput);
-        } else if (custMobile.attachEvent) {
-            custMobile.attachEvent("onkeypress", restrictInput);
-		}
 
         if (VehicleNo.addEventListener) {
             VehicleNo.addEventListener("keypress", restrictspecial_char_veh);
@@ -499,22 +513,6 @@
             pan_no.attachEvent("onkeypress", restrictspecial_char_pan);
         }
 
-        if (insuamount.addEventListener) {
-            insuamount.addEventListener("keypress", Onlynumber);
-            insuamount.addEventListener("blur", addSuffix);
-        } else if (insuamount.attachEvent) {
-            insuamount.attachEvent("onkeypress", Onlynumber);
-            insuamount.attachEvent("onblur", addSuffix);
-		}
-
-        if (appr_amount.addEventListener) {
-            appr_amount.addEventListener("keypress", Onlynumber);
-            //appr_amount.addEventListener("blur", addSuffix);
-        } else if (appr_amount.attachEvent) {
-            appr_amount.attachEvent("onkeypress", Onlynumber);
-            //appr_amount.attachEvent("onblur", addSuffix);
-        }
-     
     </script>
 	<script>
         VirtualSelect.init({
@@ -531,7 +529,10 @@
 <script>
 
     function appr_SelectedIndexChanged() {
-        var va = document.getElementById("ContentPlaceHolder1_SRM").value;
+		var va = document.getElementById("ContentPlaceHolder1_SRM").value;
+
+
+
         $.ajax({
             type: "POST",
             url: "common_disc.aspx/GetChartData2",

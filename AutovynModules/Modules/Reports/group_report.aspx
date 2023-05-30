@@ -367,52 +367,35 @@
 			   });
 	</script>
 
-	      	<script>
-                  function restrictInput(event) {
-                      var charCode = (event.which) ? event.which : event.keyCode;
-                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                          event.preventDefault();
-                      }
-                      var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+	   <script>
+           var inputElement = document.getElementById("ContentPlaceHolder1_Year_From");
+           inputElement.addEventListener("keydown", restrictInput);
+           inputElement.addEventListener("input", restrictInput);
+           inputElement.addEventListener("touchstart", restrictInput);
+           inputElement.addEventListener("touchend", restrictInput);
 
-                      if (value.length >= 0) {
-                          event.preventDefault();
-                      }
+           var inputElement1 = document.getElementById("ContentPlaceHolder1_Year_To");
+           inputElement1.addEventListener("keydown", restrictInput);
+           inputElement1.addEventListener("input", restrictInput);
+           inputElement1.addEventListener("touchstart", restrictInput);
+           inputElement1.addEventListener("touchend", restrictInput);
 
-                  }
-                  function restrictInput1(event) {
-                      var charCode = (event.which) ? event.which : event.keyCode;
-                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                          event.preventDefault();
-                      }
-                      var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
+           function restrictInput(event) {
 
-                      if (value2.length >= 0) {
-                          event.preventDefault();
-                      }
-                  }
+               var inputElement = event.target;
+               var inputValue = inputElement.value;
 
-                  var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
-                  var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
+               // Remove non-numeric characters from the input value
+               inputValue = inputValue.replace(/\D/g, "");
+               if (inputValue.length > 0) {
+                   event.preventDefault();
+               }
+               // Update the input value with the cleaned numeric value
+               inputElement.value = inputValue;
+           }
+       </script>
 
-                  if (Year_From.addEventListener) {
-                      Year_From.addEventListener("keypress", restrictInput);
-                  } else if (Year_From.attachEvent) {
-                      Year_From.attachEvent("onkeypress", restrictInput);
-                  }
-
-                  if (Year_to.addEventListener) {
-                      Year_to.addEventListener("keypress", restrictInput1);
-                  } else if (Year_to.attachEvent) {
-                      Year_to.attachEvent("onkeypress", restrictInput1);
-                  }
-              </script>
-
-
-
-
-
-	<script>
+<script>
 
         $(".grp_show").click(function () {
 

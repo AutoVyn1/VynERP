@@ -15,9 +15,6 @@ Public Class Ledg_dashboard
                 dse_list()
                 Year_From.Text = "2022"
                 Year_To.Text = "2023"
-                grp_name.SelectedValue = "53"
-
-
             End If
         Catch ex As Exception
 

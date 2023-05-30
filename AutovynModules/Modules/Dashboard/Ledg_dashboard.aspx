@@ -169,13 +169,33 @@
         @media screen and (max-width: 827px) {
             .panel{
             width:30%;
+
         }
+            .col-md-5{
+                overflow:scroll;
+            }
+
+          
         }
         
         @media screen and (max-width: 768px) {
             .panel{
             width:30%;
         }
+            footer{
+                display:none;
+            }
+            .col-sm-1, .col-sm-2{
+             width:90%
+         }
+            .get_data {
+                width: 100%;
+                text-align: center;
+                margin: 14px 4px 4px 4px;
+            }
+            .col-md-5{
+                overflow:scroll;
+            }
         }
 
         @media screen and (max-width: 480px) {
@@ -186,11 +206,28 @@
         .panel{
             width:48%;
         }
+        footer{
+                display:none;
+            }
 
          .view{
                 width:100%;
                 margin-top:10px;
             }
+         .col-sm-1, .col-sm-2{
+             width:90%
+         }
+            .get_data {
+                width: 100%;
+                text-align: center;
+                margin: 14px 4px 4px 4px;
+            }
+
+            .col-md-5{
+
+                overflow:scroll;
+            }
+             
         }
         #Volume_Label {
             font-size:20px;
@@ -535,12 +572,12 @@
 
                     <asp:Label ID="Label2" CssClass="col-sm-1 col-form-label" runat="server" Text="Date From"></asp:Label>
                     <div class="col-sm-1" style="width:138px;">
-                        <asp:TextBox ID="Year_From" CssClass="form-control" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
+                        <asp:TextBox ID="Year_From" CssClass="form-control" MaxLength="4" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="Label1" CssClass="col-sm-1 col-form-label" runat="server" Text="Date To"></asp:Label>
                     <div class="col-sm-1" style="width:138px;">
-                        <asp:TextBox ID="Year_To" CssClass="form-control" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
+                        <asp:TextBox ID="Year_To" CssClass="form-control" MaxLength="4" runat="server" onchange="compareDates()" placeholder="YYYY"></asp:TextBox>
                     </div>
 
                    <asp:Label ID="Label3" CssClass="col-sm-1 col-form-label" runat="server" Text="Group"></asp:Label>
@@ -662,12 +699,12 @@
 		});
 	</script>
 
-	  <script>
+<%--	  <script>
           $("document").ready(function () {
 
               $('#Load_Location').trigger('click');
           });
-      </script>
+      </script>--%>
 
         <script>
 			VirtualSelect.init({
@@ -676,46 +713,31 @@
 			});
 		</script>
 
-        	<script>
-				function restrictInput(event) {
-					var charCode = (event.which) ? event.which : event.keyCode;
-					if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-						event.preventDefault();
-					}
-					var value = document.getElementById("ContentPlaceHolder1_Year_From").value;
+    <script>
+        var inputElement = document.getElementById("ContentPlaceHolder1_Year_From");
+        inputElement.addEventListener("keydown", restrictInput);
+        inputElement.addEventListener("input", restrictInput);
+        inputElement.addEventListener("touchstart", restrictInput);
+        inputElement.addEventListener("touchend", restrictInput);
 
-					if (value.length >= 4) {
-						event.preventDefault();
-					}
+        var inputElement1 = document.getElementById("ContentPlaceHolder1_Year_To");
+        inputElement1.addEventListener("keydown", restrictInput);
+        inputElement1.addEventListener("input", restrictInput);
+        inputElement1.addEventListener("touchstart", restrictInput);
+        inputElement1.addEventListener("touchend", restrictInput);
 
-				}
-				function restrictInput1(event) {
-					var charCode = (event.which) ? event.which : event.keyCode;
-					if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-						event.preventDefault();
-					}
-					var value2 = document.getElementById("ContentPlaceHolder1_Year_To").value;
+        function restrictInput(event) {
 
-					if (value2.length >= 4) {
-						event.preventDefault();
-					}
-				}
+            var inputElement = event.target;
+            var inputValue = inputElement.value;
 
-				var Year_From = document.getElementById("ContentPlaceHolder1_Year_From");
-				var Year_to = document.getElementById("ContentPlaceHolder1_Year_To");
+            // Remove non-numeric characters from the input value
+            inputValue = inputValue.replace(/\D/g, "");
 
-				if (Year_From.addEventListener) {
-					Year_From.addEventListener("keypress", restrictInput);
-				} else if (Year_From.attachEvent) {
-					Year_From.attachEvent("onkeypress", restrictInput);
-				}
-
-				if (Year_to.addEventListener) {
-					Year_to.addEventListener("keypress", restrictInput1);
-				} else if (Year_to.attachEvent) {
-					Year_to.attachEvent("onkeypress", restrictInput1);
-				}
-			</script>
+            // Update the input value with the cleaned numeric value
+            inputElement.value = inputValue;
+        }
+    </script>
 
 
 
@@ -758,7 +780,7 @@
 				 var to_year = $('#ContentPlaceHolder1_Year_To').val();
 				 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
-                 if (frm_year == '') {
+                 if (frm_year == '' || to_year == '') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Enter Year',
@@ -766,16 +788,16 @@
                      });
                      return false;
                  }
-                 if (to_year == '') {
+                 if (to_year.length < 4 || frm_year.length < 4) {
                      Swal.fire({
                          icon: 'warning',
-                         title: 'Please Enter Year',
+                         title: 'Please Enter Valid Year',
                      });
                      return false;
                  }
 
 
-                 if (grp_name == '') {
+                 if (grp_name == '' || grp_name == '0') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Select Value',
@@ -1236,7 +1258,7 @@
 				 var to_year = $('#ContentPlaceHolder1_Year_To').val();
 				 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
-                 if (frm_year == '') {
+                 if (frm_year == '' || to_year == '') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Enter Year',
@@ -1244,22 +1266,22 @@
                      });
                      return false;
                  }
-                 if (to_year == '') {
+                 if (to_year.length < 4 || frm_year.length < 4) {
                      Swal.fire({
                          icon: 'warning',
-                         title: 'Please Enter Year',
+                         title: 'Please Enter Valid Year',
                      });
                      return false;
                  }
 
 
-                 if (grp_name == '') {
+                 if (grp_name == '' || grp_name == '0') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Select Value',
                      });
                      return false;
-				 }
+                 }
 
 				 $.ajax({
 					 type: "POST",
@@ -1382,7 +1404,7 @@
 				 var to_year = $('#ContentPlaceHolder1_Year_To').val();
 				 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
-                 if (frm_year == '') {
+                 if (frm_year == '' || to_year == '') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Enter Year',
@@ -1390,22 +1412,22 @@
                      });
                      return false;
                  }
-                 if (to_year == '') {
+                 if (to_year.length < 4 || frm_year.length < 4) {
                      Swal.fire({
                          icon: 'warning',
-                         title: 'Please Enter Year',
+                         title: 'Please Enter Valid Year',
                      });
                      return false;
                  }
 
 
-                 if (grp_name == '') {
+                 if (grp_name == '' || grp_name == '0') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Select Value',
                      });
                      return false;
-				 }
+                 }
 
 				 $.ajax({
 					 type: "POST",
@@ -1547,7 +1569,8 @@
 				 var to_year = $('#ContentPlaceHolder1_Year_To').val();
 				 var grp_name = $('#ContentPlaceHolder1_grp_name').val();
 
-                 if (frm_year == '') {
+
+                 if (frm_year == '' || to_year == '') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Enter Year',
@@ -1555,22 +1578,22 @@
                      });
                      return false;
                  }
-                 if (to_year == '') {
+                 if (to_year.length < 4 || frm_year.length < 4) {
                      Swal.fire({
                          icon: 'warning',
-                         title: 'Please Enter Year',
+                         title: 'Please Enter Valid Year',
                      });
                      return false;
                  }
 
 
-                 if (grp_name == '') {
+                 if (grp_name == '' || grp_name == '0') {
                      Swal.fire({
                          icon: 'warning',
                          title: 'Please Select Value',
                      });
                      return false;
-				 }
+                 }
 
 				 $.ajax({
 					 type: "POST",

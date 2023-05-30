@@ -426,7 +426,7 @@
 									<div class="row m-auto g-2">
 										<asp:Label ID="Label2" CssClass="col-lg-3 col-form-label" runat="server" Text="">Mobile<label class="red_req">*</label></asp:Label>
 										<div class="col-lg-9">
-											<asp:TextBox ID="user_mobile" CssClass="form-control" runat="server"></asp:TextBox>
+											<asp:TextBox ID="user_mobile" MaxLength="10" CssClass="form-control" runat="server"></asp:TextBox>
 										</div>
 
 									<%--	<asp:Label ID="Label6" CssClass="col-lg-2 col-form-label" runat="server" Text="Pan No."></asp:Label>
@@ -605,15 +605,7 @@
                             <div class="check_box">
 								<asp:CheckBoxList runat="server" ID="branch_list"></asp:CheckBoxList>
 							</div>
-
 							
-<%--			<div class="col-lg-4 ">
-				<asp:CheckBoxList ID="disc_type" runat="server" CssClass="form-control">
-				
-				</asp:CheckBoxList>
-				</div>--%>
-
-
 						</div>
 
 					</div>
@@ -629,24 +621,9 @@
 				</div>
 			</div>
 
-<%--			<div class="col-lg-4 ">
-				<asp:CheckBoxList ID="disc_type" runat="server" CssClass="form-control">
-					
-				</asp:CheckBoxList>
-
-			</div>--%>
 		</div>
 	</div>
-
-
-
-
-
-<%--	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#<%= branch_list.ClientID %>').multiselect();
-		});
-	</script>--%>
+	
 
 	<script>
 		$('[type="checkbox"]').change(function () {
@@ -654,14 +631,6 @@
 			$('div[data-parentid="' + $(this).attr('id') + '"]').toggle(shouldBeDisplayed);
 		});
 	</script>
-
-<%--	<script type="text/javascript">
-		$(document).ready(function () {
-			$(".btn-group button").trigger('click');
-
-
-		});
-	</script>--%>
 
 
 	<script>
@@ -901,28 +870,27 @@
 		document.getElementById('ContentPlaceHolder1_user_Name').addEventListener("blur", appr_SelectedIndexChanged);
 
 	</script>
-
-
+  
 	<script>
-		function restrictInput(event) {
-			var charCode = (event.which) ? event.which : event.keyCode;
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-				event.preventDefault();
-			}
-			var value = document.getElementById("ContentPlaceHolder1_user_mobile").value;
-			if (value.length >= 10) {
-				event.preventDefault();
-			}
-		}
+        var inputElement = document.getElementById("ContentPlaceHolder1_user_mobile");
+        inputElement.addEventListener("keydown", restrictInput);
+        inputElement.addEventListener("input", restrictInput);
+        inputElement.addEventListener("touchstart", restrictInput);
+        inputElement.addEventListener("touchend", restrictInput);
 
-		var custMobile = document.getElementById("ContentPlaceHolder1_user_mobile");
 
-		if (custMobile.addEventListener) {
-			custMobile.addEventListener("keypress", restrictInput);
-		} else if (custMobile.attachEvent) {
-			custMobile.attachEvent("onkeypress", restrictInput);
-		}
-	</script>
+        function restrictInput(event) {
+
+            var inputElement = event.target;
+            var inputValue = inputElement.value;
+
+            // Remove non-numeric characters from the input value
+            inputValue = inputValue.replace(/\D/g, "");
+
+            // Update the input value with the cleaned numeric value
+            inputElement.value = inputValue;
+        }
+    </script>
 
 
 	<script>

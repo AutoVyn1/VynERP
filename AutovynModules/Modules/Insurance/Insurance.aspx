@@ -199,7 +199,7 @@
 							<div class="row m-auto g-2">
 								<asp:Label ID="Label3" CssClass="col-lg-2 col-form-label" runat="server" Text="Mobile Number"></asp:Label>
 								<div class="col-lg-4">
-									<asp:TextBox ID="CustMobile" CssClass="form-control " runat="server"></asp:TextBox>
+									<asp:TextBox ID="CustMobile" MaxLength="10" CssClass="form-control " runat="server"></asp:TextBox>
 								</div>
 
 								<asp:Label ID="Label4" CssClass="col-lg-2 col-form-label" runat="server" Text="Vehicle Number"></asp:Label>
@@ -313,49 +313,48 @@
 
 
 	<%-- Function for allowing only numbers and length of numbers --%>
-	<script>    
-		function restrictInput(event) {
-			var charCode = (event.which) ? event.which : event.keyCode;
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-				event.preventDefault();
-			}
-			var value = document.getElementById("ContentPlaceHolder1_CustMobile").value;
-			if (value.length >= 10) {
-				event.preventDefault();
-			}
-		}
+	<script>
+        var inputElement = document.getElementById("ContentPlaceHolder1_CustMobile");
+        inputElement.addEventListener("keydown", restrictInput);
+        inputElement.addEventListener("input", restrictInput);
+        inputElement.addEventListener("touchstart", restrictInput);
+        inputElement.addEventListener("touchend", restrictInput);
 
-		function Onlynumber(event) {
-			var charCode = (event.which) ? event.which : event.keyCode;
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-				event.preventDefault();
-			}
-		}
+        var inputElement1 = document.getElementById("ContentPlaceHolder1_InsuranceAmt");
+        inputElement1.addEventListener("keydown", restrictInput);
+        inputElement1.addEventListener("input", restrictInput);
+        inputElement1.addEventListener("touchstart", restrictInput);
+        inputElement1.addEventListener("touchend", restrictInput);
+        inputElement1.addEventListener("blur", addSuffix);
 
-		function addSuffix(event) {
-			var value = document.getElementById("ContentPlaceHolder1_InsuranceAmt").value;
-			if (!value.endsWith(".00")) {
-				document.getElementById("ContentPlaceHolder1_InsuranceAmt").value = value + ".00";
-			}
-		}
 
-		var custMobile = document.getElementById("ContentPlaceHolder1_CustMobile");
-		var insuamount = document.getElementById("ContentPlaceHolder1_InsuranceAmt");
+        function restrictInput(event) {
 
-		if (custMobile.addEventListener) {
-			custMobile.addEventListener("keypress", restrictInput);
-		} else if (custMobile.attachEvent) {
-			custMobile.attachEvent("onkeypress", restrictInput);
-		}
+            var inputElement = event.target;
+            var inputValue = inputElement.value;
 
-		if (insuamount.addEventListener) {
-			insuamount.addEventListener("keypress", Onlynumber);
-			insuamount.addEventListener("blur", addSuffix);
-		} else if (insuamount.attachEvent) {
-			insuamount.attachEvent("onkeypress", Onlynumber);
-			insuamount.attachEvent("onblur", addSuffix);
-		}
-	</script>
+            /*console.log(inputElement)*/
+
+            // Remove non-numeric characters from the input value
+            inputValue = inputValue.replace(/\D/g, "");
+
+            // Update the input value with the cleaned numeric value
+            inputElement.value = inputValue;
+
+
+        }
+
+        function addSuffix(event) {
+
+            var inputValue = event.target;
+            var value = inputValue.value;
+
+            if (!value.endsWith(".00")) {
+                inputValue.value = value + ".00";
+            }
+        }
+
+    </script>
 
 	<script>
 		VirtualSelect.init({

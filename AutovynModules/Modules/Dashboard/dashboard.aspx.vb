@@ -11,16 +11,12 @@ Public Class dashboard
         Try
             If Not IsPostBack Then
                 dse_list()
-                'GetChartData("23", "2022", "2023")
                 Year_From.Text = "2022"
                 Year_To.Text = "2023"
-                grp_name.SelectedValue = "23"
-
             End If
         Catch ex As Exception
 
         End Try
-
 
     End Sub
 

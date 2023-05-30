@@ -327,7 +327,7 @@
                 <div class="row amt-box">
                     <asp:Label ID="mob_lbl" CssClass="col-lg-1 col-form-label amt-box-lbl amt-box-lbl" runat="server" Text="Phone No."></asp:Label>
                     <div class="col-lg-2 amt-box-total amt-box-total">
-                        <asp:TextBox ID="Mob_No" MaxLength="10" CssClass="form-control resetting" required  onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="Mob_No" MaxLength="10" CssClass="form-control resetting" required   runat="server"></asp:TextBox>
                     </div>
 
                     <asp:Label ID="label1111" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="PAN No."></asp:Label>
@@ -386,7 +386,7 @@
 
                                         <asp:Label ID="label6" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="MGA Amt."></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="MGA_Amt" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="MGA_Amt" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
 
                                         <asp:Label ID="Label5" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Insurance"></asp:Label>
@@ -481,17 +481,17 @@
                                     <div class="row mb-1 amt-box">
                                         <asp:Label ID="Label14" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Consumer"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Consumer" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Consumer" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
 
                                         <asp:Label ID="Label15" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Corporate"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Corporate" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Corporate" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
 
                                         <asp:Label ID="Label16" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Exchange"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Exch" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Exch" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -505,7 +505,7 @@
                                     <div class="row mb-1 amt-box">
                                         <%--<asp:Label ID="Label17" CssClass="col-lg-1 col-form-label amt-box-lbl" ToolTip="Additional Offer Required" runat="server" Text="Add. Offer Req"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Aprvl_Offer" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Aprvl_Offer" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>--%>
 
                                         <asp:Label ID="Label19" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Approved By"></asp:Label>
@@ -516,7 +516,7 @@
 
                                         <asp:Label ID="Label18" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Amount"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Discount_Amt" CssClass="form-control resetting digitOnly" required onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Discount_Amt" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -548,7 +548,7 @@
 
                                         <asp:Label ID="Label23" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Amount"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Appr_Amt" CssClass="form-control resetting digitOnly" onkeypress="return IsNumerica(event);" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="Appr_Amt" CssClass="form-control resetting digitOnly"  runat="server"></asp:TextBox>
                                         </div>
 
                                         
@@ -608,19 +608,82 @@
     </div>
 
     <%-- For limitation to the input  --%>
-    <script>
-		var specialKeys = new Array();
-		specialKeys.push(8);
-		function IsNumerica(e) {
-			var keyCode = e.which ? e.which : e.keyCode
-			var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+   <script>
+       var inputElement = document.getElementById("ContentPlaceHolder1_Mob_No");
+       inputElement.addEventListener("keydown", restrictInput);
+       inputElement.addEventListener("input", restrictInput);
+       inputElement.addEventListener("touchstart", restrictInput);
+       inputElement.addEventListener("touchend", restrictInput);
 
-			/* document.getElementById("Mob_No").style.border = ret ? "none" : "1px solid red";*/
+       var inputElement1 = document.getElementById("ContentPlaceHolder1_Discount_Amt");
+       inputElement1.addEventListener("keydown", restrictInput);
+       inputElement1.addEventListener("input", restrictInput);
+       inputElement1.addEventListener("touchstart", restrictInput);
+       inputElement1.addEventListener("touchend", restrictInput);
+       inputElement1.addEventListener("blur", addSuffix);
 
-			return ret;
-		}
+       var inputElement2 = document.getElementById("ContentPlaceHolder1_Appr_Amt");
+       inputElement2.addEventListener("keydown", restrictInput);
+       inputElement2.addEventListener("input", restrictInput);
+       inputElement2.addEventListener("touchstart", restrictInput);
+       inputElement2.addEventListener("touchend", restrictInput);
+       inputElement2.addEventListener("blur", addSuffix);
 
-	</script>
+       var inputElement2 = document.getElementById("ContentPlaceHolder1_Consumer");
+       inputElement2.addEventListener("keydown", restrictInput);
+       inputElement2.addEventListener("input", restrictInput);
+       inputElement2.addEventListener("touchstart", restrictInput);
+       inputElement2.addEventListener("touchend", restrictInput);
+       inputElement2.addEventListener("blur", addSuffix);
+
+       var inputElement2 = document.getElementById("ContentPlaceHolder1_Corporate");
+       inputElement2.addEventListener("keydown", restrictInput);
+       inputElement2.addEventListener("input", restrictInput);
+       inputElement2.addEventListener("touchstart", restrictInput);
+       inputElement2.addEventListener("touchend", restrictInput);
+       inputElement2.addEventListener("blur", addSuffix);
+
+       var inputElement2 = document.getElementById("ContentPlaceHolder1_Exch");
+       inputElement2.addEventListener("keydown", restrictInput);
+       inputElement2.addEventListener("input", restrictInput);
+       inputElement2.addEventListener("touchstart", restrictInput);
+       inputElement2.addEventListener("touchend", restrictInput);
+       inputElement2.addEventListener("blur", addSuffix);
+
+       var inputElement2 = document.getElementById("ContentPlaceHolder1_MGA_Amt");
+       inputElement2.addEventListener("keydown", restrictInput);
+       inputElement2.addEventListener("input", restrictInput);
+       inputElement2.addEventListener("touchstart", restrictInput);
+       inputElement2.addEventListener("touchend", restrictInput);
+       inputElement2.addEventListener("blur", addSuffix);
+
+       function restrictInput(event) {
+
+           var inputElement = event.target;
+           var inputValue = inputElement.value;
+
+           /*console.log(inputElement)*/
+
+           // Remove non-numeric characters from the input value
+           inputValue = inputValue.replace(/\D/g, "");
+
+           // Update the input value with the cleaned numeric value
+           inputElement.value = inputValue;
+
+
+       }
+
+       function addSuffix(event) {
+
+           var inputValue = event.target;
+           var value = inputValue.value;
+
+           if (!value.endsWith(".00")) {
+               inputValue.value = value + ".00";
+           }
+       }
+
+   </script>
     <%-- For limitation to the input  --%>
 
 
