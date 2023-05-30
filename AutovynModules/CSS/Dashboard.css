@@ -186,12 +186,19 @@
     .col-md-5 {
         overflow: scroll;
     }
+    .center {
+        margin-left: 35%;
+    }
 }
 
 @media screen and (max-width: 480px) {
     .loc-box {
         height: 130px;
         width: 100%;
+    }
+
+    .col-md-5 {
+        overflow: scroll;
     }
 
     .panel {
@@ -216,10 +223,11 @@
         text-align: center;
         margin: 14px 4px 4px 4px;
     }
-
-    .col-md-5 {
-        overflow: scroll;
+    .center{
+        margin-left:16%;
     }
+
+   
 }
 
 #Volume_Label {
