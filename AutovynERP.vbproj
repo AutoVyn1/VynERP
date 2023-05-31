@@ -230,6 +230,7 @@
   <ItemGroup>
     <Content Include="AutovynModules\CSS\Dashboard.css" />
     <Content Include="AutovynModules\CSS\Gridview.css" />
+    <Content Include="AutovynModules\CSS\reports.css" />
     <Content Include="AutovynModules\DefaultPage\css\defaultpage.css" />
     <Content Include="AutovynModules\DefaultPage\DefaultPage.aspx" />
     <Content Include="AutovynModules\ICM\DSE_Checklist.aspx" />

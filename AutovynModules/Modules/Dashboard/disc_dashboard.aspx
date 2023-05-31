@@ -615,7 +615,7 @@
                              },
                              labels: chart5Data.map(function (row) { return row.loc_name; }),
                              responsive: [{
-                                 breakpoint: 480,
+                                 
                                  options: {
                                      chart: {
                                          width: 100

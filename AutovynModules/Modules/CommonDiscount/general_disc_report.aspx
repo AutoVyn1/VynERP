@@ -2,7 +2,6 @@
 <%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="general_disc_report.aspx.vb" Inherits="AutovynERP.general_disc_report" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Virtual Select List Box -->
     <link rel="stylesheet" href="../JS/ListSelect/virtual-select.min.css" />
     <style>
@@ -247,7 +246,8 @@
             </div>
         </div>
 
-
+    
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- InputMask -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js"></script>

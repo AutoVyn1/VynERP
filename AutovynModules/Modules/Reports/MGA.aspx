@@ -2,6 +2,7 @@
 
 <%@ Page Title="MGA" Language="vb" AutoEventWireup="false" MasterPageFile="~/AutovynModules/AUTOVYN.Master" CodeBehind="MGA.aspx.vb"  Inherits="AutovynERP.MGA" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../../CSS/reports.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -9,216 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-
-            scrollbar-width: thin;
-            scrollbar-color: #397524 #DFE9EB;
-        }
-
-            /* Chrome, Edge and Safari */
-            *::-webkit-scrollbar {
-                width: 7px;
-                width: 7px;
-            }
-
-            *::-webkit-scrollbar-track {
-                border-radius: 5px;
-                background-color: aliceblue;
-            }
-
-                *::-webkit-scrollbar-track:hover {
-                    background-color: #B8C0C2;
-                }
-
-                *::-webkit-scrollbar-track:active {
-                    background-color: #B8C0C2;
-                }
-
-            *::-webkit-scrollbar-thumb {
-                border-radius: 5px;
-                background-color: #397524;
-            }
-
-                *::-webkit-scrollbar-thumb:hover {
-                    background-color: #62A34B;
-                }
-
-                *::-webkit-scrollbar-thumb:active {
-                    background-color: #62A34B;
-                }
-
-        .main-section{
-            margin-top:60px;
-            margin-bottom:60px;
-        }
-
-
-        .navbar {
-            
-        }
-
-        .date-section{
-            background-color:gainsboro;
-        }
-
-        .date{
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .view {
-            background-color: green;
-            border: none;
-            padding: 8px 28px;
-            color: #ffffff;
-        }
-
-        .tabs-lbl {
-            background-color: cornflowerblue;
-            margin: 6px 10px;
-            height: 37px;
-            border-radius:6px;
-            color:#fff;
-        }
-
-         .status-section{
-            background-color: aliceblue;
-            margin: 20px 10px;
-            border-radius:10px;
-            -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-        }
-
-        .sub-head{
-            padding: 7px 0;
-             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-        }
-
-        .status{
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .sub-head{
-            padding: 7px 0;
-             -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-        }
-        
-        .loc-sub-head{
-            padding: 7px 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-
-        .status{
-            font-size: 18px;
-            font-weight: 700;
-
-        }
-
-        .lbl {
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: green;
-        }
-
-        .loc-box{
-            height:130px;
-            width :100%;
-            -webkit-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            -moz-box-shadow: -2px 6px 15px -11px rgba(0,0,0,0.75);
-            box-shadow: -2px 6px 15px -11px rgb(0 0 0 / 75%);
-            border-radius: 6px;
-            text-align:center;
-            margin-right: 0px;
-            font-size:18px;
-            font-weight:700;
-        }
-
-        .total {
-            background-color:#a7e2cb;
-            height: 59px;
-            border-radius: 6px 6px 40px 40px;
-            padding-top: 16px;
-            color:#000000;
-            font-size:12px;
-            font-weight:700;
-        }
-
-        .panel{
-            width:16%;
-        }
-
-        .report-grid{
-            height:60vh;
-        }
-
-        @media screen and (max-width: 827px) {
-            .panel{
-            width:30%;
-        }
-        }
-        
-        @media screen and (max-width: 768px) {
-            .panel{
-            width:30%;
-        }
-        }
-
-        @media screen and (max-width: 480px) {
-        .loc-box {
-            height: 130px;
-            width:100%;
-        }
-        .panel{
-            width:48%;
-        }
-
-         .view{
-                width:100%;
-                margin-top:10px;
-            }
-        }
-        #Volume_Label {
-            font-size:20px;
-            font-weight:bold;
-        }
-        
-                   .popup {
-            display: none;
-            position: absolute;
-            width: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 999;
-            background-color: #e9e9e9;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin-left: 48%;
-            margin-top: -21%;
-        }
-
-                    .chart{
-           
-        }
-           .row {
-            border-bottom: 0.5px solid silver;
-        }
-        #chart {
-            max-width: 650px;
-            margin: 35px auto;
-        }
-    </style>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid main-section">
@@ -257,7 +49,7 @@
 
             
 
-                <asp:Panel ID="Amount_Panel" runat="server">
+                <asp:Panel ID="Amount_Panel" runat="server" CssClass="report-grid">
                     <asp:Label ID="Volume_lbl" CssClass="lbl" runat="server" Text="Volume"></asp:Label>
                    
                     <asp:GridView ID="Amount_Grid" runat="server" CssClass="" Style="top: 0px; border: 1px solid #6fd472; text-align: center; border-collapse: inherit; background-color: hsla(40deg, 4%, 36%, 0.25); position: relative; width: 100%; table-layout: auto;"

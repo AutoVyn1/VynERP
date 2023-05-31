@@ -67,18 +67,18 @@
       <%--          <div class="progress" style="display:none;">
   <div class="color"></div>
 </div>--%>
-                <div class="center" style="display:none;">
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-</div>
+              <div class="center" style="display:none;">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+              </div>
 
         
     <div id="wrapper" class="blur_effect" style="display:none;">
@@ -614,7 +614,6 @@
                              },
                              labels: chart5Data.map(function (row) { return row.loc_name; }),
                              responsive: [{
-                                 breakpoint: 480,
                                  options: {
                                      chart: {
                                          width: 100
