@@ -33,6 +33,9 @@
                   
                     <%--  <asp:Label ID="Label5" CssClass="col-sm-1 col-form-label" runat="server" Text="Branch"></asp:Label>
                   <div class="col-sm-2">
+
+s
+
                         <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server">
                         </asp:DropDownList>
                     </div>--%>
