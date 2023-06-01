@@ -48,6 +48,16 @@
 
                 </div>
 
+                <div class="row">
+                     <div class='popup'>
+                 <h5 align="center">Delivery Graph<label class="br_name"></label></h5>
+                <div id="chart" class="chart" style="margin-top: 70px">
+                   
+                </div>
+                <button id="closePopupBtn" class="btn">Close</button>
+                </div>
+                </div>
+
                 <asp:Panel ID="Report_Panel" runat="server" CssClass="report-grid">
                     <asp:Label ID="Report_lbl" CssClass="lbl text-center" runat="server" Text="Counts"></asp:Label>
                     <asp:GridView ID="Report_Grid" runat="server" CssClass="" Style="top: 0px; border: 1px solid #6fd472; text-align: center; border-collapse: inherit; background-color: hsla(40deg, 4%, 36%, 0.25); position: relative; width: 100%; table-layout: auto;"
@@ -94,16 +104,6 @@
 
 
                 </div>
-
-
-            <div class='popup'>
-                 <h5 align="center">Delivery Graph <label class="br_name"></label></h5>
-                <div id="chart" class="chart" style="margin-top: 70px">
-                   
-                </div>
-                <button id="closePopupBtn" class="btn">Close</button>
-            </div>
-
         </div>
 
     </div>

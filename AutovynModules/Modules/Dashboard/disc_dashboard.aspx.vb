@@ -12,7 +12,6 @@ Imports System.Web.Services
             If Not IsPostBack Then
                 Year_From.Text = "2022"
                 Year_To.Text = "2023"
-                grp_name.SelectedValue = "Cons_Disc"
 
             End If
         Catch ex As Exception

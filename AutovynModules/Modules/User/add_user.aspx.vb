@@ -181,7 +181,9 @@ Public Class add_user
                 If child_9_4.Checked Then
                     menu_list.Add("9.4")
                 End If
-
+                If child_9_5.Checked Then
+                    menu_list.Add("9.5")
+                End If
 
             End If
 #End Region

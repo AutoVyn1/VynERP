@@ -71,6 +71,38 @@
 	        font-size: 20px;
 	        font-weight: 700;
 	    }
+		#ui-datepicker-div{
+			position: absolute;
+    top: 135.797px;
+    left: 474.641px;
+    z-index: 1;
+    display: block;
+    background-color: rgb(255 255 240);
+    box-shadow: rgb(84, 84, 84) 2px 2px 9px;
+		}
+		.ui-corner-all{
+			border-bottom-right-radius: 18px;
+			    border-bottom-left-radius: 18px;
+		}
+		.ui-widget-content {
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    color: #333333;
+}
+		.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    border-radius: 12px;
+    width: 45%;
+    margin: 3px;
+    padding: 3px;
+}
+
+		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: 1px solid #c5c5c5;
+    background: #a5a5a5;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 9px;
+}
 
 	    .view {
 	        background-color: green;
@@ -501,7 +533,7 @@
 					   {
 						   changeMonth: true,
 						   changeYear: true,
-						   yearRange: '1950:2100'
+                           yearRange: '2005:2050'
 					   });
 			   });
 
@@ -511,10 +543,10 @@
 					   {
 						   changeMonth: true,
 						   changeYear: true,
-						   yearRange: '1950:2100'
+						   yearRange: '2005:2050'
 					   });
 			   });
-	</script>
+    </script>
 
 	<script>
         function compareDates() {

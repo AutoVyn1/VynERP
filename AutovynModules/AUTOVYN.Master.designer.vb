@@ -284,6 +284,15 @@ Partial Public Class AUTOVYN
     Protected WithEvents HyperLink17 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
+    '''HyperLink15 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HyperLink15 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''HyperLink18 control.
     '''</summary>
     '''<remarks>

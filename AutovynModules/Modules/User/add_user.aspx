@@ -623,6 +623,9 @@
                    <asp:CheckBox ID="child_9_4" runat="server" />
                    Other Sales
 				   <br />
+                     <asp:CheckBox ID="child_9_5" runat="server" />
+                   Outstanding
+				   <br />
                   
                </div>
                                 </div>
@@ -679,22 +682,27 @@
             var che = document.getElementById("ContentPlaceHolder1_isactive");
             che.checked = false;
 
-            for (var i = 1; i <= 8; i++) {
+            for (var i = 1; i <= 9; i++) {
                 var id = "ContentPlaceHolder1_parent" + i
                 var inputs = document.getElementById(id);
                 inputs.checked = false;
 
 
                 var parentIDs = ['', '<%= parent1.ClientID %>', '<%= parent2.ClientID %>', '<%= parent3.ClientID %>', '<%= parent4.ClientID %>', '<%= parent5.ClientID %>', '<%= parent6.ClientID %>', '<%= parent7.ClientID %>', '<%= parent9.ClientID %>'];
-                if (i <= 8) {
-                    var parentID = parentIDs[i];
-                    var parentDiv = document.querySelector('div[data-parentid="' + parentID + '"]');
-                    var childCount = parentDiv.querySelectorAll('input[type="checkbox"]').length;
+                if (i <= 9) {
+                    if (i == 8) {
+                        continue;
 
-                    for (var j = 1; j <= childCount; j++) {
-                        var child_id = "ContentPlaceHolder1_child_" + i + "_" + j;
-                        var child_inputs = document.getElementById(child_id);
-                        child_inputs.checked = false;
+                        var parentID = parentIDs[i];
+                        var parentDiv = document.querySelector('div[data-parentid="' + parentID + '"]');
+                        var childCount = parentDiv.querySelectorAll('input[type="checkbox"]').length;
+
+                        for (var j = 1; j <= childCount; j++) {
+
+                            var child_id = "ContentPlaceHolder1_child_" + i + "_" + j;
+                            var child_inputs = document.getElementById(child_id);
+                            child_inputs.checked = false;
+                        }
                     }
                 }
             }
@@ -895,6 +903,10 @@
                         }
                         if (seriesData.includes('9.4')) {
                             check = document.getElementById("ContentPlaceHolder1_child_9_4");
+                            check.checked = true;
+                        }
+                        if (seriesData.includes('9.5')) {
+                            check = document.getElementById("ContentPlaceHolder1_child_9_5");
                             check.checked = true;
                         }
                         

@@ -173,7 +173,6 @@ Public Class vhicle_del
     Public Sub AmountView()
         Try
             Dim dt As New DataTable
-            'dt.Columns.Add("View", GetType(String))
             dt.Columns.Add("branch", GetType(String))
             dt.Columns.Add("Apr", GetType(Integer))
             dt.Columns.Add("May", GetType(Integer))
@@ -245,10 +244,5 @@ Public Class vhicle_del
 
         End Try
     End Sub
-
-
-
-
-
 
 End Class

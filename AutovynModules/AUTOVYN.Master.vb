@@ -299,6 +299,14 @@
                         HyperLink18.Style.Add("cursor", "not-allowed")
                     End If
 
+
+                    If menu_list.Contains("9.5") Then
+                        HyperLink15.Enabled = True
+                    Else
+                        HyperLink15.Enabled = False
+                        HyperLink15.Style.Add("cursor", "not-allowed")
+                    End If
+
                 Else
                     HyperLink14.Enabled = False
                     HyperLink14.Style.Add("cursor", "not-allowed")
@@ -308,7 +316,8 @@
                     HyperLink17.Style.Add("cursor", "not-allowed")
                     HyperLink18.Enabled = False
                     HyperLink18.Style.Add("cursor", "not-allowed")
-
+                    HyperLink15.Enabled = False
+                    HyperLink15.Style.Add("cursor", "not-allowed")
                 End If
 
 #End Region

@@ -437,6 +437,15 @@ Partial Public Class add_user
     Protected WithEvents child_9_4 As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''child_9_5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents child_9_5 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''branch_list control.
     '''</summary>
     '''<remarks>
