@@ -349,9 +349,9 @@
                                      <asp:HyperLink ID="HyperLink17" runat="server" Text="Discount Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/disc_dashboard.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
                                 </li>
 
-                                <%--<li>
-                                     <asp:HyperLink ID="HyperLink18" runat="server" Text="Other Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/Other_sales.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
-                                </li>--%>
+                                <li>
+                                     <asp:HyperLink ID="HyperLink18" runat="server" Text="Other Sales" NavigateUrl="~/AutovynModules/Modules/Dashboard/Other_sales.aspx" CssClass="w3-bar-item w3-button dropdown-item" ></asp:HyperLink>
+                                </li>
                              </ul>
                         </li>
 

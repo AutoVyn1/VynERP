@@ -59,13 +59,7 @@
                            <asp:ListItem Value="cons_disc">Consumer Discount</asp:ListItem>
                            <asp:ListItem Value="Exch_disc">Exchange Discount</asp:ListItem>
                            <asp:ListItem Value="Corp_disc">Corporation Discount</asp:ListItem>
-                            <asp:ListItem Value="MGA_disc">MGA sales </asp:ListItem>
-                            <asp:ListItem Value="Extended_disc">Extended Warranry sales</asp:ListItem>
-                            <asp:ListItem Value="CCP_disc">CCP Charges</asp:ListItem>
-                            <asp:ListItem Value="Insuarance_disc">Insuarance sales</asp:ListItem>
-                            <asp:ListItem Value="Nexa_disc">Nexa Auto Card</asp:ListItem>
-                            <asp:ListItem Value="RTO_disc">RTO Amount</asp:ListItem>
-
+                           
                         </asp:DropDownList>
                     </div>
 

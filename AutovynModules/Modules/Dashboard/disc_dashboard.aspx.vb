@@ -82,18 +82,6 @@ Imports System.Web.Services
                 disc = "Sum(Exch_Disc) as discount"
             Case "Corp_disc"
                 disc = "Sum(Corp_Disc) as discount"
-            Case "MGA_disc"
-                disc = "Sum(MGA_Pric) as discount"
-            Case "Extended_disc"
-                disc = "Sum(EW_PolicyAmt) as discount"
-            Case "CCP_disc"
-                disc = "Sum(PPC_Chrgs) as discount"
-            Case "Insuarance_disc"
-                disc = "Sum(MI_PolicyAmt) as discount"
-            Case "Nexa_disc"
-                disc = "Sum(Nexa_Card) as discount"
-            Case "RTO_disc"
-                disc = "Sum(RTO_Pric) as discount"
         End Select
 
         Return disc

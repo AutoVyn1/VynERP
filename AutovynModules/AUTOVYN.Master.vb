@@ -268,6 +268,49 @@
 
                 End If
 
+                If menu_list.Contains("9") Then
+                    If menu_list.Contains("9.1") Then
+                        HyperLink14.Enabled = True
+                    Else
+                        HyperLink14.Enabled = False
+                        HyperLink14.Style.Add("cursor", "not-allowed")
+                    End If
+
+                    If menu_list.Contains("9.2") Then
+                        HyperLink16.Enabled = True
+                    Else
+                        HyperLink16.Enabled = False
+                        HyperLink16.Style.Add("cursor", "not-allowed")
+                    End If
+
+
+                    If menu_list.Contains("9.3") Then
+                        HyperLink17.Enabled = True
+                    Else
+                        HyperLink17.Enabled = False
+                        HyperLink17.Style.Add("cursor", "not-allowed")
+                    End If
+
+
+                    If menu_list.Contains("9.4") Then
+                        HyperLink18.Enabled = True
+                    Else
+                        HyperLink18.Enabled = False
+                        HyperLink18.Style.Add("cursor", "not-allowed")
+                    End If
+
+                Else
+                    HyperLink14.Enabled = False
+                    HyperLink14.Style.Add("cursor", "not-allowed")
+                    HyperLink16.Enabled = False
+                    HyperLink16.Style.Add("cursor", "not-allowed")
+                    HyperLink17.Enabled = False
+                    HyperLink17.Style.Add("cursor", "not-allowed")
+                    HyperLink18.Enabled = False
+                    HyperLink18.Style.Add("cursor", "not-allowed")
+
+                End If
+
 #End Region
 
             End If

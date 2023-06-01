@@ -392,6 +392,51 @@ Partial Public Class add_user
     Protected WithEvents parent8 As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''parent9 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents parent9 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''child_9_1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents child_9_1 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''child_9_2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents child_9_2 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''child_9_3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents child_9_3 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''child_9_4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents child_9_4 As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''branch_list control.
     '''</summary>
     '''<remarks>
