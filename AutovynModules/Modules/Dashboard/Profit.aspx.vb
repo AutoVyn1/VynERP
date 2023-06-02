@@ -77,7 +77,9 @@ Public Class profit
         HttpContext.Current.Session("YourKey") = ""
 
         Dim TranDt0 As DataTable
-        TranDt0 = con.ReturnDtTable("SELECT acnt_date,(SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,acnt_post.loc_code, iif(amt_drcr=1,post_amt*-1,post_amt) / 100000  AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/2022' AND '03/31/2023' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date")
+        'TranDt0 = con.ReturnDtTable("SELECT acnt_date,(SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,acnt_post.loc_code, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
+
+        TranDt0 = con.ReturnDtTable("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
 
         ' Call the function and get the resultTables list
         Dim resultTables As List(Of DataTable) = graph(TranDt0)
@@ -85,26 +87,29 @@ Public Class profit
         ' Create a new DataTable to hold the copied table
         Dim TranDt As DataTable
         Dim TranDt1 As DataTable
+        Dim TranDt3 As DataTable
         Dim TranDt4 As DataTable
-        Dim TranDt5 As DataTable
 
         ' Check if the desired table index is within the range of the resultTables list
         If resultTables.Count >= 4 Then
             ' Copy the TranDt4 table to myTable
             TranDt = resultTables(0).Copy()
             TranDt1 = resultTables(1).Copy()
-            TranDt4 = resultTables(2).Copy()
-            TranDt5 = resultTables(3).Copy()
+            TranDt3 = resultTables(2).Copy()
+            TranDt4 = resultTables(3).Copy()
         Else
             ' Handle the case where TranDt4 is not available
             ' You can choose to create an empty DataTable or handle the scenario based on your requirements
             TranDt = New DataTable()
         End If
 
-        Dim TranDt3 As DataTable
-        TranDt3 = con.ReturnDtTable("SELECT YEAR(DATEADD(MONTH, -3, Acnt_Date)) + CASE WHEN MONTH(Acnt_Date) <= 3 THEN 1 ELSE 0 END AS Year, 'Q ' + CAST(DATEPART(QUARTER, DATEADD(MONTH, -3, Acnt_Date)) AS VARCHAR) AS Quarter, CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM  acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY YEAR(DATEADD(MONTH, -3, Acnt_Date)) + CASE WHEN MONTH(Acnt_Date) <= 3 THEN 1 ELSE 0 END, 'Q ' + CAST(DATEPART(QUARTER, DATEADD(MONTH, -3, Acnt_Date)) AS VARCHAR) ORDER BY Year, Quarter")
-
-
+        Dim TranDt5 As DataTable
+        TranDt5 = con.ReturnDtTable("SELECT (SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,
+                acnt_post.Loc_Code, ABS(SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1))/100000) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "'
+                AND '03/31/" + to_year + "'
+                and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)  GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Acnt_Date))
+                AS VARCHAR),  '-', 
+                CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ), acnt_post.Loc_Code ORDER BY  acnt_post.Loc_Code")
 
         Dim prev_fromyear As String = frm_year - 1
 
@@ -287,42 +292,60 @@ Public Class profit
 
     Public Shared Function graph(ByVal TranDt0 As DataTable)
         Dim resultTables As New List(Of DataTable)
+        Dim startDate As DateTime = DateTime.MaxValue
+        Dim endDate As DateTime = DateTime.MinValue
+        ' Determine the minimum and maximum years from the data
+        Dim minYear As Integer = Integer.MaxValue
+        Dim maxYear As Integer = Integer.MinValue
+
+        For Each row As DataRow In TranDt0.Rows
+            Dim acntDate As DateTime = CDate(row("acnt_date"))
+            Dim year As Integer = acntDate.Year
+
+            If acntDate < startDate Then
+                startDate = acntDate
+                minYear = year
+
+            End If
+
+            If acntDate > endDate Then
+                endDate = acntDate
+                maxYear = year
+
+            End If
+        Next
+
+
         'Filter for Year
         Dim TranDt As New DataTable
         TranDt.Columns.Add("year", GetType(String))
         TranDt.Columns.Add("cl_bal", GetType(Double))
 
-        Dim startDate As New DateTime(2022, 4, 1)
-        Dim endDate As New DateTime(2023, 3, 31)
-
-        Dim currentYear As Integer = startDate.Year
-        While currentYear <= endDate.Year
+        Dim currentYear As Integer = minYear
+        While currentYear <= maxYear
             Dim yearStart As DateTime = New DateTime(currentYear, 4, 1)
             Dim yearEnd As DateTime = yearStart.AddYears(1).AddDays(-1)
 
-            Dim sumBalance As Double = 0.0
+            Dim sumBalance As Int32 = 0
             Dim rows As DataRow() = TranDt0.Select("acnt_date >= #" & yearStart.ToString("MM/dd/yyyy") & "# AND acnt_date <= #" & yearEnd.ToString("MM/dd/yyyy") & "#")
             If rows.Length > 0 Then
                 Dim financialYear As String = currentYear.ToString() & "-" & (currentYear + 1).ToString()
                 For Each row As DataRow In rows
                     sumBalance += CDbl(row("cl_bal"))
                 Next
-                TranDt.Rows.Add(financialYear, sumBalance)
+                TranDt.Rows.Add(financialYear, Math.Round(sumBalance / 100000, 2))
             End If
             currentYear += 1
         End While
 
 
-        'Filter for Month
+        ' Filter for Month
         Dim TranDt1 As New DataTable
         TranDt1.Columns.Add("Month", GetType(String))
         TranDt1.Columns.Add("cl_bal", GetType(Double))
 
-        Dim startDate1 As New DateTime(2022, 4, 1)
-        Dim endDate1 As New DateTime(2023, 3, 31)
-
-        Dim currentMonth As DateTime = startDate1
-        While currentMonth <= endDate1
+        Dim currentMonth As DateTime = startDate
+        While currentMonth <= endDate
             Dim monthStart As DateTime = New DateTime(currentMonth.Year, currentMonth.Month, 1)
             Dim monthEnd As DateTime = monthStart.AddMonths(1).AddDays(-1)
 
@@ -333,60 +356,134 @@ Public Class profit
                 sumBalance += CDbl(row("cl_bal"))
             Next
 
-            Dim month As String = monthStart.ToString("MMMM")
-            TranDt1.Rows.Add(month, sumBalance)
+            Dim month As String = monthStart.ToString("MMM")
+            TranDt1.Rows.Add(month, Math.Round(sumBalance / 100000, 2))
 
             currentMonth = currentMonth.AddMonths(1)
         End While
 
 
 
-        'Filter for Day
-        Dim TranDt4 As New DataTable
-        TranDt4.Columns.Add("day", GetType(Integer))
-        TranDt4.Columns.Add("cl_bal", GetType(Double))
 
-        Dim startDate2 As New DateTime(2022, 4, 1)
-        Dim endDate2 As New DateTime(2022, 4, 30)
 
-        Dim currentDate As DateTime = startDate2
-        While currentDate <= endDate2
-            Dim sumBalance As Double = 0.0
-            Dim rows As DataRow() = TranDt0.Select("acnt_date = #" & currentDate.ToString("MM/dd/yyyy") & "#")
+        'Filter for Quarters
+        Dim TranDtQuarter As New DataTable
+        TranDtQuarter.Columns.Add("Quarter", GetType(String))
+        TranDtQuarter.Columns.Add("cl_bal", GetType(Double))
+
+        Dim currentQuarter As Integer = 1
+        Dim currentQuarterStart As DateTime = startDate
+
+        While currentQuarter <= 4
+            Dim quarterEnd As DateTime
+
+            Select Case currentQuarter
+                Case 1
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 6, 30)
+                Case 2
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 9, 30)
+                Case 3
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 12, 31)
+                Case 4
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 3, 31)
+
+                Case 5
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 6, 30)
+                Case 6
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 9, 30)
+                Case 7
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 12, 31)
+                Case 8
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 3, 31)
+
+                Case 9
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 6, 30)
+                Case 10
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 9, 30)
+                Case 11
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 12, 31)
+                Case 12
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 3, 31)
+
+                Case 13
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 6, 30)
+                Case 14
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 9, 30)
+                Case 15
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 12, 31)
+                Case 16
+                    quarterEnd = New DateTime(currentQuarterStart.Year + 4, 3, 31)
+
+            End Select
+
+            Dim sumBalance As Double = 0
+            Dim rows As DataRow() = TranDt0.Select("acnt_date >= #" & currentQuarterStart.ToString("MM/dd/yyyy") & "# AND acnt_date <= #" & quarterEnd.ToString("MM/dd/yyyy") & "#")
+
             For Each row As DataRow In rows
                 sumBalance += CDbl(row("cl_bal"))
             Next
 
-            TranDt4.Rows.Add(currentDate.Day, sumBalance)
+            Dim quarter As String = "Q" & currentQuarter.ToString()
+            TranDtQuarter.Rows.Add(quarter, Math.Round(sumBalance / 100000, 2))
+
+            currentQuarter += 1
+            currentQuarterStart = quarterEnd.AddDays(1)
+        End While
+
+
+
+
+
+        ' Filter for Day
+        Dim TranDt4 As New DataTable
+        TranDt4.Columns.Add("day", GetType(String))
+        TranDt4.Columns.Add("cl_bal", GetType(Double))
+
+
+        Dim startDate1 As DateTime = New DateTime(minYear, 4, 1)
+        Dim endDate1 As DateTime = New DateTime(minYear, 4, 30)
+
+        Dim currentDate As DateTime = startDate1
+        While currentDate <= endDate1
+            Dim sumBalance As Double = 0.0
+            Dim rows As DataRow() = TranDt0.Select("acnt_date = #" & currentDate.ToString("MM/dd/yyyy") & "#")
+
+            For Each row As DataRow In rows
+                sumBalance += CDbl(row("cl_bal"))
+            Next
+
+            TranDt4.Rows.Add(("Day" & currentDate.Day), Math.Round(sumBalance / 1000, 2))
 
             currentDate = currentDate.AddDays(1)
         End While
 
+
+
         'Filter for Branch
-        Dim TranDt5 As New DataTable
-        TranDt5.Columns.Add("loc_code", GetType(String))
-        TranDt5.Columns.Add("loc_name", GetType(String))
-        TranDt5.Columns.Add("cl_bal", GetType(Double))
+        'Dim TranDt5 As New DataTable
+        'TranDt5.Columns.Add("loc_code", GetType(String))
+        'TranDt5.Columns.Add("loc_name", GetType(String))
+        'TranDt5.Columns.Add("cl_bal", GetType(Double))
 
-        Dim rows1 As DataRow() = TranDt0.Select()
-        For Each row As DataRow In rows1
-            Dim locCode As String = row("loc_code").ToString()
-            Dim locName As String = row("loc_name").ToString()
-            Dim balance As Double = CDbl(row("cl_bal"))
+        'Dim rows1 As DataRow() = TranDt0.Select()
+        'For Each row As DataRow In rows1
+        '    Dim locCode As String = row("loc_code").ToString()
+        '    Dim locName As String = row("loc_name").ToString()
+        '    Dim balance As Double = CDbl(row("cl_bal"))
 
-            Dim existingRow As DataRow = TranDt5.Select("loc_code = '" & locCode & "'").FirstOrDefault()
-            If existingRow IsNot Nothing Then
-                existingRow("cl_bal") = CDbl(existingRow("cl_bal")) + balance
-            Else
-                TranDt5.Rows.Add(locCode, locName, balance)
-            End If
-        Next
-
+        '    Dim existingRow As DataRow = TranDt5.Select("loc_code = '" & locCode & "'").FirstOrDefault()
+        '    If existingRow IsNot Nothing Then
+        '        existingRow("cl_bal") = Math.Round(CDbl(existingRow("cl_bal")) + (balance / 100000), 2)
+        '    Else
+        '        TranDt5.Rows.Add(locCode, locName, Math.Round(balance / 100000, 2))
+        '    End If
+        'Next
 
         resultTables.Add(TranDt)
         resultTables.Add(TranDt1)
+        resultTables.Add(TranDtQuarter)
         resultTables.Add(TranDt4)
-        resultTables.Add(TranDt5)
+        'resultTables.Add(TranDt5)
 
         Return resultTables
     End Function
