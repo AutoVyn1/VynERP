@@ -76,13 +76,26 @@ Public Class profit
 
         HttpContext.Current.Session("YourKey") = ""
 
-        Dim TranDt0 As DataTable
         'TranDt0 = con.ReturnDtTable("SELECT acnt_date,(SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,acnt_post.loc_code, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
 
-        TranDt0 = con.ReturnDtTable("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
 
+        Dim prev_fromyear As String = frm_year - 1
+
+        Dim prev_toyear As String = to_year - 1
+
+        Dim sql As String = ("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date;
+                   SELECT (SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,
+                        acnt_post.Loc_Code, ABS(SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1))/100000) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "'
+                        AND '03/31/" + to_year + "'
+                        and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)  GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Acnt_Date))
+                        AS VARCHAR),  '-', 
+                        CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ), acnt_post.Loc_Code ORDER BY  acnt_post.Loc_Code;
+                        SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)
+                        ")
+
+        Dim dt As DataSet = con.ReturnDtSet(sql)
         ' Call the function and get the resultTables list
-        Dim resultTables As List(Of DataTable) = graph(TranDt0)
+        Dim resultTables As List(Of DataTable) = graph(dt.Tables(0))
 
         ' Create a new DataTable to hold the copied table
         Dim TranDt As DataTable
@@ -104,19 +117,11 @@ Public Class profit
         End If
 
         Dim TranDt5 As DataTable
-        TranDt5 = con.ReturnDtTable("SELECT (SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,
-                acnt_post.Loc_Code, ABS(SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1))/100000) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "'
-                AND '03/31/" + to_year + "'
-                and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)  GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Acnt_Date))
-                AS VARCHAR),  '-', 
-                CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ), acnt_post.Loc_Code ORDER BY  acnt_post.Loc_Code")
+        TranDt5 = dt.Tables(1)
 
-        Dim prev_fromyear As String = frm_year - 1
-
-        Dim prev_toyear As String = to_year - 1
 
         Dim TranDt7 As DataTable
-        TranDt7 = con.ReturnDtTable("SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)")
+        TranDt7 = dt.Tables(2)
 
 
         Dim json = New With {
@@ -291,6 +296,7 @@ Public Class profit
 
 
     Public Shared Function graph(ByVal TranDt0 As DataTable)
+
         Dim resultTables As New List(Of DataTable)
         Dim startDate As DateTime = DateTime.MaxValue
         Dim endDate As DateTime = DateTime.MinValue
@@ -315,6 +321,17 @@ Public Class profit
             End If
         Next
 
+        Dim yearDifference As Integer = endDate.Year - startDate.Year
+        Dim caseyr As Int16
+        If yearDifference <= 1 Then
+            caseyr = 4
+        ElseIf yearDifference <= 2 Then
+            caseyr = 8
+        ElseIf yearDifference <= 3 Then
+            caseyr = 12
+        Else
+            caseyr = 16
+        End If
 
         'Filter for Year
         Dim TranDt As New DataTable
@@ -374,7 +391,7 @@ Public Class profit
         Dim currentQuarter As Integer = 1
         Dim currentQuarterStart As DateTime = startDate
 
-        While currentQuarter <= 4
+        While currentQuarter <= caseyr
             Dim quarterEnd As DateTime
 
             Select Case currentQuarter
@@ -385,34 +402,37 @@ Public Class profit
                 Case 3
                     quarterEnd = New DateTime(currentQuarterStart.Year, 12, 31)
                 Case 4
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 3, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 3, 31)
+
 
                 Case 5
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 6, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 6, 30)
                 Case 6
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 9, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 9, 30)
                 Case 7
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 1, 12, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 12, 31)
                 Case 8
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 3, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 3, 31)
 
                 Case 9
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 6, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 6, 30)
                 Case 10
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 9, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 9, 30)
                 Case 11
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 2, 12, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 12, 31)
                 Case 12
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 3, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 3, 31)
+
 
                 Case 13
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 6, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 6, 30)
                 Case 14
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 9, 30)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 9, 30)
                 Case 15
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 3, 12, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 12, 31)
                 Case 16
-                    quarterEnd = New DateTime(currentQuarterStart.Year + 4, 3, 31)
+                    quarterEnd = New DateTime(currentQuarterStart.Year, 3, 31)
+
 
             End Select
 
