@@ -115,6 +115,36 @@ Public Class Connection
         End Try
 #Disable Warning
     End Function
+
+
+    Public Function ReturnDtSet(ByVal qstr As String) As DataSet
+        Try
+            If (SqlCon.State = ConnectionState.Closed) Then
+                SqlCon.Open()
+            End If
+
+            Dim sqlCom As New SqlCommand(qstr, SqlCon)
+
+            ' Add parameters to the command '
+            'If parameters IsNot Nothing Then
+            '    For Each parameter In parameters
+            '        sqlCom.Parameters.AddWithValue(parameter.Key, parameter.Value)
+            '    Next
+            'End If
+
+            adp.SelectCommand = sqlCom
+            Dim dt As New DataSet()
+            adp.Fill(dt)
+            Return dt
+
+        Catch ex As Exception
+            ' Handle the exception appropriately '
+        End Try
+
+        Return Nothing
+    End Function
+
+
 #Disable Warning
     Public Function ExecuteScaler(ByVal aggr As String) As Object
         Try
