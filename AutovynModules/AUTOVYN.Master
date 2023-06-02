@@ -336,6 +336,9 @@
                             <a id="ICM_13" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard
                             </a>
                             <ul class="dropdown-menu">
+                                <li>
+                                    <asp:HyperLink ID="HyperLink19" runat="server" Text="Profit & Loss Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/profit.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
+                                </li>
 
                                 <li>
                                     <asp:HyperLink ID="HyperLink14" runat="server" Text="Group Dashboard" NavigateUrl="~/AutovynModules/Modules/Dashboard/dashboard.aspx" CssClass="w3-bar-item w3-button dropdown-item"></asp:HyperLink>
