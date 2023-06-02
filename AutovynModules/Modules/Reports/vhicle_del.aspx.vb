@@ -173,6 +173,7 @@ Public Class vhicle_del
     Public Sub AmountView()
         Try
             Dim dt As New DataTable
+            'dt.Columns.Add("View", GetType(String))
             dt.Columns.Add("branch", GetType(String))
             dt.Columns.Add("Apr", GetType(Integer))
             dt.Columns.Add("May", GetType(Integer))
@@ -215,7 +216,6 @@ Public Class vhicle_del
 
                     'dt.Rows(dt.Rows.Count - 1)("Apr") = Convert.ToDecimal(TranDt2.Compute("SUM(Amount)", "Mnth=4"))
 
-
                     dt.Rows(dt.Rows.Count - 1)("May") = Val(TranDt2.Compute("sum(Amount)", "Mnth=" & 5 & "").ToString)
                     dt.Rows(dt.Rows.Count - 1)("Jun") = Val(TranDt2.Compute("sum(Amount)", "Mnth=" & 6 & "").ToString)
                     dt.Rows(dt.Rows.Count - 1)("Jul") = Val(TranDt2.Compute("sum(Amount)", "Mnth=" & 7 & "").ToString)
@@ -244,5 +244,10 @@ Public Class vhicle_del
 
         End Try
     End Sub
+
+
+
+
+
 
 End Class
