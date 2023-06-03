@@ -405,6 +405,10 @@ h1, h2, h3, h4, h5, h6, strong {
         top: 25px;
         z-index: 10;
     }
+.box1{
+    overflow:auto;
+}
+
 
 @media screen and (max-width:760px) {
     #topnav {

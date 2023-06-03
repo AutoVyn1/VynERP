@@ -168,6 +168,16 @@
     .col-3 {
         width: 100%;
     }
+    .popup {
+        overflow: scroll !important;
+        width: 90% !important;
+        margin-top: -100% !important;
+    }
+
+    .chart {
+        width: 900px;
+        min-height: 295px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -190,6 +200,15 @@
     }
     .col-3 {
         width: 100%;
+    }
+    .popup {
+        overflow: scroll !important;
+        width: 90% !important;
+        margin-top: -100% !important;
+    }
+    .chart {
+        width: 900px;
+        min-height: 295px;
     }
 }
 

@@ -116,7 +116,6 @@ Public Class Connection
 #Disable Warning
     End Function
 
-
     Public Function ReturnDtSet(ByVal qstr As String) As DataSet
         Try
             If (SqlCon.State = ConnectionState.Closed) Then
