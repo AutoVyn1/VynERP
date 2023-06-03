@@ -122,7 +122,6 @@
                     Sales_3_2.Style.Add("cursor", "not-allowed")
                 End If
 
-
                 If menu_list.Contains("4") Then
                     If menu_list.Contains("4.1") Then
                         TrueValue_4_1.Enabled = True
@@ -198,7 +197,6 @@
                     HyperLink3.Enabled = False
                     HyperLink3.Style.Add("cursor", "not-allowed")
                 End If
-
 
                 If menu_list.Contains("7") Then
                     If menu_list.Contains("7.1") Then

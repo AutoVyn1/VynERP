@@ -77,7 +77,6 @@ Public Class profit
         HttpContext.Current.Session("YourKey") = ""
 
         Dim TranDt0 As DataTable
-        'TranDt0 = con.ReturnDtTable("SELECT acnt_date,(SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,acnt_post.loc_code, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
 
         TranDt0 = con.ReturnDtTable("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date ")
 
@@ -135,9 +134,6 @@ Public Class profit
         Return jsown
     End Function
 
-
-
-
     <WebMethod()>
     Public Shared Function GetChartData_branch(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
@@ -188,7 +184,6 @@ Public Class profit
         Return jsown
     End Function
 
-
     <WebMethod()>
     Public Shared Function GetChartData2(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
@@ -229,7 +224,6 @@ Public Class profit
         'Return the JSON string
         Return jsown
     End Function
-
 
     <WebMethod()>
     Public Shared Function GetChartData_day(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
@@ -288,7 +282,6 @@ Public Class profit
         'Return the JSON string
         Return jsown
     End Function
-
 
     Public Shared Function graph(ByVal TranDt0 As DataTable)
         Dim resultTables As New List(Of DataTable)
@@ -487,9 +480,5 @@ Public Class profit
 
         Return resultTables
     End Function
-
-
-
-
 
 End Class

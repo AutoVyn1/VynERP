@@ -757,23 +757,27 @@
                          var data = JSON.parse(response.d);
                          var quarter = "";
                          var da = [];
-                         if (xValue == "Q 1") {
-                             quarter += "First Quarter"
+
+                         let a = xValue.split("-");
+                         let b = a[1];
+                         let c = a[0];
+
+                         if (c == "Q1") {
+                             quarter += "First Quarter -" + b;
                              da.push('April', 'May', 'June')
                          }
-                         else if (xValue == "Q 2") {
-                             quarter += "Second Quarter";
+                         else if (c == "Q2") {
+                             quarter += "Second Quarter -" + b;
                              da.push('July', 'August', 'September')
                          }
-                         else if (xValue == "Q 3") {
-                             quarter += "Third Quarter"
+                         else if (c == "Q3") {
+                             quarter += "Third Quarter -" + b;
                              da.push('October', 'November', 'December')
                          }
-                         else if (xValue == "Q 4") {
-                             quarter += "Fourth Quarter"
+                         else if (c == "Q4") {
+                             quarter += "Fourth Quarter -" + b;
                              da.push('January', 'Feburary', 'March')
                          }
-                         console.log(da);
                          var chart1Data = data.DataTable1;
 
                          var optionsArea = {
@@ -903,42 +907,46 @@
                          var data = JSON.parse(response.d);
 
                          var chart1Data = data.DataTable1;
+
+                         let a = xValue.split("-");
+                         let b = a[1];
+                         let c = a[0];
                          var quarter = "";
-                         if (xValue == "Jan") {
-                             quarter += "January Chart"
+                         if (c == "Jan") {
+                             quarter += "January Chart -" + b;
                          }
-                         else if (xValue == "Feb") {
-                             quarter += "February Chart"
+                         else if (c == "Feb") {
+                             quarter += "February Chart -" + b;
                          }
-                         else if (xValue == "Mar") {
-                             quarter += "March Chart"
+                         else if (c == "Mar") {
+                             quarter += "March Chart -" + b;
                          }
-                         else if (xValue == "Apr") {
-                             quarter += "April Chart"
+                         else if (c == "Apr") {
+                             quarter += "April Chart -" + b;
                          }
-                         else if (xValue == "May") {
-                             quarter += "May Chart"
+                         else if (c == "May") {
+                             quarter += "May Chart -" + b;
                          }
-                         else if (xValue == "Jun") {
-                             quarter += "June Chart"
+                         else if (c == "Jun") {
+                             quarter += "June Chart -" + b;
                          }
-                         else if (xValue == "Jul") {
-                             quarter += "July Chart"
+                         else if (c == "Jul") {
+                             quarter += "July Chart -" + b;
                          }
-                         else if (xValue == "Aug") {
-                             quarter += "August Chart"
+                         else if (c == "Aug") {
+                             quarter += "August Chart -" + b;
                          }
-                         else if (xValue == "Sep") {
-                             quarter += "September Chart"
+                         else if (c == "Sep") {
+                             quarter += "September Chart -" + b;
                          }
-                         else if (xValue == "Oct") {
-                             quarter += "October Chart"
+                         else if (c == "Oct") {
+                             quarter += "October Chart -" + b;
                          }
-                         else if (xValue == "Nov") {
-                             quarter += "November Chart"
+                         else if (c == "Nov") {
+                             quarter += "November Chart -" + b;
                          }
-                         else if (xValue == "Dec") {
-                             quarter += "December Chart"
+                         else if (c == "Dec") {
+                             quarter += "December Chart -" + b;
                          }
                          var optionsAr = {
                              series: [{
@@ -1571,6 +1579,20 @@
             });
            
         </script>
+
+    <script>
+        $("#Load_Location").click(function () {
+            var frm_year = $('#ContentPlaceHolder1_Year_From').val();
+            var to_year = $('#ContentPlaceHolder1_Year_To').val();
+
+            var z = parseInt(to_year) - parseInt(frm_year)
+            console.log(z)
+            if (z >= 2) {
+                $('.box1').css('overflow-x','scroll')
+                $('#spark1').css('width','700px')
+            }
+        });
+    </script>
 
 </asp:Content>
 
