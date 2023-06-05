@@ -88,8 +88,6 @@ Public Class profit
         Return jsown
     End Function
 
-
-    'For branch wise dashboard
     <WebMethod()>
     Public Shared Function GetChartData_branch(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
