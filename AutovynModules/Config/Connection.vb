@@ -124,13 +124,6 @@ Public Class Connection
 
             Dim sqlCom As New SqlCommand(qstr, SqlCon)
 
-            ' Add parameters to the command '
-            'If parameters IsNot Nothing Then
-            '    For Each parameter In parameters
-            '        sqlCom.Parameters.AddWithValue(parameter.Key, parameter.Value)
-            '    Next
-            'End If
-
             adp.SelectCommand = sqlCom
             Dim dt As New DataSet()
             adp.Fill(dt)

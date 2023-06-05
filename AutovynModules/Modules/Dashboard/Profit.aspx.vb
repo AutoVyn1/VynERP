@@ -5,8 +5,7 @@ Public Class profit
     Inherits System.Web.UI.Page
     Private con
     Private dt As New DataTable
-    Public Shared dt1 As DataSet
-    Public Shared dt2 As DataTable
+
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -37,7 +36,7 @@ Public Class profit
                         SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)
                         ")
 
-
+        Dim dt1 As DataSet
         dt1 = con.ReturnDtSet(sql)
         ' Call the function and get the resultTables list
         Dim resultTables As List(Of DataTable) = graph(dt1.Tables(0))
@@ -65,7 +64,7 @@ Public Class profit
         Dim TranDt7 As DataTable
         TranDt7 = dt1.Tables(1)
 
-        'dt2 = branchtable(dt1.Tables(0))
+        Dim dt2 As DataTable
         dt2 = con.ReturnDtTable("SELECT (SELECT top 1 Godw_Name FROM Godown_Mst where Godw_Code = acnt_post.Loc_Code) as loc_name,
                         acnt_post.Loc_Code, ABS(SUM(IIF(amt_drcr = 1, post_amt, post_amt * -1))/100000) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "'
                         AND '03/31/" + to_year + "'
@@ -90,8 +89,7 @@ Public Class profit
     End Function
 
 
-
-
+    'For branch wise dashboard
     <WebMethod()>
     Public Shared Function GetChartData_branch(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
@@ -112,7 +110,7 @@ Public Class profit
                         SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and acnt_post.Loc_Code ='" + loc_code + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)
                         ")
 
-
+        Dim dt1 As DataSet
         dt1 = con.ReturnDtSet(sql)
 
         Dim resultTables As List(Of DataTable) = graph(dt1.Tables(0))
@@ -152,15 +150,36 @@ Public Class profit
     <WebMethod()>
     Public Shared Function GetChartData2(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
 
+        Dim loc_code = ""
+        If HttpContext.Current.Session("YourKey") IsNot "" Then
+            Dim value As String = HttpContext.Current.Session("YourKey").ToString()
+
+            If value IsNot "" Then
+                loc_code = "and Acnt_post.Loc_Code ='" + value + "'"
+            End If
+        End If
+
+        Dim con As New Connection
+        Dim datew = ""
+
+        Select Case xValue
+            Case "Q4"
+                datew = "01/01/" + to_year + "' and '03/31/" + to_year + ""
+            Case "Q1"
+                datew = "04/01/" + frm_year + "' and '06/30/" + frm_year + ""
+            Case "Q2"
+                datew = "07/01/" + frm_year + "' and '09/30/" + frm_year + ""
+            Case "Q3"
+                datew = "10/01/" + frm_year + "' and '12/31/" + frm_year + ""
+        End Select
+
         Dim TranDt As DataTable
 
-        TranDt = dt1.Tables(0)
-
+        TranDt = con.ReturnDtTable("select LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], cast(sum(iif(amt_drcr=1,post_amt*-1,post_amt))/100000 AS VARCHAR) + ' L' AS cl_bal from acnt_post,ledg_mst  where  Acnt_Date  between '" + datew + "' " + loc_code + " and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)   group by LEFT(DATENAME(MONTH, Acnt_Date), 3), month(Acnt_Date) order by month(Acnt_Date)")
 
         Dim json = New With {
-           .DataTable1 = quartertable(TranDt, xValue)
+           .DataTable1 = TranDt
          }
-
 
         'Convert the DataTable to a JSON string
         Dim jsown As String = JsonConvert.SerializeObject(json)
@@ -174,41 +193,51 @@ Public Class profit
     'For month ajax
     <WebMethod()>
     Public Shared Function GetChartData_day(grp_name As String, frm_year As String, to_year As String, xValue As String) As String
+        Dim loc_code = ""
+        If HttpContext.Current.Session("YourKey") IsNot Nothing Then
+            Dim value As String = HttpContext.Current.Session("YourKey").ToString()
+
+            If value IsNot "" Then
+                loc_code = "and Acnt.post.Loc_Code ='" + value + "'"
+            End If
+        End If
+
+        Dim con As New Connection
         Dim datew = ""
 
         Select Case xValue
             Case "Jan"
-                datew = "1"
+                datew = "01/01/" + to_year + "' and '01/31/" + to_year + ""
             Case "Feb"
-                datew = "2"
+                datew = "02/01/" + to_year + "' and '02/28/" + to_year + ""
             Case "Mar"
-                datew = "3"
+                datew = "03/01/" + to_year + "' and '03/31/" + to_year + ""
             Case "Apr"
-                datew = "4"
+                datew = "04/01/" + frm_year + "' and '04/30/" + frm_year + ""
             Case "May"
-                datew = "5"
+                datew = "05/01/" + frm_year + "' and '05/31/" + frm_year + ""
             Case "Jun"
-                datew = "6"
+                datew = "06/01/" + frm_year + "' and '06/30/" + frm_year + ""
             Case "Jul"
-                datew = "7"
+                datew = "07/01/" + frm_year + "' and '07/31/" + frm_year + ""
             Case "Aug"
-                datew = "8"
+                datew = "08/01/" + frm_year + "' and '08/31/" + frm_year + ""
             Case "Sep"
-                datew = "9"
+                datew = "09/01/" + frm_year + "' and '09/30/" + frm_year + ""
             Case "Oct"
-                datew = "10"
+                datew = "10/01/" + frm_year + "' and '10/31/" + frm_year + ""
             Case "Nov"
-                datew = "11"
+                datew = "11/01/" + frm_year + "' and '11/30/" + frm_year + ""
             Case "Dec"
-                datew = "12"
+                datew = "12/01/" + frm_year + "' and '12/31/" + frm_year + ""
         End Select
 
         Dim TranDt As DataTable
-        TranDt = dt1.Tables(0)
+        TranDt = con.ReturnDtTable("select  'Day '+ cast(day(Acnt_Date)AS VARCHAR) as day,  cast(sum(iif(amt_drcr=1,post_amt*-1,post_amt))/1000 AS VARCHAR) + ' K' AS cl_bal from acnt_post,ledg_mst  where  Acnt_Date  between '" + datew + "' " + loc_code + " and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) group by day(Acnt_Date) order by day(Acnt_Date)")
 
 
         Dim json = New With {
-           .DataTable1 = monthtable(TranDt, datew)
+           .DataTable1 = TranDt
          }
 
         'Convert the DataTable to a JSON string
@@ -480,7 +509,6 @@ Public Class profit
 
         Return TranDt5
     End Function
-
 
 
 End Class

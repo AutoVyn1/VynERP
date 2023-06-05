@@ -1,41 +1,33 @@
 ﻿Imports System.Globalization
 
 Module PublicModule
-    'Public Function SqlDate(ByVal str As String) As String
-    '    ' "'," & IIf(Phy_Date.Text = "  /  /", "Null", "'" + Phy_Date.Text + "'") & _
-    '    'If (str <> "  /  /" And str <> "  /  /" And str <> "") Then
-    '    '    Return "CDate('" + str + "')"
-    '    'Else
-    '    '    Return "Null"
-    '    'End If
-    '    If (str <> "  /  /" And str <> "  /  /" And str <> "") Then
-    '        Return "'" + CDate(str).ToString("yyyy/MM/dd") + "'"
-    '        'Return "CDate('" + str + "')"
-    '    Else
-    '        Return "Null"
-    '    End If
-    'End Function
+    Public Function Apexchart(ByVal json As String, ByVal label As String, ByVal divname As String, type As String, extra As String)
 
-    'Public Function SqlDate(ByVal MyDate As String)
+        ' Create a new ApexChart with the JSON data
+        Dim chart As New StringBuilder()
+        chart.Append("<script>")
+        chart.Append("var options = {")
+        chart.Append("  chart: {")
+        chart.Append("    type: '" + type + "',")
+        chart.Append("    height: 350")
+        chart.Append("  },")
+        chart.Append("  series: [{")
+        chart.Append("    name: 'Tax Amount',")
+        chart.Append("    data: " & json)
+        chart.Append("  }],")
+        chart.Append(extra)
+        chart.Append("  xaxis: {")
+        chart.Append("    type: 'category',")
+        chart.Append("    categories: " & label)
+        chart.Append("  }")
+        chart.Append("};")
+        chart.Append("var chart = new ApexCharts(document.querySelector('#" + divname + "'), options);")
+        chart.Append("chart.render();")
+        chart.Append("</script>")
 
-    '    Dim RetVal As String = ""
-    '    If MyDate.Trim = "" Then Return ""
-    '    Try
-    '        If MyDate <> "  /  /" Then
-    '            RetVal = "'" + CDate(MyDate).ToString("yyyy/MM/dd") + "'"
-    '        Else
-    '            RetVal = "Null"
-    '        End If
-    '    Catch ex As Exception
-    '        RetVal = "'" + CDate(MyDate).ToString(" ") + "'"
-    '    End Try
+        Return chart
 
-    '    Return RetVal
-
-
-
-
-    'End Function
+    End Function
 
     Public Function SqlDate(ByVal MyDate As String)
 

@@ -256,9 +256,11 @@
     <Content Include="AutovynModules\Modules\chassis\chassis_allot.aspx" />
     <Content Include="AutovynModules\Modules\CommonDiscount\common_disc.aspx" />
     <Content Include="AutovynModules\Modules\CommonDiscount\general_disc_report.aspx" />
+    <Content Include="AutovynModules\Modules\Dashboard\copydash.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\dashboard.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\disc_dashboard.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\Ledg_dashboard.aspx" />
+    <Content Include="AutovynModules\Modules\Dashboard\newsample.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\Other_sales.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\Outstanding.aspx" />
     <Content Include="AutovynModules\Modules\Dashboard\Profit.aspx" />
@@ -496,6 +498,13 @@
       <DependentUpon>general_disc_report.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\copydash.aspx.designer.vb">
+      <DependentUpon>copydash.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\copydash.aspx.vb">
+      <DependentUpon>copydash.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="AutovynModules\Modules\Dashboard\dashboard.aspx.designer.vb">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
@@ -515,6 +524,13 @@
     </Compile>
     <Compile Include="AutovynModules\Modules\Dashboard\Ledg_dashboard.aspx.vb">
       <DependentUpon>Ledg_dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\newsample.aspx.designer.vb">
+      <DependentUpon>newsample.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutovynModules\Modules\Dashboard\newsample.aspx.vb">
+      <DependentUpon>newsample.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AutovynModules\Modules\Dashboard\Other_sales.aspx.designer.vb">

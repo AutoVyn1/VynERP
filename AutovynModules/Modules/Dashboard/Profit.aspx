@@ -753,19 +753,19 @@
 						 var data = JSON.parse(response.d);
 						 var quarter = "";
 						 var da = [];
-						 if (xValue == "Q 1") {
+						 if (xValue == "Q1") {
 							 quarter += "First Quarter"
 							 da.push('April', 'May', 'June')
 						 }
-						 else if (xValue == "Q 2") {
+						 else if (xValue == "Q2") {
 							 quarter += "Second Quarter";
 							 da.push('July', 'August', 'September')
 						 }
-						 else if (xValue == "Q 3") {
+						 else if (xValue == "Q3") {
 							 quarter += "Third Quarter"
 							 da.push('October', 'November', 'December')
 						 }
-						 else if (xValue == "Q 4") {
+						 else if (xValue == "Q4") {
 							 quarter += "Fourth Quarter"
 							 da.push('January', 'Feburary', 'March')
 						 }
