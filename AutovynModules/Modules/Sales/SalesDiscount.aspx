@@ -800,7 +800,7 @@
        inputElement2.addEventListener("input", restrictInput);
        inputElement2.addEventListener("touchstart", restrictInput);
        inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", addSuffix);
+       inputElement2.addEventListener("blur", compare_Input);
 
        var inputElement2 = document.getElementById("ContentPlaceHolder1_Consumer");
        inputElement2.addEventListener("keydown", restrictInput);
@@ -846,6 +846,34 @@
 
        }
 
+       function compare_Input() {
+           var appr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt').value;
+           var disc_amt = document.getElementById('ContentPlaceHolder1_Discount_Amt').value;
+
+           if (!appr_amt.endsWith(".00") && appr_amt != "") {
+               document.getElementById("ContentPlaceHolder1_Appr_Amt").value = appr_amt + ".00";
+           }
+
+           var ap_amt = parseInt(document.getElementById('ContentPlaceHolder1_Appr_Amt').value);
+           var di_amt = parseInt(document.getElementById('ContentPlaceHolder1_Discount_Amt').value);
+
+           if (ap_amt > di_amt) {
+               Swal.fire({
+                   icon: 'warning',
+                   title: 'Approved Amount Should be Lower Than Requested Amount',
+                   text: '',
+               }).then(function () {
+                   var box = document.getElementById('ContentPlaceHolder1_Appr_Amt')
+                   box.value = "";
+                   box.style.border = '2px solid red';
+                   box.focus();
+
+               });
+           }
+
+
+       }
+
        function addSuffix(event) {
 
            var inputValue = event.target;
@@ -855,6 +883,8 @@
                inputValue.value = value + ".00";
            }
        }
+
+
 
    </script>
     <%-- For limitation to the input  --%>
@@ -1118,7 +1148,7 @@
 		}
 	</script>
 
-    <script>
+   <%-- <script>
         function compare_Input() {
             var appr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt').value;
             var disc_amt = document.getElementById('ContentPlaceHolder1_Discount_Amt').value;
@@ -1147,7 +1177,7 @@
 
         }
         document.getElementById('ContentPlaceHolder1_Appr_Amt').addEventListener("blur", compare_Input);
-    </script>
+    </script>--%>
 
 
 
