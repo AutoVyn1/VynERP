@@ -400,6 +400,7 @@ Public Class profit
 		'    Else
 		'        TranDt5.Rows.Add(locCode, locName, Math.Round(balance / 100000, 2))
 		'    End If
+        ' 
 		'Next
 
 		resultTables.Add(TranDt)
