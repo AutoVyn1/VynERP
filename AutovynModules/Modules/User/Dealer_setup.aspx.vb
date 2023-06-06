@@ -172,7 +172,8 @@
 				[Remark] [varchar](100) NULL,
 				[Curr_Date] [date] NULL,
 				[location] [varchar](50) NULL,
-				[Approved_amt] [money] NULL) "
+				[Approved_amt] [money] NULL),
+				[Aprvl_by2] [varchar](20) NULL"
 
 		'for true value module table
 		qry8 = "CREATE TABLE TVIcm_mst(
