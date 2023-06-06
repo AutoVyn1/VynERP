@@ -95,7 +95,7 @@
                 Consumer.Text = dt.Rows(0)("Consumer").ToString
                 Corporate.Text = dt.Rows(0)("Corporate").ToString
                 Exch.Text = dt.Rows(0)("Exch").ToString
-                'Aprvl_Offer.Text = dt.Rows(0)("Aprvl_Offer").ToString
+                Appr_Amt.Text = dt.Rows(0)("Approved_amt").ToString
                 Discount_Amt.Text = dt.Rows(0)("dise_amt").ToString
                 Aprvl_By.Text = dt.Rows(0)("Aprvl_By").ToString
                 Aprvl_By2.Text = dt.Rows(0)("Aprvl_By2").ToString
