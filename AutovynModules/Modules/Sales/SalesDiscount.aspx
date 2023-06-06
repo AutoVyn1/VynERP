@@ -879,7 +879,7 @@
            var inputValue = event.target;
            var value = inputValue.value;
 
-           if (!value.endsWith(".00")) {
+		   if (!value.endsWith(".00") && value != "") {
                inputValue.value = value + ".00";
            }
        }

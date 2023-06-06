@@ -83,7 +83,7 @@
                 veh_color.Text = dt.Rows(0)("veh_clr").ToString
                 Delv_Date.Text = Convert.ToDateTime(dt.Rows(0)("Delv_Date")).ToString("dd-MM-yyyy")
                 Loan_type.Text = dt.Rows(0)("loan").ToString
-                MGA_Amt.Text = dt.Rows(0)("MGA_Amt").ToString
+                MGA_Amt.Text = Decimal.Parse(dt.Rows(0)("MGA_Amt").ToString()).ToString("0.00")
                 Insurance.Text = dt.Rows(0)("Insurance").ToString
                 RTO_Chrg.Text = dt.Rows(0)("RTO_Chrg").ToString
                 EW_CCP.Text = dt.Rows(0)("EW_CCP").ToString
@@ -92,11 +92,11 @@
                 FastTeg.Text = dt.Rows(0)("FastTeg").ToString
                 SRM.Text = dt.Rows(0)("srm").ToString
                 RM.Text = dt.Rows(0)("rm").ToString
-                Consumer.Text = dt.Rows(0)("Consumer").ToString
-                Corporate.Text = dt.Rows(0)("Corporate").ToString
-                Exch.Text = dt.Rows(0)("Exch").ToString
-                Appr_Amt.Text = dt.Rows(0)("Approved_amt").ToString
-                Discount_Amt.Text = dt.Rows(0)("dise_amt").ToString
+                Consumer.Text = Decimal.Parse(dt.Rows(0)("Consumer").ToString()).ToString("0.00")
+                Corporate.Text = Decimal.Parse(dt.Rows(0)("Corporate").ToString()).ToString("0.00")
+                Exch.Text = Decimal.Parse(dt.Rows(0)("Exch").ToString()).ToString("0.00")
+                Appr_Amt.Text = Decimal.Parse(dt.Rows(0)("Approved_amt").ToString()).ToString("0.00")
+                Discount_Amt.Text = Decimal.Parse(dt.Rows(0)("dise_amt").ToString()).ToString("0.00")
                 Aprvl_By.Text = dt.Rows(0)("Aprvl_By").ToString
                 Aprvl_By2.Text = dt.Rows(0)("Aprvl_By2").ToString
                 Status.Text = dt.Rows(0)("Status").ToString
