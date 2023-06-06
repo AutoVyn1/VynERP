@@ -419,6 +419,24 @@ Partial Public Class SalesDiscount1
 	Protected WithEvents Exch As Global.System.Web.UI.WebControls.TextBox
 
 	'''<summary>
+	'''Label17 control.
+	'''</summary>
+	'''<remarks>
+	'''Auto-generated field.
+	'''To modify move field declaration from designer file to code-behind file.
+	'''</remarks>
+	Protected WithEvents Label17 As Global.System.Web.UI.WebControls.Label
+
+	'''<summary>
+	'''advance control.
+	'''</summary>
+	'''<remarks>
+	'''Auto-generated field.
+	'''To modify move field declaration from designer file to code-behind file.
+	'''</remarks>
+	Protected WithEvents advance As Global.System.Web.UI.WebControls.CheckBox
+
+	'''<summary>
 	'''Label19 control.
 	'''</summary>
 	'''<remarks>
@@ -435,6 +453,24 @@ Partial Public Class SalesDiscount1
 	'''To modify move field declaration from designer file to code-behind file.
 	'''</remarks>
 	Protected WithEvents Aprvl_By As Global.System.Web.UI.WebControls.DropDownList
+
+	'''<summary>
+	'''Label3 control.
+	'''</summary>
+	'''<remarks>
+	'''Auto-generated field.
+	'''To modify move field declaration from designer file to code-behind file.
+	'''</remarks>
+	Protected WithEvents Label3 As Global.System.Web.UI.WebControls.Label
+
+	'''<summary>
+	'''Aprvl_By2 control.
+	'''</summary>
+	'''<remarks>
+	'''Auto-generated field.
+	'''To modify move field declaration from designer file to code-behind file.
+	'''</remarks>
+	Protected WithEvents Aprvl_By2 As Global.System.Web.UI.WebControls.DropDownList
 
 	'''<summary>
 	'''Label18 control.

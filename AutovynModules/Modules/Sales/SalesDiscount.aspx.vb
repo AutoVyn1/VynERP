@@ -52,7 +52,7 @@
 
                         Dim Mydt As DataTable
                         Mydt = con.ReturnDtTable("Select * from WA_Link where Link_Id=" & LinkId & "")
-                        If Mydt.Rows(0)("tran_type").ToString = "2" Then
+                        If Mydt.Rows(0)("tran_type").ToString = "3" Then
                             MsgBox("Link Has been Expired")
                         Else
                             If Mydt.Rows.Count > 0 Then
@@ -98,10 +98,20 @@
                 'Aprvl_Offer.Text = dt.Rows(0)("Aprvl_Offer").ToString
                 Discount_Amt.Text = dt.Rows(0)("dise_amt").ToString
                 Aprvl_By.Text = dt.Rows(0)("Aprvl_By").ToString
+                Aprvl_By2.Text = dt.Rows(0)("Aprvl_By2").ToString
                 Status.Text = dt.Rows(0)("Status").ToString
                 Remark.Text = dt.Rows(0)("Remark").ToString
                 Curr_Date.Text = Convert.ToDateTime(dt.Rows(0)("Curr_Date")).ToString("dd-MM-yyyy")
                 branch.Text = dt.Rows(0)("location").ToString
+                If dt.Rows(0)("dual_apr").ToString() = "Y" Then
+                    advance.Checked = True
+                    Label9.Text = "Approver 1"
+
+                Else
+                    advance.Checked = False
+
+                End If
+
             End If
         Catch ex As Exception
 
@@ -200,6 +210,11 @@
             Aprvl_By.DataValueField = "srno"
             Aprvl_By.DataBind()
 
+            Aprvl_By2.DataSource = dt3
+            Aprvl_By2.DataTextField = "Emp_Name"
+            Aprvl_By2.DataValueField = "srno"
+            Aprvl_By2.DataBind()
+
         Catch ex As Exception
 
         End Try
@@ -245,18 +260,38 @@
         Try
             If Session("user_name") = "" Then
                 LinkId = Val(Session("LinkId").ToString)
-                'If Val(Discount_Amt.Text) < Val(Appr_Amt.Text) Then
-                '    ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Amount should be less then requested amount', text: 'For this invoice', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
-                'Else
-                Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
-                    Dim qry1 As String = "Update WA_LINK set tran_type='2' where link_Id=" & LinkId & ""
+
+                If advance.Checked Then
+                    Dim validatestring As String = con.ExecuteScaler("select tran_type from WA_LINK where link_Id=" & LinkId & " ")
+                    If validatestring = "1" Then
+                        Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
+                        con.TSql(qry)
+
+                        ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent ', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                        Whastapp_Linking(Mob_No.Text, Pan_No.Text, Aprvl_By.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
+                    Else
+                        Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
+                        Dim qry1 As String = "Update WA_LINK set tran_type='3' where link_Id=" & LinkId & ""
+                        con.TSql(qry)
+                        con.TSql(qry1)
+
+                        ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Status has been changed successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                        Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
+                    End If
+
+
+                Else
+                    Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
+                    Dim qry1 As String = "Update WA_LINK set tran_type='3' where link_Id=" & LinkId & ""
                     con.TSql(qry)
                     con.TSql(qry1)
 
-                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Status has been changed successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
-                Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
+                    ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Status has been changed successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                    Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
+                End If
 
-                'End If
+
+
 
 
             Else
@@ -267,8 +302,15 @@
 
                     'Dim mob As String = dt.Rows(0)("mob").ToString
                     If Mob_No.Text = "" Then
-                            MesgBox("This user is already Exits")
+                        MesgBox("This user is already Exits")
+                    Else
+
+                        Dim checker As String
+                        If advance.Checked Then
+                            checker = "Y"
                         Else
+                            checker = "N"
+                        End If
                         If Session("user_name") IsNot Nothing AndAlso Session("user_name").ToString() <> "" Then
                             con.TSql("INSERT INTO dise_aprvl VALUES('" & Mob_No.Text & "','" & Pan_No.Text & "',
                     '" & Cust_Name.Text & "','" & modl_var.Text & "','" & veh_color.Text & "',
@@ -278,20 +320,20 @@
                     '" & SRM.Text & "','" & RM.Text & "','" & Consumer.Text & "',
                     '" & Corporate.Text & "','" & Exch.Text & "','0',
                     '" & Discount_Amt.Text & "','" & Aprvl_By.SelectedValue & "','" & Status.Text & "','" & Remark.Text & "',
-                    '" & SqlDate(Curr_Date.Text) & "','" & branch.Text & "','" & Appr_Amt.Text & "')")
-                            Dim dt2 As DataTable
-                            Dim dt3 As DataTable
-                            dt2 = con.ReturnDtTable("select mobile_no from EMPLOYEEMASTER where srno='" & RM.Text & "'")
-                            dt3 = con.ReturnDtTable("select mobile_no,concat(EMPFIRSTNAME,EMPLASTNAME) as name from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
-                            Dse_Mob = dt2.Rows(0)("mobile_no").ToString
-                            Aprvl_Mob = dt3.Rows(0)("mobile_no").ToString
+                    '" & SqlDate(Curr_Date.Text) & "','" & branch.Text & "','" & Appr_Amt.Text & "','" & Aprvl_By2.SelectedValue & "','" + checker + "')")
+                            Dim dt2 As String
+                            Dim dt3 As String
+                            dt2 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & RM.Text & "'")
+                            dt3 = con.ExecuteScaler("select mobile_no,concat(EMPFIRSTNAME,EMPLASTNAME) as name from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
+                            Dse_Mob = dt2
+                            Aprvl_Mob = dt3
                             Dim dt4 As DataTable
                             dt4 = con.ReturnDtTable("select mob from dise_aprvl where mob='" + Mob_No.Text + "' and pan_no='" + Pan_No.Text + "'")
 
                             'For checking the data is submitted or not
                             If dt4.Rows.Count > 0 Then
                                 Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
-                                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent to " & dt3.Rows(0)("name").ToString & "', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent to " & dt3 & "', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
                             Else
                                 MesgBox("Data not submitted please try again")
                             End If
@@ -311,48 +353,87 @@
 
     Private Sub Whastapp_Linking(ByVal mobile As String, ByVal pan_number As String, ByVal dse As String, modl As String, location As String)
         Try
-            Dim dt2 As DataTable
-            Dim dt3 As DataTable
-            dt2 = con.ReturnDtTable("select mobile_no from EMPLOYEEMASTER where srno='" & RM.Text & "'")
-            dt3 = con.ReturnDtTable("select mobile_no from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
-            Dim Dse_Mob As String = dt2.Rows(0)("mobile_no").ToString
-            Dim Aprvl_Mob As String = dt3.Rows(0)("mobile_no").ToString
+            Dim dt2 As String
+            Dim dt3 As String
+            Dim dt4 As String
+            Dim Aprvl_Mob2 As String
 
-            '''''''''' Approvar Message Format ''''''''''''
+            dt2 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & RM.Text & "'")
+            dt3 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
+            If advance.Checked Then
+                dt4 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & Aprvl_By2.Text & "'")
+                Aprvl_Mob2 = dt4
+
+            End If
+            Dim Dse_Mob As String = dt2
+            Dim Aprvl_Mob As String = dt3
+
+
+
             If Session("user_name") IsNot Nothing AndAlso Session("user_name").ToString() <> "" Then
+
+                '''''''''''Approver 1-----------
                 Dim msg As String
-                link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?Mobile=" & mobile & "?Pan_Number=" & pan_number & ""
-                con.TSql("INSERT INTO WA_LINK (link_add,exp_date,tran_type) VALUES('" & link & "','" & SqlDate(Curr_Date.Text) & "','1')")
-                Dim MaXlINKiD As String = Val(con.ExecuteScaler("SELECT MAX(LINK_ID) FROM WA_LINK").ToString)
-                link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?" & MaXlINKiD & "?" & LoginPage.clientid
-                msg = "Dear Sir/Ma'am," & vbNewLine & " This is to bring to your attention that Mr. " & dse & " (DSE) (Mobile - " & Dse_Mob & ") requested for Discount of Rs. " & Discount_Amt.Text & " on behalf of New Car Customer " & Cust_Name.Text & " and Car Model " & modl & " from Branch  " & location & ". Please review the Customer request provided at the " & link & ". " & vbNewLine & " Regards " + vbNewLine + Session("Dlr_name")
-                WA_MSG = msg
-                WA_Mob = "91" & Aprvl_Mob
+                    link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?Mobile=" & mobile & "?Pan_Number=" & pan_number & ""
+                    con.TSql("INSERT INTO WA_LINK (link_add,exp_date,tran_type) VALUES('" & link & "','" & SqlDate(Curr_Date.Text) & "','1')")
+                    Dim MaXlINKiD As String = Val(con.ExecuteScaler("SELECT MAX(LINK_ID) FROM WA_LINK").ToString)
+                    link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?" & MaXlINKiD & "?" & LoginPage.clientid
+                    msg = "Dear Sir/Ma'am," & vbNewLine & " This is to bring to your attention that Mr. " & dse & " (DSE) (Mobile - " & Dse_Mob & ") requested for Discount of Rs. " & Discount_Amt.Text & " on behalf of New Car Customer " & Cust_Name.Text & " and Car Model " & modl & " from Branch  " & location & ". Please review the Customer request provided at the " & link & ". " & vbNewLine & " Regards " + vbNewLine + Session("Dlr_name")
+                    WA_MSG = msg
+                    WA_Mob = "91" & Aprvl_Mob
                 'WA_Mob = "91" & "9785017630"
                 WAMSG()
+            Else
+
             End If
+
 
 
             '''''''''''''''''''''' DSE Message Format ''''''''''''''''''''''''''''''''
             If Session("user_name") = "" Then
-                Try
-                    If Remark.Text.Trim = "" Then Remark.Text = Status.SelectedItem.ToString
+                If advance.Checked Then
+                    Dim validatestring As String = con.ExecuteScaler("select tran_type from WA_LINK where link_Id=" & LinkId & " ")
+                    If validatestring = "1" Then
+                        '''''''''''Approver 1 that will send link to the approvaaer 2-----------
+                        Dim msg As String
+                        link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?Mobile=" & mobile & "?Pan_Number=" & pan_number & ""
+                        con.TSql("Update WA_LINK set tran_type='2' where link_Id=" & LinkId & "")
+                        Dim MaXlINKiD As String = Val(con.ExecuteScaler("Select LINK_ID from WA_Link where Link_Id=" & LinkId & " ").ToString)
+                        link = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?" & MaXlINKiD & "?" & LoginPage.clientid
 
-                Catch ex As Exception
+                        msg = "Dear Sir/Ma'am " & vbNewLine & " This is to bring to your attention that Mr. " & dse & " (DSE) (Mobile - " & Dse_Mob & ") requested for Discount of Rs. " & Discount_Amt.Text & " on behalf of New Car Customer " & Cust_Name.Text & " and Car Model " & modl & " from Branch  " & location & ". Please review the Customer request provided at the " & link & ". " & vbNewLine & " Regards " + vbNewLine + Session("Dlr_name")
+                        WA_MSG = msg
+                        WA_Mob = "91" & Aprvl_Mob2
+                        'WA_Mob = "91" & "9785017630"
+                        WAMSG()
+                    Else
+                        '''''''''''DSE Message-----------
+                        Dim appr_msg As String
 
-                End Try
+                        appr_msg = "Dear Mr. " & dse & "," & vbNewLine & " Your discount approval request for New Car Customer " & Cust_Name.Text & " (Mobile - " & Mob_No.Text & ") / Car Model " & modl & " has been " & Status.Text & " by Approver " & Aprvl_By.SelectedItem.ToString & ". Approved Amount is " & Appr_Amt.Text & " against requested amount " & Discount_Amt.Text & " with remark -" & Remark.Text & " " & vbNewLine & " Regards " + vbNewLine + vbNewLine + Session("Dlr_name")
+                        WA_MSG = appr_msg
+                        WA_Mob = "91" & Dse_Mob
+                        'WA_Mob = "91" & "6377100781"
+                        WAMSG()
+                        Appr_Amt.Text = ""
+                        Status.Text = ""
+                    End If
 
-                Dim appr_msg As String
-                Dim MaXlINKiD As String = Val(con.ExecuteScaler("SELECT MAX(LINK_ID) FROM WA_LINK").ToString)
-                'link_msg = "https://cloud.autovyn.com/AutovynModules/Modules/Sales/SalesDiscount.aspx?" & MaXlINKiD
-                appr_msg = "Dear Mr. " & dse & "," & vbNewLine & " Your discount approval request for New Car Customer " & Cust_Name.Text & " (Mobile - " & Mob_No.Text & ") / Car Model " & modl & " has been " & Status.Text & " by Approver " & Aprvl_By.SelectedItem.ToString & ". Approved Amount is " & Appr_Amt.Text & " against requested amount " & Discount_Amt.Text & " with remark -" & Remark.Text & " " & vbNewLine & " Regards " + vbNewLine + vbNewLine + Session("Dlr_name")
-                WA_MSG = appr_msg
-                WA_Mob = "91" & Dse_Mob
-                'WA_Mob = "91" & "6377100781"
-                WAMSG()
-                Appr_Amt.Text = ""
-                Status.Text = ""
-                Remark.Text = ""
+
+                Else
+                        '''''''''''DSE Message-----------
+                        Dim appr_msg As String
+
+                    appr_msg = "Dear Mr. " & dse & "," & vbNewLine & " Your discount approval request for New Car Customer " & Cust_Name.Text & " (Mobile - " & Mob_No.Text & ") / Car Model " & modl & " has been " & Status.Text & " by Approver " & Aprvl_By.SelectedItem.ToString & ". Approved Amount is " & Appr_Amt.Text & " against requested amount " & Discount_Amt.Text & " with remark -" & Remark.Text & " " & vbNewLine & " Regards " + vbNewLine + vbNewLine + Session("Dlr_name")
+                    WA_MSG = appr_msg
+                    WA_Mob = "91" & Dse_Mob
+                    'WA_Mob = "91" & "6377100781"
+                    WAMSG()
+                    Appr_Amt.Text = ""
+                    Status.Text = ""
+                    Remark.Text = ""
+                End If
+
             End If
         Catch ex As Exception
 
@@ -360,15 +441,4 @@
     End Sub
 
 
-    Protected Sub Update_Data_Click(sender As Object, e As EventArgs) Handles Update_Data.Click
-        Try
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Protected Sub submit_Click(sender As Object, e As ImageClickEventArgs)
-
-    End Sub
 End Class

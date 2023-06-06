@@ -291,6 +291,8 @@
             border-radius: 3px;
             border: 1px solid silver;
         }
+
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -501,16 +503,21 @@
                                     </div>
                                     <!-- row -->
                                     <div class="row mb-1 amt-box">
-                                        <%--<asp:Label ID="Label17" CssClass="col-lg-1 col-form-label amt-box-lbl" ToolTip="Additional Offer Required" runat="server" Text="Add. Offer Req"></asp:Label>
+                                        <asp:Label ID="Label17" CssClass="col-lg-1 col-form-label amt-box-lbl" ToolTip="Additional Offer Required" runat="server" Text="Dual Aprvl"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
-                                            <asp:TextBox ID="Aprvl_Offer" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
-                                        </div>--%>
+                                        <asp:CheckBox ID="advance" CssClass=" resetting digitOnly"  onclick="handleCheckbox()" runat="server" />
 
+                                        </div>
                                         <asp:Label ID="Label19" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Approved By"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
                                             <asp:DropDownList class="resetting" ID="Aprvl_By" selectionmode="multiple" data-silent-initial-value-set="true" name="native-select" data-search="true" runat="server"></asp:DropDownList>
                                         </div>
 
+                                        <asp:Label ID="Label3" CssClass="col-lg-1 col-form-label  amt-box-lbl"  Style="display:none" runat="server" Text="Approver 2"></asp:Label>
+
+                                        <div class="col-lg-2  amt-box-total" id="apr1" style="display:none" >
+                                            <asp:DropDownList class="resetting" ID="Aprvl_By2"   selectionmode="multiple" data-silent-initial-value-set="true" name="native-select" data-search="true" runat="server"></asp:DropDownList>
+                                        </div>
 
                                         <asp:Label ID="Label18" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Amount"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
@@ -717,6 +724,11 @@
 		VirtualSelect.init({
 			ele: '#ContentPlaceHolder1_Aprvl_By',
 			showOptionsOnlyOnSearch: true
+        });
+
+		VirtualSelect.init({
+			ele: '#ContentPlaceHolder1_Aprvl_By2',
+			showOptionsOnlyOnSearch: true
 		});
 
 		VirtualSelect.init({
@@ -757,6 +769,9 @@
 
 			var disc_amount = document.getElementById('ContentPlaceHolder1_Discount_Amt');
 			var apr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt');
+
+            console.log(apr_amt.value)
+			console.log(disc_amount.value)
 
 			if (disc_amount.value<apr_amt.value) {
 				Swal.fire({
@@ -896,6 +911,47 @@
 	</script>
 
      <%-- for selected index change of the dropdown  --%>
+
+    <script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var checkbox = document.getElementById("ContentPlaceHolder1_advance");
+			var dropdown = document.getElementById("apr1");
+			var label = document.getElementById("ContentPlaceHolder1_Label3");
+			var label1 = document.getElementById("ContentPlaceHolder1_Label19");
+
+			if (checkbox.checked) {
+				dropdown.style.display = "block";
+				label.style.display = "block";
+				label1.textContent = "Approver 1";
+			} else {
+				dropdown.style.display = "none";
+				label.style.display = "none";
+				label1.textContent = "Approved By";
+			}
+        });
+
+		function handleCheckbox() {
+			var checkbox = document.getElementById("ContentPlaceHolder1_advance");
+			var dropdown = document.getElementById("apr1");
+			var label = document.getElementById("ContentPlaceHolder1_Label3");
+			var label1 = document.getElementById("ContentPlaceHolder1_Label19");
+
+
+
+			if (checkbox.checked) {
+				dropdown.style.display = "block";
+				label.style.display = "block";
+				label1.textContent = "Approver1";
+
+			} else {
+				dropdown.style.display = "none";
+				label.style.display = "none";
+				label1.textContent = "Approved By";
+
+			}
+		}
+	</script>
+
 
 
 
