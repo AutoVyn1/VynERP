@@ -83,7 +83,7 @@
                 veh_color.Text = dt.Rows(0)("veh_clr").ToString
                 Delv_Date.Text = Convert.ToDateTime(dt.Rows(0)("Delv_Date")).ToString("dd-MM-yyyy")
                 Loan_type.Text = dt.Rows(0)("loan").ToString
-                MGA_Amt.Text = dt.Rows(0)("MGA_Amt").ToString
+                MGA_Amt.Text = Decimal.Parse(dt.Rows(0)("MGA_Amt").ToString()).ToString("0.00")
                 Insurance.Text = dt.Rows(0)("Insurance").ToString
                 RTO_Chrg.Text = dt.Rows(0)("RTO_Chrg").ToString
                 EW_CCP.Text = dt.Rows(0)("EW_CCP").ToString
@@ -106,7 +106,6 @@
                 If dt.Rows(0)("dual_apr").ToString() = "Y" Then
                     advance.Checked = True
                     Label9.Text = "Approver 1"
-
                 Else
                     advance.Checked = False
 

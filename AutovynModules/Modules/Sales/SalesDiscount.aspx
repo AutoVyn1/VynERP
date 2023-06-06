@@ -879,7 +879,7 @@
            var inputValue = event.target;
            var value = inputValue.value;
 
-           if (!value.endsWith(".00")) {
+           if (!value.endsWith(".00") && value != "") {
                inputValue.value = value + ".00";
            }
        }
@@ -1147,39 +1147,6 @@
 			}
 		}
 	</script>
-
-   <%-- <script>
-        function compare_Input() {
-            var appr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt').value;
-            var disc_amt = document.getElementById('ContentPlaceHolder1_Discount_Amt').value;
-
-            if (!appr_amt.endsWith(".00") && appr_amt != "") {
-                document.getElementById("ContentPlaceHolder1_Appr_Amt").value = appr_amt + ".00";
-            }
-
-            var ap_amt = parseInt(document.getElementById('ContentPlaceHolder1_Appr_Amt').value);
-            var di_amt = parseInt(document.getElementById('ContentPlaceHolder1_Discount_Amt').value);
-
-            if (ap_amt > di_amt) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Approved Amount Should be Lower Than Requested Amount',
-                    text: '',
-                }).then(function () {
-                    var box = document.getElementById('ContentPlaceHolder1_Appr_Amt')
-                    box.value = "";
-                    box.style.border = '2px solid red';
-                    box.focus();
-
-                });
-            }
-
-
-        }
-        document.getElementById('ContentPlaceHolder1_Appr_Amt').addEventListener("blur", compare_Input);
-    </script>--%>
-
-
 
 
 </asp:Content>
