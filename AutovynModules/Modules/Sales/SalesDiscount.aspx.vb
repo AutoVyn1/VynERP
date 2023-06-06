@@ -106,7 +106,6 @@
                 If dt.Rows(0)("dual_apr").ToString() = "Y" Then
                     advance.Checked = True
                     Label9.Text = "Approver 1"
-
                 Else
                     advance.Checked = False
 
