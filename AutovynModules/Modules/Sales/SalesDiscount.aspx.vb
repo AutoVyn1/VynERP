@@ -38,6 +38,7 @@
                 veh_color_list()
                 loan_list()
                 Modl_Var_list()
+
                 pageSetting()
                 dse_list()
                 Branch_list()
@@ -123,7 +124,19 @@
             VehDtl_Panel.Enabled = False
             MSIL_Panel.Enabled = False
             Aprvl_Panel.Enabled = False
+            Dim det As DataTable
+            det = con.ReturnDtTable("SELECT rights_cloud.menu_option FROM user_cloud INNER JOIN rights_cloud ON user_cloud.user_code = rights_cloud.user_code where user_cloud.user_name='" & Session("user_name") & "' and user_cloud.export_type<3 and rights_cloud.export_type<3")
+            Dim menu_list As New List(Of String)()
+            For Each row As DataRow In det.Rows
+                menu_list.Add(row("menu_option").ToString())
+            Next
+
             If Session("user_name") IsNot Nothing AndAlso Session("user_name").ToString() <> "" Then
+                If menu_list.Contains("3.3.ck") Then
+                    advance.Checked = True
+                Else
+                    advance.Checked = False
+                End If
                 MainPanel.Enabled = True
                 VehDtl_Panel.Enabled = True
                 MSIL_Panel.Enabled = True
@@ -257,16 +270,19 @@
 
     Protected Sub submit_Click(sender As Object, e As EventArgs) Handles Submit_data.Click
         Try
+            Dim dt3 As String
+            dt3 = con.ExecuteScaler("select concat(EMPFIRSTNAME,EMPLASTNAME) as name from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
             If Session("user_name") = "" Then
                 LinkId = Val(Session("LinkId").ToString)
 
                 If advance.Checked Then
                     Dim validatestring As String = con.ExecuteScaler("select tran_type from WA_LINK where link_Id=" & LinkId & " ")
                     If validatestring = "1" Then
+                        dt3 = con.ExecuteScaler("select concat(EMPFIRSTNAME,EMPLASTNAME) as name from EMPLOYEEMASTER where srno='" & Aprvl_By2.Text & "'")
                         Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
                         con.TSql(qry)
 
-                        ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent ', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                        ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent Mr. " & dt3 & "', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
                         Whastapp_Linking(Mob_No.Text, Pan_No.Text, Aprvl_By.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
                     Else
                         Dim qry As String = "Update dise_aprvl set Approved_amt='" & Appr_Amt.Text & "',status='" & Status.Text & "',remark='" & Remark.Text & "' where mob='" & Mob_No.Text & "'"
@@ -321,18 +337,21 @@
                     '" & Discount_Amt.Text & "','" & Aprvl_By.SelectedValue & "','" & Status.Text & "','" & Remark.Text & "',
                     '" & SqlDate(Curr_Date.Text) & "','" & branch.Text & "','" & Appr_Amt.Text & "','" & Aprvl_By2.SelectedValue & "','" + checker + "')")
                             Dim dt2 As String
-                            Dim dt3 As String
+
+                            Dim dt5 As String
+
+                            dt5 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
                             dt2 = con.ExecuteScaler("select mobile_no from EMPLOYEEMASTER where srno='" & RM.Text & "'")
-                            dt3 = con.ExecuteScaler("select mobile_no,concat(EMPFIRSTNAME,EMPLASTNAME) as name from EMPLOYEEMASTER where srno='" & Aprvl_By.Text & "'")
+
                             Dse_Mob = dt2
-                            Aprvl_Mob = dt3
+                            Aprvl_Mob = dt5
                             Dim dt4 As DataTable
                             dt4 = con.ReturnDtTable("select mob from dise_aprvl where mob='" + Mob_No.Text + "' and pan_no='" + Pan_No.Text + "'")
 
                             'For checking the data is submitted or not
                             If dt4.Rows.Count > 0 Then
                                 Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
-                                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent to " & dt3 & "', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
+                                ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Your Request has successfully sent to Mr. " & dt3 & "', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
                             Else
                                 MesgBox("Data not submitted please try again")
                             End If
@@ -340,9 +359,9 @@
                         Else
                         End If
 
-                        End If
                     End If
                 End If
+            End If
 
 
         Catch ex As Exception

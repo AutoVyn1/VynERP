@@ -670,7 +670,7 @@
                                         <asp:Label ID="Label17" CssClass="col-lg-1 col-form-label amt-box-lbl" ToolTip="Additional Offer Required" runat="server" Text="Dual Aprvl"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
                                         <div class="checkbox-wrapper-19">
-                                                <asp:CheckBox ID="advance" onclick="handleCheckbox()" runat="server" />
+                                                <asp:CheckBox ID="advance"  onclick="handleCheckbox()" runat="server" />
                                                 <label for="<%= advance.ClientID %>" class="check-box"></label>
                                             </div>
                                         </div>
@@ -782,111 +782,107 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <%-- For limitation to the input  --%>
    <script>
-       var inputElement = document.getElementById("ContentPlaceHolder1_Mob_No");
-       inputElement.addEventListener("keydown", restrictInput);
-       inputElement.addEventListener("input", restrictInput);
-       inputElement.addEventListener("touchstart", restrictInput);
-       inputElement.addEventListener("touchend", restrictInput);
+	   var inputElement = document.getElementById("ContentPlaceHolder1_Mob_No");
+	   inputElement.addEventListener("keydown", restrictInput);
+	   inputElement.addEventListener("input", restrictInput);
+	   inputElement.addEventListener("touchstart", restrictInput);
+	   inputElement.addEventListener("touchend", restrictInput);
 
-       var inputElement1 = document.getElementById("ContentPlaceHolder1_Discount_Amt");
-       inputElement1.addEventListener("keydown", restrictInput);
-       inputElement1.addEventListener("input", restrictInput);
-       inputElement1.addEventListener("touchstart", restrictInput);
-       inputElement1.addEventListener("touchend", restrictInput);
-       inputElement1.addEventListener("blur", addSuffix);
+	   var inputElement1 = document.getElementById("ContentPlaceHolder1_Discount_Amt");
+	   inputElement1.addEventListener("keydown", restrictInput);
+	   inputElement1.addEventListener("input", restrictInput);
+	   inputElement1.addEventListener("touchstart", restrictInput);
+	   inputElement1.addEventListener("touchend", restrictInput);
+	   inputElement1.addEventListener("blur", addSuffix);
 
-       var inputElement2 = document.getElementById("ContentPlaceHolder1_Appr_Amt");
-       inputElement2.addEventListener("keydown", restrictInput);
-       inputElement2.addEventListener("input", restrictInput);
-       inputElement2.addEventListener("touchstart", restrictInput);
-       inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", compare_Input);
+	   var inputElement2 = document.getElementById("ContentPlaceHolder1_Appr_Amt");
+	   inputElement2.addEventListener("keydown", restrictInput);
+	   inputElement2.addEventListener("input", restrictInput);
+	   inputElement2.addEventListener("touchstart", restrictInput);
+	   inputElement2.addEventListener("touchend", restrictInput);
+	   inputElement2.addEventListener("blur", compare_Input);
 
-       var inputElement2 = document.getElementById("ContentPlaceHolder1_Consumer");
-       inputElement2.addEventListener("keydown", restrictInput);
-       inputElement2.addEventListener("input", restrictInput);
-       inputElement2.addEventListener("touchstart", restrictInput);
-       inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", addSuffix);
+	   var inputElement2 = document.getElementById("ContentPlaceHolder1_Consumer");
+	   inputElement2.addEventListener("keydown", restrictInput);
+	   inputElement2.addEventListener("input", restrictInput);
+	   inputElement2.addEventListener("touchstart", restrictInput);
+	   inputElement2.addEventListener("touchend", restrictInput);
+	   inputElement2.addEventListener("blur", addSuffix);
 
-       var inputElement2 = document.getElementById("ContentPlaceHolder1_Corporate");
-       inputElement2.addEventListener("keydown", restrictInput);
-       inputElement2.addEventListener("input", restrictInput);
-       inputElement2.addEventListener("touchstart", restrictInput);
-       inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", addSuffix);
+	   var inputElement2 = document.getElementById("ContentPlaceHolder1_Corporate");
+	   inputElement2.addEventListener("keydown", restrictInput);
+	   inputElement2.addEventListener("input", restrictInput);
+	   inputElement2.addEventListener("touchstart", restrictInput);
+	   inputElement2.addEventListener("touchend", restrictInput);
+	   inputElement2.addEventListener("blur", addSuffix);
 
-       var inputElement2 = document.getElementById("ContentPlaceHolder1_Exch");
-       inputElement2.addEventListener("keydown", restrictInput);
-       inputElement2.addEventListener("input", restrictInput);
-       inputElement2.addEventListener("touchstart", restrictInput);
-       inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", addSuffix);
+	   var inputElement2 = document.getElementById("ContentPlaceHolder1_Exch");
+	   inputElement2.addEventListener("keydown", restrictInput);
+	   inputElement2.addEventListener("input", restrictInput);
+	   inputElement2.addEventListener("touchstart", restrictInput);
+	   inputElement2.addEventListener("touchend", restrictInput);
+	   inputElement2.addEventListener("blur", addSuffix);
 
-       var inputElement2 = document.getElementById("ContentPlaceHolder1_MGA_Amt");
-       inputElement2.addEventListener("keydown", restrictInput);
-       inputElement2.addEventListener("input", restrictInput);
-       inputElement2.addEventListener("touchstart", restrictInput);
-       inputElement2.addEventListener("touchend", restrictInput);
-       inputElement2.addEventListener("blur", addSuffix);
+	   var inputElement2 = document.getElementById("ContentPlaceHolder1_MGA_Amt");
+	   inputElement2.addEventListener("keydown", restrictInput);
+	   inputElement2.addEventListener("input", restrictInput);
+	   inputElement2.addEventListener("touchstart", restrictInput);
+	   inputElement2.addEventListener("touchend", restrictInput);
+	   inputElement2.addEventListener("blur", addSuffix);
 
-       function restrictInput(event) {
+	   function restrictInput(event) {
 
-           var inputElement = event.target;
-           var inputValue = inputElement.value;
+		   var inputElement = event.target;
+		   var inputValue = inputElement.value;
 
-           /*console.log(inputElement)*/
+		   /*console.log(inputElement)*/
 
-           // Remove non-numeric characters from the input value
-           inputValue = inputValue.replace(/\D/g, "");
+		   // Remove non-numeric characters from the input value
+		   inputValue = inputValue.replace(/\D/g, "");
 
-           // Update the input value with the cleaned numeric value
-           inputElement.value = inputValue;
-
-
-       }
-
-       function compare_Input() {
-           var appr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt').value;
-           var disc_amt = document.getElementById('ContentPlaceHolder1_Discount_Amt').value;
-
-           if (!appr_amt.endsWith(".00") && appr_amt != "") {
-               document.getElementById("ContentPlaceHolder1_Appr_Amt").value = appr_amt + ".00";
-           }
-
-           var ap_amt = parseInt(document.getElementById('ContentPlaceHolder1_Appr_Amt').value);
-           var di_amt = parseInt(document.getElementById('ContentPlaceHolder1_Discount_Amt').value);
-
-           if (ap_amt > di_amt) {
-               Swal.fire({
-                   icon: 'warning',
-                   title: 'Approved Amount Should be Lower Than Requested Amount',
-                   text: '',
-               }).then(function () {
-                   var box = document.getElementById('ContentPlaceHolder1_Appr_Amt')
-                   box.value = "";
-                   box.style.border = '2px solid red';
-                   box.focus();
-
-               });
-           }
+		   // Update the input value with the cleaned numeric value
+		   inputElement.value = inputValue;
 
 
-       }
+	   }
 
-       function addSuffix(event) {
+	   function compare_Input() {
+		   var appr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt').value;
+		   var disc_amt = document.getElementById('ContentPlaceHolder1_Discount_Amt').value;
 
-           var inputValue = event.target;
-           var value = inputValue.value;
+		   if (!appr_amt.endsWith(".00") && appr_amt != "") {
+			   document.getElementById("ContentPlaceHolder1_Appr_Amt").value = appr_amt + ".00";
+		   }
 
-<<<<<<< HEAD
+		   var ap_amt = parseInt(document.getElementById('ContentPlaceHolder1_Appr_Amt').value);
+		   var di_amt = parseInt(document.getElementById('ContentPlaceHolder1_Discount_Amt').value);
+
+		   if (ap_amt > di_amt) {
+			   Swal.fire({
+				   icon: 'warning',
+				   title: 'Approved Amount Should be Lower Than Requested Amount',
+				   text: '',
+			   }).then(function () {
+				   var box = document.getElementById('ContentPlaceHolder1_Appr_Amt')
+				   box.value = "";
+				   box.style.border = '2px solid red';
+				   box.focus();
+
+			   });
+		   }
+
+
+	   }
+
+	   function addSuffix(event) {
+
+		   var inputValue = event.target;
+		   var value = inputValue.value;
+
 		   if (!value.endsWith(".00") && value != "") {
-=======
-           if (!value.endsWith(".00") && value != "") {
->>>>>>> 9f3efba7838647aa4e25f55b3205ba29d316066e
-               inputValue.value = value + ".00";
-           }
-       }
+			   inputValue.value = value + ".00";
+		   }
+	   }
 
 
 
@@ -924,7 +920,7 @@
 		VirtualSelect.init({
 			ele: '#ContentPlaceHolder1_Aprvl_By',
 			showOptionsOnlyOnSearch: true
-        });
+		});
 
 		VirtualSelect.init({
 			ele: '#ContentPlaceHolder1_Aprvl_By2',
@@ -964,25 +960,16 @@
 			var loantp = document.getElementById('ContentPlaceHolder1_Loan_type');
 			var srm = document.getElementById('ContentPlaceHolder1_SRM');
 			var rm = document.getElementById('ContentPlaceHolder1_RM');
-            var aprvr = document.getElementById('ContentPlaceHolder1_Aprvl_By');
-            var mob_no = document.getElementById('ContentPlaceHolder1_Mob_No');
+			var aprvr = document.getElementById('ContentPlaceHolder1_Aprvl_By');
+			var mob_no = document.getElementById('ContentPlaceHolder1_Mob_No');
 
 			var disc_amount = document.getElementById('ContentPlaceHolder1_Discount_Amt');
 			var apr_amt = document.getElementById('ContentPlaceHolder1_Appr_Amt');
 
-            console.log(apr_amt.value)
+			console.log(apr_amt.value)
 			console.log(disc_amount.value)
 
-			if (disc_amount.value<apr_amt.value) {
-				Swal.fire({
-					icon: 'warning',
-					title: 'Please Enter the amount less then the requested amount',
-					text: '',
-				}).then(function () {
-					branch.focus();
-				});
-				return false;
-			}
+			
 
 			if (mob_no.value.length < 10) {
 				Swal.fire({
@@ -1127,8 +1114,9 @@
 				dropdown.style.display = "none";
 				label.style.display = "none";
 				label1.textContent = "Approved By";
-			}
-        });
+            }
+            checkbox.disabled = true
+		});
 
 		function handleCheckbox() {
 			var checkbox = document.getElementById("ContentPlaceHolder1_advance");
