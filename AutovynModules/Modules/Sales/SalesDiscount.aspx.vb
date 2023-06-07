@@ -38,7 +38,6 @@
                 veh_color_list()
                 loan_list()
                 Modl_Var_list()
-
                 pageSetting()
                 dse_list()
                 Branch_list()
@@ -69,6 +68,7 @@
                 Catch ex As Exception
 
                 End Try
+
             End If
         Catch ex As Exception
 
@@ -109,7 +109,6 @@
                     Label9.Text = "Approver 1"
                 Else
                     advance.Checked = False
-
                 End If
 
             End If
@@ -134,8 +133,6 @@
             If Session("user_name") IsNot Nothing AndAlso Session("user_name").ToString() <> "" Then
                 If menu_list.Contains("3.3.ck") Then
                     advance.Checked = True
-                Else
-                    advance.Checked = False
                 End If
                 MainPanel.Enabled = True
                 VehDtl_Panel.Enabled = True
@@ -304,9 +301,6 @@
                     ClientScript.RegisterStartupScript(Me.GetType(), "alert", "Swal.fire({title: 'Status has been changed successfully', text: '', icon: 'success', showConfirmButton: true}).then(function() { window.location.href='" & Request.Url.AbsoluteUri & "'; });", True)
                     Whastapp_Linking(Mob_No.Text, Pan_No.Text, RM.SelectedItem.ToString, modl_var.SelectedItem.ToString, branch.SelectedItem.ToString)
                 End If
-
-
-
 
 
             Else

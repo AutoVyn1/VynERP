@@ -370,93 +370,7 @@
             }
         }
 
-        .checkbox-wrapper-19 input[type=checkbox] {
-            display: none;
-        }
-
-        .checkbox-wrapper-19 .check-box {
-            height: var(--checkbox-height);
-            width: var(--checkbox-height);
-            background-color: transparent;
-            border: calc(var(--checkbox-height) * .1) solid #000;
-            border-radius: 5px;
-            position: relative;
-            display: inline-block;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            -moz-transition: border-color ease 0.2s;
-            -o-transition: border-color ease 0.2s;
-            -webkit-transition: border-color ease 0.2s;
-            transition: border-color ease 0.2s;
-            cursor: pointer;
-        }
-
-            .checkbox-wrapper-19 .check-box::before,
-            .checkbox-wrapper-19 .check-box::after {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                position: absolute;
-                height: 0;
-                width: calc(var(--checkbox-height) * .2);
-                background-color: #34b93d;
-                display: inline-block;
-                -moz-transform-origin: left top;
-                -ms-transform-origin: left top;
-                -o-transform-origin: left top;
-                -webkit-transform-origin: left top;
-                transform-origin: left top;
-                border-radius: 5px;
-                content: " ";
-                -webkit-transition: opacity ease 0.5;
-                -moz-transition: opacity ease 0.5;
-                transition: opacity ease 0.5;
-            }
-
-            .checkbox-wrapper-19 .check-box::before {
-                top: calc(var(--checkbox-height) * .72);
-                left: calc(var(--checkbox-height) * .41);
-                box-shadow: 0 0 0 calc(var(--checkbox-height) * .05) var(--background-color);
-                -moz-transform: rotate(-135deg);
-                -ms-transform: rotate(-135deg);
-                -o-transform: rotate(-135deg);
-                -webkit-transform: rotate(-135deg);
-                transform: rotate(-135deg);
-            }
-
-            .checkbox-wrapper-19 .check-box::after {
-                top: calc(var(--checkbox-height) * .37);
-                left: calc(var(--checkbox-height) * .05);
-                -moz-transform: rotate(-45deg);
-                -ms-transform: rotate(-45deg);
-                -o-transform: rotate(-45deg);
-                -webkit-transform: rotate(-45deg);
-                transform: rotate(-45deg);
-            }
-
-            .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box,
-            .checkbox-wrapper-19 .check-box.checked {
-                border-color: #34b93d;
-            }
-
-                .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::after,
-                .checkbox-wrapper-19 .check-box.checked::after {
-                    height: calc(var(--checkbox-height) / 2);
-                    -moz-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                    -o-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                    -webkit-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                    animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                }
-
-                .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::before,
-                .checkbox-wrapper-19 .check-box.checked::before {
-                    height: calc(var(--checkbox-height) * 1.2);
-                    -moz-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                    -o-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                    -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                    animation: dothatopcheck-19 0.4s ease 0s forwards;
-                }
+  
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -667,12 +581,9 @@
                                     </div>
                                     <!-- row -->
                                     <div class="row mb-1 amt-box">
-                                        <asp:Label ID="Label17" CssClass="col-lg-1 col-form-label amt-box-lbl" ToolTip="Additional Offer Required" runat="server" Text="Dual Aprvl"></asp:Label>
-                                        <div class="col-lg-2 amt-box-total">
-                                        <div class="checkbox-wrapper-19">
-                                                <asp:CheckBox ID="advance"  onclick="handleCheckbox()" runat="server" />
-                                                <label for="<%= advance.ClientID %>" class="check-box"></label>
-                                            </div>
+                                       
+                                        <div class="col-lg-2 amt-box-total" id="checklab" style="display:none">
+                                                <asp:CheckBox ID="advance" onclick="handleCheckbox()"  runat="server" />
                                         </div>
                                         <asp:Label ID="Label19" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Approved By"></asp:Label>
                                         <div class="col-lg-2 amt-box-total">
@@ -680,7 +591,6 @@
                                         </div>
 
                                         <asp:Label ID="Label3" CssClass="col-lg-1 col-form-label  amt-box-lbl"  Style="display:none" runat="server" Text="Approver 2"></asp:Label>
-
                                         <div class="col-lg-2  amt-box-total" id="apr1" style="display:none" >
                                             <asp:DropDownList class="resetting" ID="Aprvl_By2"   selectionmode="multiple" data-silent-initial-value-set="true" name="native-select" data-search="true" runat="server"></asp:DropDownList>
                                         </div>
@@ -689,6 +599,7 @@
                                         <div class="col-lg-2 amt-box-total">
                                             <asp:TextBox ID="Discount_Amt" CssClass="form-control resetting digitOnly" required  runat="server"></asp:TextBox>
                                         </div>
+                                          
                                     </div>
                                 </div>
                             </div>
@@ -721,9 +632,6 @@
                                         <div class="col-lg-2 amt-box-total">
                                             <asp:TextBox ID="Appr_Amt" CssClass="form-control resetting digitOnly"  runat="server"></asp:TextBox>
                                         </div>
-
-                                        
-
 
 
                                         <asp:Label ID="Label21" CssClass="col-lg-1 col-form-label amt-box-lbl" runat="server" Text="Remark"></asp:Label>
@@ -1105,17 +1013,17 @@
 			var dropdown = document.getElementById("apr1");
 			var label = document.getElementById("ContentPlaceHolder1_Label3");
 			var label1 = document.getElementById("ContentPlaceHolder1_Label19");
-
+            
 			if (checkbox.checked) {
 				dropdown.style.display = "block";
-				label.style.display = "block";
+                label.style.display = "block";
 				label1.textContent = "Approver 1";
 			} else {
 				dropdown.style.display = "none";
-				label.style.display = "none";
+                label.style.display = "none";
 				label1.textContent = "Approved By";
             }
-            checkbox.disabled = true
+            
 		});
 
 		function handleCheckbox() {
