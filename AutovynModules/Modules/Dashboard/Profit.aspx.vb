@@ -39,6 +39,7 @@ Public Class profit
         dt1 = con.ReturnDtSet(sql)
         ' Call the function and get the resultTables list
         Dim resultTables As List(Of DataTable) = graph(dt1.Tables(0))
+        HttpContext.Current.Session("temptable") = dt1.Tables(0)
 
 
         ' Create a new DataTable to hold the copied table
@@ -110,6 +111,7 @@ Public Class profit
         dt1 = con.ReturnDtSet(sql)
 
         Dim resultTables As List(Of DataTable) = graph(dt1.Tables(0))
+        HttpContext.Current.Session("temptable") = dt1.Tables(0)
 
         Dim TranDt1 As DataTable
         Dim TranDt3 As DataTable
