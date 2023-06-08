@@ -213,7 +213,6 @@ Public Class add_user
                         con.TSql("update rights_cloud set EXPORT_TYPE='3' where user_code='" & CODE & "' and  EXPORT_TYPE='1'")
 
                     End If
-
                 End If
 
 
@@ -228,7 +227,7 @@ Public Class add_user
                 End If
 
 
-                con.TSql("INSERT INTO user_cloud (user_code,user_name,user_pass,isactive,dealer,user_mobile,user_email,EXPORT_TYPE,MODIFIED_DATE,MODIFIED_USER,MULTI_LOC) VALUES('" + us_code.ToString + "','" & user_Name.Text & "','" & user_pass.Text & "','" & user_active & "','" & Session("CLIENTID") & "','" & user_mobile.Text & "','" & email.Text & "','1','" + curr_date + "','" & Session("user_name") & "','" + branch + "')")
+                con.TSql("INSERT INTO user_cloud(user_code,user_name,user_pass,isactive,dealer,user_mobile,user_email,EXPORT_TYPE,MODIFIED_DATE,MODIFIED_USER,MULTI_LOC) VALUES('" + us_code.ToString + "','" & user_Name.Text & "','" & user_pass.Text & "','" & user_active & "','" & Session("CLIENTID") & "','" & user_mobile.Text & "','" & email.Text & "','1','" + curr_date + "','" & Session("user_name") & "','" + branch + "')")
 
 
                 dt = con.ReturnDtTable("select user_code from user_cloud where user_name='" & user_Name.Text & "' and EXPORT_TYPE='1'")
@@ -263,13 +262,11 @@ Public Class add_user
         Dim TranDt As DataTable
         TranDt = con.ReturnDtTable("SELECT * FROM user_cloud INNER JOIN rights_cloud ON user_cloud.user_code = rights_cloud.user_code where user_cloud.user_name='" + va + "' and user_cloud.export_type<3 and rights_cloud.export_type<3")
 
-        ' Convert the DataTable to a JSON string 
+        'Convert the DataTable to a JSON string 
 
         Dim json As String = JsonConvert.SerializeObject(TranDt)
 
-
-
-        ' Return the JSON string
+        'Return the JSON string
         Return json
     End Function
 

@@ -499,107 +499,107 @@
                                 <div>
                                     <asp:CheckBox ID="parent1" runat="server" CssClass="check_child" />
                                     Finance
-            <div data-parentid="<%= parent1.ClientID %>" class="child_box">
-                <asp:CheckBox ID="child_1_1" runat="server" />
-                Finance Form<br />
-                <asp:CheckBox ID="child_1_2" runat="server" />
-                View Summary<br />
-            </div>
+                                    <div data-parentid="<%= parent1.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_1_1" runat="server" />
+                                        Finance Form<br />
+                                        <asp:CheckBox ID="child_1_2" runat="server" />
+                                        View Summary<br />
+                                    </div>
                                 </div>
                                 <div>
                                     <asp:CheckBox ID="parent2" runat="server" CssClass="check_child" />
                                     Insurance 
-               <div data-parentid="<%= parent2.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_2_1" runat="server" />
-                   CRE
-				   <br />
-                   <asp:CheckBox ID="child_2_2" runat="server" />
-                   Insurance Response
-				   <br />
-               </div>
+                                    <div data-parentid="<%= parent2.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_2_1" runat="server" />
+                                        CRE
+				                         <br />
+                                        <asp:CheckBox ID="child_2_2" runat="server" />
+                                        Insurance Response
+				                         <br />
+                                    </div>
                                 </div>
 
                                 <div>
                                     <asp:CheckBox ID="parent3" runat="server" CssClass="check_child" />
                                     Sales
-               <div data-parentid="<%= parent3.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_3_1" runat="server" />
-                   Discount Approval<br />
-                   <asp:CheckBox ID="child_3_2" runat="server" />
-                   Discount Approval Report
-				   <br />
-                   <asp:CheckBox ID="child_3_3" runat="server" />
-                   Sales Discount Approval 
-				   <br />
-                   <asp:CheckBox ID="child_3_4" runat="server" />
-                   Sales Discount Approval Report 
-				   <br />
-               </div>
+	                                <div data-parentid="<%= parent3.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_3_1" runat="server" />
+                                        Discount Approval<br />
+                                        <asp:CheckBox ID="child_3_2" runat="server" />
+                                        Discount Approval Report
+	                                	<br />
+                                        <asp:CheckBox ID="child_3_3" runat="server" />
+                                        Sales Discount Approval
+	                                	<br />
+                                        <asp:CheckBox ID="child_3_4" runat="server" />
+                                        Sales Discount Approval Report
+	                                	<br />
+                                    </div>
                                 </div>
 
                                 <div>
                                     <asp:CheckBox ID="parent4" runat="server" CssClass="check_child" />
                                     True Value
-               <div data-parentid="<%= parent4.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_4_1" runat="server" />
-                   True Value
-				   <br />
-               </div>
+                                    <div data-parentid="<%= parent4.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_4_1" runat="server" />
+                                        True Value
+				                        <br />
+                                    </div>
                                 </div>
 
                                 <div>
                                     <asp:CheckBox ID="parent5" runat="server" CssClass="check_child" />
                                     ICM
-               <div data-parentid="<%= parent5.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_5_1" runat="server" />
-                   DSE Checklist
-				   <br />
-               </div>
+                                    <div data-parentid="<%= parent5.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_5_1" runat="server" />
+                                        DSE Checklist
+				                        <br />
+                                    </div>
                                 </div>
 
                                 <div>
                                     <asp:CheckBox ID="parent6" runat="server" CssClass="check_child" />
                                     Fuel Slip
-               <div data-parentid="<%= parent6.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_6_1" runat="server" />
-                   New Car Fuel Voucher<br />
-                   <asp:CheckBox ID="child_6_2" runat="server" />
-                   Demo Car Fuel Voucher
-				   <br />
-                   <asp:CheckBox ID="child_6_3" runat="server" />
-                   Testing Function 
-				   <br />
-                   <asp:CheckBox ID="child_6_4" runat="server" />
-                   New Car Voucher Summary
-				   <br />
-                   <asp:CheckBox ID="child_6_5" runat="server" />
-                   Demo Car Voucher Summary
-				   <br />
-               </div>
+                                    <div data-parentid="<%= parent6.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_6_1" runat="server" />
+                                        New Car Fuel Voucher<br />
+                                        <asp:CheckBox ID="child_6_2" runat="server" />
+                                        Demo Car Fuel Voucher
+				                        <br />
+                                        <asp:CheckBox ID="child_6_3" runat="server" />
+                                        Testing Function 
+				                        <br />
+                                        <asp:CheckBox ID="child_6_4" runat="server" />
+                                        New Car Voucher Summary
+				                        <br />
+                                        <asp:CheckBox ID="child_6_5" runat="server" />
+                                        Demo Car Voucher Summary
+				                        <br />
+                                    </div>
                                 </div>
 
                                 <div>
                                     <asp:CheckBox ID="parent7" runat="server" CssClass="check_child" />
                                     Reports
-               <div data-parentid="<%= parent7.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_7_1" runat="server" />
-                   Group Report<br />
-                   <asp:CheckBox ID="child_7_2" runat="server" />
-                   Vehicle Delivery Report
-				   <br />
-                   <asp:CheckBox ID="child_7_3" runat="server" />
-                   Discounts Report 
-				   <br />
-                   <asp:CheckBox ID="child_7_4" runat="server" />
-                   EW Report 
-				   <br />
-                   <asp:CheckBox ID="child_7_5" runat="server" />
-                   MGA Report 
-				   <br />
-                   <asp:CheckBox ID="child_7_6" runat="server" />
-                   CCP Report 
-				   <br />
-               </div>
+                                    <div data-parentid="<%= parent7.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_7_1" runat="server" />
+                                        Group Report<br />
+                                        <asp:CheckBox ID="child_7_2" runat="server" />
+                                        Vehicle Delivery Report
+				                        <br />
+                                        <asp:CheckBox ID="child_7_3" runat="server" />
+                                        Discounts Report 
+				                        <br />
+                                        <asp:CheckBox ID="child_7_4" runat="server" />
+                                        EW Report 
+				                        <br />
+                                        <asp:CheckBox ID="child_7_5" runat="server" />
+                                        MGA Report 
+				                        <br />
+                                        <asp:CheckBox ID="child_7_6" runat="server" />
+                                        CCP Report 
+				                        <br />
+                                    </div>
                                 </div>
 
                                 <div>
@@ -611,23 +611,22 @@
                                 <div>
                                     <asp:CheckBox ID="parent9" runat="server" CssClass="check_child" />
                                     Dashboard
-               <div data-parentid="<%= parent9.ClientID %>" class="child_box">
-                   <asp:CheckBox ID="child_9_1" runat="server" />
-                   Group Dashboard<br />
-                   <asp:CheckBox ID="child_9_2" runat="server" />
-                   Leadger Dashboard
-				   <br />
-                   <asp:CheckBox ID="child_9_3" runat="server" />
-                   Discounts Dashboard 
-				   <br />
-                   <asp:CheckBox ID="child_9_4" runat="server" />
-                   Other Sales
-				   <br />
-                     <asp:CheckBox ID="child_9_5" runat="server" />
-                   Outstanding
-				   <br />
-                  
-               </div>
+                                    <div data-parentid="<%= parent9.ClientID %>" class="child_box">
+                                        <asp:CheckBox ID="child_9_1" runat="server" />
+                                        Group Dashboard<br />
+                                        <asp:CheckBox ID="child_9_2" runat="server" />
+                                        Leadger Dashboard
+				                        <br />
+                                        <asp:CheckBox ID="child_9_3" runat="server" />
+                                        Discounts Dashboard 
+				                        <br />
+                                        <asp:CheckBox ID="child_9_4" runat="server" />
+                                        Other Sales
+				                        <br />
+                                        <asp:CheckBox ID="child_9_5" runat="server" />
+                                        Outstanding
+				                        <br />
+                                    </div>
                                 </div>
 
 
@@ -666,7 +665,6 @@
             $('div[data-parentid="' + $(this).attr('id') + '"]').toggle(shouldBeDisplayed);
         });
     </script>
-
 
     <script>
 
@@ -959,7 +957,6 @@
         }
     </script>
 
-
     <script>
 
 
@@ -986,7 +983,6 @@
        /* document.getElementById('ContentPlaceHolder1_APRVL_AMT').attachEvent("blur", compare_Input);*/
 
     </script>
-
 
     <script>
         var submitBtn = document.getElementById("Submit");
@@ -1060,7 +1056,6 @@
             return true;
         }
     </script>
-
 
 
 </asp:Content>

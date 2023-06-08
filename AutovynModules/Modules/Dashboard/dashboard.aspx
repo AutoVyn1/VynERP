@@ -1588,8 +1588,14 @@
             var z = parseInt(to_year) - parseInt(frm_year)
             console.log(z)
             if (z >= 2) {
-                $('.box1').css('overflow-x','scroll')
-                $('#spark1').css('width','700px')
+                $('.box1').css('overflow-x', 'scroll')
+                $('#spark1').css('width', '700px')
+                $('#bar').css('display', 'none')
+            }
+            else {
+                $('.box1').css('overflow-x', 'visible')
+                $('#spark1').css('width', '')
+                $('#bar').css('display', 'block')
             }
         });
     </script>
