@@ -33,8 +33,7 @@ Public Class profit
 
         Dim sql As String = ("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) order by Acnt_Date;
 
-                        SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)
-                        ")
+          SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)")
 
         Dim dt1 As DataSet
         dt1 = con.ReturnDtSet(sql)
@@ -70,10 +69,10 @@ Public Class profit
                         AND '03/31/" + to_year + "'
                         and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)  GROUP BY CONCAT( CAST(YEAR(DATEADD(month, -3, Acnt_Date))
                         AS VARCHAR),  '-', 
-                        CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ), acnt_post.Loc_Code ORDER BY  acnt_post.Loc_Code")
+                        CAST(YEAR(DATEADD(month, 9, Acnt_Date)) AS VARCHAR) ), acnt_post.Loc_Code ORDER BY acnt_post.Loc_Code")
 
         Dim json = New With {
-           .DataTable1 = TranDt,
+               .DataTable1 = TranDt,
                .DataTable2 = TranDt1,
                .DataTable3 = TranDt3,
                .DataTable4 = TranDt4,
@@ -105,8 +104,7 @@ Public Class profit
 
         Dim sql As String = ("SELECT acnt_date, CAST(ROUND(IIF(amt_drcr = 1, post_amt * -1, post_amt), 0) AS INT) AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + frm_year + "' AND '03/31/" + to_year + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) and acnt_post.loc_code=" + loc_code + " order by Acnt_Date;
 
-                        SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and acnt_post.Loc_Code ='" + loc_code + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)
-                        ")
+         SELECT  LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], CAST(SUM(iif(amt_drcr=1,post_amt*-1,post_amt)) / 100000 AS VARCHAR) + ' L' AS cl_bal FROM acnt_post,ledg_mst where  acnt_date BETWEEN  '04/01/" + prev_fromyear + "' AND '03/31/" + prev_toyear + "' and acnt_post.Loc_Code ='" + loc_code + "' and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) GROUP BY LEFT(DATENAME(MONTH, Acnt_Date), 3), year(Acnt_Date), MONTH(Acnt_Date) ORDER BY year(Acnt_Date), MONTH(Acnt_Date)")
 
         Dim dt1 As DataSet
         dt1 = con.ReturnDtSet(sql)
@@ -173,7 +171,7 @@ Public Class profit
 
         Dim TranDt As DataTable
 
-        TranDt = con.ReturnDtTable("select LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], cast(sum(iif(amt_drcr=1,post_amt*-1,post_amt))/100000 AS VARCHAR) + ' L' AS cl_bal from acnt_post,ledg_mst  where  Acnt_Date  between '" + datew + "' " + loc_code + " and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14)   group by LEFT(DATENAME(MONTH, Acnt_Date), 3), month(Acnt_Date) order by month(Acnt_Date)")
+        TranDt = con.ReturnDtTable("select LEFT(DATENAME(MONTH, Acnt_Date), 3) AS [Month], cast(sum(iif(amt_drcr=1,post_amt*-1,post_amt))/100000 AS VARCHAR) + ' L' AS cl_bal from acnt_post,ledg_mst where Acnt_Date between '" + datew + "' " + loc_code + " and ledg_code=ledg_ac and acnt_post.Export_Type<5 and ledg_mst.ServerId in (13,14) group by LEFT(DATENAME(MONTH, Acnt_Date), 3), month(Acnt_Date) order by month(Acnt_Date)")
 
         Dim json = New With {
            .DataTable1 = TranDt
